@@ -1,3 +1,5 @@
+> **Note.** The shortcuts code is now maintained in [MEM-finding](https://github.com/TravisGagie/MEM-finding)'s `chr19/shortcuts`, and *More RLBWT Tricks* v2 ([arXiv:2609.40299](https://arxiv.org/abs/2609.40299)) is implemented in MEM-finding's [`tool/`](https://github.com/TravisGagie/MEM-finding/tree/tool/tool) (branch `tool`). This repository has the earlier version, on forward strands only.
+
 # More RLBWT Tricks
 
 Code for the paper *More RLBWT Tricks* (Travis Gagie). It finds maximal exact
