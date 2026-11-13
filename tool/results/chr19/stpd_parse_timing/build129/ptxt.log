@@ -1,0 +1,4 @@
+parse oracle: n=15897786191, 862158111 phrases, 11011641 distinct; dictionary 200.2 MB (792341623 bases at 2 bits, 328 phrases with other characters, 328 X runs; offsets 41.3 MB), parse 2586.5 MB, starts 803.9 MB (1.83 bits per character in all; 404.7 s)
+parse oracle: 3631.845 MB (peak memory of this step 3.96 GB)
+index built in 406.8 s (peak memory 3.96 GB)
+wall 406.80 s, peak 3870768 KB

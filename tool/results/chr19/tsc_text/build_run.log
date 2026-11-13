@@ -1,0 +1,27 @@
+[2026-11-12 21:18:16] c33 ell 25 tau 0
+text shortcuts (ell 25, tau 0) over CHM13 = the first sequence (61707364 characters) and its reverse complement: anchors 4936586, unusable 0, colliding 907574, entrances 4029012, rows 250468961, backward steps 224139950, deaths 100997969; 133.187 MB (reference 15.427, entrance starts 6.842, symbols 46.963, targets 16.116, run bits 8.556) -> $HOME/research/rlbwt-tricks/chr19/tsc/c33.ell25t0.tsc (39.2 s, peak memory of this step 3.56 GB)
+wall 39.26 s, peak 3479960 KB
+[2026-11-12 21:18:56] c33 ell 100 tau 0
+text shortcuts (ell 100, tau 0) over CHM13 = the first sequence (61707364 characters) and its reverse complement: anchors 1234144, unusable 0, colliding 55008, entrances 1179136, rows 67214215, backward steps 241328000, deaths 23240099; 54.743 MB (reference 15.427, entrance starts 2.239, symbols 12.603, targets 4.717, run bits 8.556) -> $HOME/research/rlbwt-tricks/chr19/tsc/c33.ell100t0.tsc (35.2 s, peak memory of this step 1.62 GB)
+wall 35.24 s, peak 1581272 KB
+[2026-11-12 21:19:31] c33 ell 25 tau 6
+text shortcuts (ell 25, tau 6) over CHM13 = the first sequence (61707364 characters) and its reverse complement: anchors 4936586, unusable 0, colliding 907574, entrances 4029012, rows 250468961, backward steps 526188425, deaths 113058606; 244.486 MB (reference 15.427, entrance starts 6.842, symbols 140.889, targets 31.979, run bits 8.556) -> $HOME/research/rlbwt-tricks/chr19/tsc/c33.ell25t6.tsc (92.4 s, peak memory of this step 3.71 GB)
+wall 92.51 s, peak 3620832 KB
+[2026-11-12 21:21:04] c65 ell 25 tau 0
+text shortcuts (ell 25, tau 0) over CHM13 = the first sequence (61707364 characters) and its reverse complement: anchors 4936586, unusable 0, colliding 907574, entrances 4029012, rows 491808273, backward steps 224139950, deaths 198364136; 180.445 MB (reference 15.427, entrance starts 7.324, symbols 92.214, targets 16.620, run bits 9.073) -> $HOME/research/rlbwt-tricks/chr19/tsc/c65.ell25t0.tsc (43.4 s, peak memory of this step 5.84 GB)
+wall 43.52 s, peak 5698868 KB
+[2026-11-12 21:21:47] c65 ell 100 tau 0
+text shortcuts (ell 100, tau 0) over CHM13 = the first sequence (61707364 characters) and its reverse complement: anchors 1234144, unusable 0, colliding 55008, entrances 1179136, rows 134494612, backward steps 241328000, deaths 47383607; 68.312 MB (reference 15.427, entrance starts 2.381, symbols 25.218, targets 4.864, run bits 9.073) -> $HOME/research/rlbwt-tricks/chr19/tsc/c65.ell100t0.tsc (36.3 s, peak memory of this step 2.29 GB)
+wall 36.39 s, peak 2233568 KB
+[2026-11-12 21:22:23] c65 ell 25 tau 6
+text shortcuts (ell 25, tau 6) over CHM13 = the first sequence (61707364 characters) and its reverse complement: anchors 4936586, unusable 0, colliding 907574, entrances 4029012, rows 491808273, backward steps 526188425, deaths 222509994; 382.743 MB (reference 15.427, entrance starts 7.324, symbols 276.642, targets 32.978, run bits 9.073) -> $HOME/research/rlbwt-tricks/chr19/tsc/c65.ell25t6.tsc (99.7 s, peak memory of this step 6.07 GB)
+wall 99.81 s, peak 5931896 KB
+[2026-11-12 21:24:03] c129 ell 25 tau 0
+text shortcuts (ell 25, tau 0) over CHM13 = the first sequence (61707364 characters) and its reverse complement: anchors 4936586, unusable 0, colliding 907574, entrances 4029012, rows 975452282, backward steps 224139950, deaths 393700223; 273.481 MB (reference 15.427, entrance starts 7.818, symbols 182.897, targets 17.123, run bits 9.924) -> $HOME/research/rlbwt-tricks/chr19/tsc/c129.ell25t0.tsc (56.8 s, peak memory of this step 10.37 GB)
+wall 56.89 s, peak 10122764 KB
+[2026-11-12 21:25:00] c129 ell 100 tau 0
+text shortcuts (ell 100, tau 0) over CHM13 = the first sequence (61707364 characters) and its reverse complement: anchors 1234144, unusable 0, colliding 55008, entrances 1179136, rows 267764935, backward steps 241328000, deaths 94437016; 94.444 MB (reference 15.427, entrance starts 2.526, symbols 50.206, targets 5.011, run bits 9.924) -> $HOME/research/rlbwt-tricks/chr19/tsc/c129.ell100t0.tsc (41.3 s, peak memory of this step 3.60 GB)
+wall 41.38 s, peak 3513676 KB
+[2026-11-12 21:25:42] c129 ell 25 tau 6
+text shortcuts (ell 25, tau 6) over CHM13 = the first sequence (61707364 characters) and its reverse complement: anchors 4936586, unusable 0, colliding 907574, entrances 4029012, rows 975452282, backward steps 526188425, deaths 442301231; 657.640 MB (reference 15.427, entrance starts 7.818, symbols 548.692, targets 33.978, run bits 9.924) -> $HOME/research/rlbwt-tricks/chr19/tsc/c129.ell25t6.tsc (115.5 s, peak memory of this step 10.79 GB)
+wall 115.62 s, peak 10536184 KB

@@ -1,0 +1,3 @@
+blocks: 32833124 (6.71 phrases each), 1333210 symbols; block BWT 2987555 runs; rebuilt from the parse BWT in 65.2 s
+two-level: parse 168.267 MB, blocks 44.972 MB (peak memory of this step 2.23 GB)
+wall 65.44 s, peak 2179084 KB

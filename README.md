@@ -1,70 +1,48 @@
-> **Note.** The shortcuts code is now maintained in [MEM-finding](https://github.com/TravisGagie/MEM-finding)'s `chr19/shortcuts`, and *More RLBWT Tricks* v2 ([arXiv:2609.40299](https://arxiv.org/abs/2609.40299)) is implemented in MEM-finding's [`tool/`](https://github.com/TravisGagie/MEM-finding/tree/tool/tool) (branch `tool`). This repository has the earlier version, on forward strands only.
-
 # More RLBWT Tricks
 
-Code for the paper *More RLBWT Tricks* (Travis Gagie). It finds maximal exact
-matches (MEMs) with forward–backward search or Boyer–Moore–Li over the
-run-length compressed BWTs (RLBWTs) of a collection and of the reversed
-collection, in three ways, all returning the same MEMs and BWT intervals as plain
-backward search:
+Code and experiments for the paper *More RLBWT Tricks* (Travis Gagie, [arXiv:2609.40299](https://arxiv.org/abs/2609.40299)).
+The tag `more-rlbwt-tricks-arxiv-v3` is the code of arXiv v3.
 
-- **shortcuts** across windows of a reference sequence (`shortcuts/`);
-- **two-level indexing** over a parse of the collection at closed syncmers
-  (k = 51, s = 12), bouncing between the RLBWT and an index of the parse;
-- **block jumps**, a third index over blocks of phrases, each a phrase followed
-  by its continuations, that lets a search cross a whole block in one step
-  (`twolevel/`).
+The paper finds maximal exact matches (MEMs) with run-length compressed BWTs (RLBWTs), by Boyer–Moore–Li (BML) or
+forward–backward search, and speeds up backward search in several ways that all return the same MEMs and BWT
+intervals as plain backward search:
+
+- **two-level indexing** over a parse of the collection at closed syncmers (k = 51, s = 12), with blocks of
+  continuations that a search crosses in one step, or the unique-successor (▷) encoding of blocks;
+- **almost-funnels over phrases**: shortcuts on the parse, along heavy paths of predecessors or placed from the
+  reference's (CHM13's) parse;
+- **a move structure** (as in Movi) for the character steps, alone or at the ends of two-level searches;
+- **almost-funnels on the text** (Reportable Shortcuts' shortcuts) over one index of both strands, along CHM13 and its
+  reverse complement;
+- **our STPD of the parse**, a suffix-tree path decomposition over the parse, compared with the published STPD-index.
+
+The experiments are on chromosome 19 of CHM13 and of 16, 32 and 64 individuals of the Human Pangenome Reference
+Consortium (release 2), with two held-out haplotypes as queries.
 
 ## Layout
 
-- `shortcuts/`: the RLBWT, shortcuts and their tools (`build_index`, `query_index`,
-  `query_mems`), with libsais in `shortcuts/third_party/`.
-- `twolevel/`: the two-level index (`build_twolevel`, `query_twolevel`) and the
-  scripts for the paper's experiments.
+- `tool/`: the implementation of the paper, `katka` (one index of both strands; C++17, make). Its `README.md`
+  documents every command and option, and maps the paper to the source files.
+  - `tool/CHR19.md`: how to download the data, rebuild every index and rerun every experiment.
+  - `tool/experiments/chr19_cpm.sh`: one script that rebuilds and reruns every table, checking every search's MEMs
+    and intervals against plain backward search; `tool/experiments/chr19_paper.sh` does the same for v2's tables.
+  - `tool/results/`: the paper's own runs, with their logs, tables and READMEs (`tool/results/chr19/` for the
+    experiments of v3, each directory with a README saying what was run and how).
+- `shortcuts/` and `twolevel/`: the earlier implementation, on forward strands only (Reportable Shortcuts' code, and the
+  first two-level index). `tool/results/desktop_archive/` has the October runs of ropebwt3 and Movi 2, made with their scripts.
 
-## Building and testing
+## Building and checking
 
-Requires CMake 3.10 or later, a C++17 compiler and Python 3. Everything is
-compiled with `-march=native`.
+```
+cd tool
+make                 # bin/katka (and test programs); needs a C++17 compiler, make, zlib; libsais is included
+./selftest.sh        # about 10 minutes; checks every search configuration against plain backward search
+```
 
-    bash twolevel/selftest.sh
+Then follow `tool/CHR19.md`. Big-BWT is needed for the BWTs of the real collections; the published STPD-index only
+for its own rows.
 
-This builds everything and checks, on a small synthetic collection, that every
-method finds exactly the MEMs and intervals of plain backward search.
+## Licences
 
-## Usage
-
-The collection is a file with one sequence per line. Build the RLBWTs of the
-collection and of the reversed collection, then the parse indexes:
-
-    B=twolevel/build
-    $B/rs_build/build_index --text coll.txt --reference-length LEN --out idx  --ell 25 --theta 0
-    $B/rs_build/build_index --text coll.txt --reference-length LEN --out idxr --ell 25 --theta 0 --reversed
-    $B/build_twolevel --text coll.txt --rlbwt idx/rlbwt.bin --reversed-rlbwt idxr/rlbwt.bin --out lv
-
-The reference is the first sequence, of length `LEN`. Then find the MEMs of the
-patterns in a file, one per line, over {A, C, G, T}:
-
-    $B/query_twolevel --index idx --reversed-index idxr --level lv.text.lvl --reversed-level lv.rev.lvl \
-      --patterns patterns.txt --configs plain,2L,2LJ --algorithm bml --min-length 1000
-
-`2L` is two-level indexing, `2LJ` two-level indexing with block jumps.
-`--algorithm fb` selects forward–backward search, and `--dump DIR` writes the
-MEMs of the first configuration. `build_twolevel --continuation frequent` uses the
-most frequent successor of each phrase as its continuation instead of the
-smallest, and `build_twolevel --text coll.txt --block-stats` compares the number
-of blocks for four choices.
-
-## The experiments
-
-`twolevel/run_final.sh` runs the paper's comparison on chromosome 19 from the
-Human Pangenome Reference Consortium (release 2), with collections of 16, 32 and
-64 individuals: plain search, shortcuts, two-level indexing with and without
-block jumps, KeBaB, ropebwt3 and Movi 2. `twolevel/run_continuation.sh` compares
-the smallest and the most frequent successor as continuations, and
-`twolevel/run_movi_final.sh` reruns only the Movi 2 part. The paths to the data
-are set at the top of each script.
-
-## License
-
-GPL v3 or later (see `LICENSE`); libsais is under the Apache License 2.0.
+GPL v3 or later (`LICENSE`). Third-party code: libsais (`tool/third_party/libsais/`, Apache License 2.0, its
+`LICENSE`).

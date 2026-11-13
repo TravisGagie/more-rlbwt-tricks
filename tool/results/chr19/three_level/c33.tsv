@@ -1,0 +1,30 @@
+prefix	$HOME/research/rlbwt-tricks/chr19/c33
+phrases	220466619
+distinct	8512838
+blocks	23158046
+phrases_per_block	9.520
+
+k2	s2	level2_phrases	distinct	phrases_per_level2_phrase
+5	2	110263209	6626044	1.999
+9	2	55144573	4374085	3.998
+17	2	27589955	3094822	7.991
+33	2	13805909	2279105	15.969
+65	2	6940787	1698312	31.764
+
+MEMs	22711
+level1_phrases_per_MEM_mean	423.85
+level1_phrases_per_MEM_median	211.0
+level1_phrases_total	9626054
+blocks_per_MEM_mean	42.17
+blocks_per_MEM_median	28.0
+block_steps_total	957784
+phrases_not_in_dictionary	0
+
+k2	s2	MEMs_with_a_whole_level2_phrase	whole_level2_mean	whole_level2_median	fringe_level1_mean	fringe_level1_median	fringe_blocks_mean	steps_level2+level1_total	steps_level2+blocks_total	steps_blocks_total
+5	2	22711	209.06	103.0	6.39	6.0	2.83	4893143	4812373	957784
+9	2	22711	103.02	50.0	13.41	13.0	4.78	2644284	2448376	957784
+17	2	22709	50.04	23.0	27.69	27.0	8.47	1765439	1328817	957784
+33	2	21083	23.62	10.0	55.47	55.0	14.99	1796272	876833	957784
+65	2	15768	10.65	4.0	101.43	100.0	23.13	2545496	767263	957784
+
+check: whole level-2 phrases in MEMs	9002797	not a level-2 phrase of the text	0

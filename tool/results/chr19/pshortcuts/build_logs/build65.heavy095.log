@@ -1,0 +1,6 @@
+parse and its suffix array recovered (46.8 s)
+heaviest predecessors (53.5 s)
+shortcuts over phrases (heavy:0.95): 7295446 shortcuts (of 9522052 phrases), 20.65 phrases each; their entrances' occurrences 354325503, 0.9862 preceded by their stretch; 4899956 exception rows; 147.300 MB (147.0 s)
+shortcuts, MB: entrances 1.785, k 6.384, A 26.446, C_w 26.446, base 20.974, fingerprints 58.364, flags 0.912, exceptions 5.989
+peak memory of this step 4.30 GB
+wall 147.36 s, peak 4196476 KB

@@ -1,0 +1,14 @@
+index loaded in 2.5 s
+reads=4 MEMs=16806 without MEMs=0 | threads=1 wall 9.74 s, 2435302.5 us/read
+timing: 4 reads, 1 threads; mean per-read time 2312041.17 us; total time / reads 2435302.52 us (total 9.741 s)
+searches=64289 char_steps=4752917 parse_steps=17344241 block_steps=0 kmer_tests=0 kmer_restarts=0 stpd_jumps=0 stpd_compares=0
+parse steps: entry=17344241 inside=0 end=0; block attempts=0, symbol absent=0, failed block steps=0, back-ups=0, exact exits=0
+nonshrinking parse steps: 17344241 parse steps (34789 failed); from an interval of size 1: 4028124 (16015 failed)
+  eps = 0%: (nearly) non-shrinking 12525833 (72.22%), runs 435047, total run length 12525833 (mean 28.79); lower bound steps - ns + runs = 5253455, best-possible speedup in parse steps 3.301
+  run lengths: 1: 81781, 2-3: 72102, 4-7: 69348, 8-15: 68556, 16-31: 58520, 32-63: 40854, 64-127: 23131, 128-255: 12898, 256-511: 5700, 512-1023: 1811, 1024-2047: 312, >=2048: 34
+  eps = 1%: (nearly) non-shrinking 12636576 (72.86%), runs 439945, total run length 12636576 (mean 28.72); lower bound steps - ns + runs = 5147610, best-possible speedup in parse steps 3.369
+  run lengths: 1: 87802, 2-3: 74841, 4-7: 66050, 8-15: 65348, 16-31: 58800, 32-63: 42708, 64-127: 23527, 128-255: 12989, 256-511: 5720, 512-1023: 1812, 1024-2047: 314, >=2048: 34
+  eps = 5%: (nearly) non-shrinking 12881106 (74.27%), runs 333476, total run length 12881106 (mean 38.63); lower bound steps - ns + runs = 4796611, best-possible speedup in parse steps 3.616
+  run lengths: 1: 57931, 2-3: 52094, 4-7: 48335, 8-15: 47780, 16-31: 43853, 32-63: 36310, 64-127: 21810, 128-255: 15241, 256-511: 7537, 512-1023: 2220, 1024-2047: 331, >=2048: 34
+  eps = 10%: (nearly) non-shrinking 12992000 (74.91%), runs 269147, total run length 12992000 (mean 48.27); lower bound steps - ns + runs = 4621388, best-possible speedup in parse steps 3.753
+  run lengths: 1: 41235, 2-3: 38353, 4-7: 37307, 8-15: 38913, 16-31: 38151, 32-63: 32232, 64-127: 17207, 128-255: 13362, 256-511: 8555, 512-1023: 3316, 1024-2047: 480, >=2048: 36

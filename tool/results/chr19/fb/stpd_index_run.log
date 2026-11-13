@@ -1,0 +1,17 @@
+[2026-11-10 15:01:55] c33 STPD-index FB repeat 1
+c33 repeat 1: exit 124 (124 = over 3h)
+[2026-11-10 18:01:55] c65 STPD-index FB repeat 1
+[2026-11-10 18:02:54] stopped by hand: 16 went over 3 h, so 32 was stopped too, to instrument the driver
+[2026-11-10 18:08:30] the loop was in the driver (backward step back to the start, at a junction artifact); fixed, rerun:
+[2026-11-10 18:08:30] c33 STPD-index FB repeat 1
+wall 69.28 s, peak 617304 KB
+[2026-11-10 18:09:39] c33 STPD-index FB repeat 2
+wall 69.56 s, peak 617300 KB
+[2026-11-10 18:10:49] c33 STPD-index FB repeat 3
+wall 69.07 s, peak 617240 KB
+[2026-11-10 18:11:58] c65 STPD-index FB repeat 1
+wall 59.88 s, peak 665028 KB
+[2026-11-10 18:12:58] c65 STPD-index FB repeat 2
+wall 59.97 s, peak 665036 KB
+[2026-11-10 18:13:58] c65 STPD-index FB repeat 3
+wall 60.98 s, peak 665096 KB

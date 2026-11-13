@@ -1,0 +1,11 @@
+parse oracle: 220466619 phrases (k = 51, s = 12), 8512838 distinct: 339.828 MB (0.67 bits per character) instead of the text (4065.486 MB)
+STPD: 44361753 sampled positions (r = 68446485), 177.447 MB on top of the text
+RLZAP parse (MB): reference ids 20.075 + starts 10.461, factor starts 18.638 (parse) + 30.766 (text), literal counts 8.356, literals 52.532, pointers 15.828: 156.657 in all (instead of the plain parse and boundaries)
+STPD over the parse, components (MB): plain parse 0.000, boundaries 0.000, dictionary strings 151.248 (2 bits per base, with exceptions; + offsets 31.923), parse sample 33.501 (9571667 of r_Z = 10332018), entry table 29.795 (+ C 8.620), parse phi^-1 46.118 (locating), character-level sample 177.447 (+ phi^-1 354.443, locating), right end: RLCSA 579.342, B 13.394, dictionary hash 105.221
+index loaded in 1.1 s
+reads=4 MEMs=22711 without MEMs=0 | threads=1 wall 9.31 s, 2327402.8 us/read
+timing: 4 reads, 1 threads; mean per-read time 2219164.02 us; total time / reads 2327402.84 us (total 9.310 s)
+searches=70246 char_steps=1114294 parse_steps=0 block_steps=0 kmer_tests=0 kmer_restarts=0 stpd_jumps=65987 stpd_compares=1681700
+STPD over the parse: right-end character steps 4235527, middle phrase comparisons 13936110, parse-sample binary searches 157005 (3806497 comparisons), left-end character steps 1114294 (character-level STPD jumps 65987)
+parse oracle seeks: same phrase 2786645, next/previous phrase 9616468, predecessor queries 1814710
+wall 10.50 s, peak 2268940 KB

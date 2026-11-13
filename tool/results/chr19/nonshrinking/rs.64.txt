@@ -1,0 +1,161 @@
+index $HOME/research/rlbwt-tricks/shortcuts/chr19_scaling/hprc_chr19/n64/fwd_t6, reversed $HOME/research/rlbwt-tricks/shortcuts/chr19_scaling/hprc_chr19/n64/rev_t6, patterns $HOME/research/rlbwt-tricks/chr19/blocks/queries.txt (4), L = 1000
+plain BML: 16804 MEMs
+
+== backward searches (window + mem + next, text index): 57259 searches, 313828130 backward steps (40452 failed); steps with |I(X)| = 1: 72091424 (22.97%; 17354 of them failed)
+    excluding steps with |I(X)| = 1 (they break runs):
+      eps =    0%: (nearly) non-shrinking 236861617 (75.47% of steps), runs 1269474, total run length 236861617 (mean 186.58); lower bound total - ns + runs = 78235987, best-possible speedup in steps 4.011
+        run lengths: 1: 277469, 2-3: 230106, 4-7: 168920, 8-15: 123276, 16-31: 95258, 32-63: 79226, 64-127: 72728, 128-255: 70191, 256-511: 60219, 512-1023: 41925, 1024-2047: 25498, >=2048: 24658
+      eps =    1%: (nearly) non-shrinking 239480289 (76.31% of steps), runs 1056060, total run length 239480289 (mean 226.77); lower bound total - ns + runs = 75403901, best-possible speedup in steps 4.162
+        run lengths: 1: 132036, 2-3: 157584, 4-7: 143508, 8-15: 135269, 16-31: 106773, 32-63: 87071, 64-127: 72633, 128-255: 66316, 256-511: 59378, 512-1023: 44576, 1024-2047: 26118, >=2048: 24798
+      eps =    5%: (nearly) non-shrinking 240246789 (76.55% of steps), runs 547794, total run length 240246789 (mean 438.57); lower bound total - ns + runs = 74129135, best-possible speedup in steps 4.234
+        run lengths: 1: 60504, 2-3: 50866, 4-7: 44468, 8-15: 43172, 16-31: 58484, 32-63: 56501, 64-127: 52374, 128-255: 47665, 256-511: 44905, 512-1023: 37251, 1024-2047: 22471, >=2048: 29133
+      eps =   10%: (nearly) non-shrinking 240501902 (76.63% of steps), runs 416654, total run length 240501902 (mean 577.22); lower bound total - ns + runs = 73742882, best-possible speedup in steps 4.256
+        run lengths: 1: 47240, 2-3: 40540, 4-7: 32745, 8-15: 26777, 16-31: 37261, 32-63: 36718, 64-127: 40289, 128-255: 37877, 256-511: 37075, 512-1023: 34096, 1024-2047: 17505, >=2048: 28531
+    counting successful steps with |I(X)| = 1 as non-shrinking:
+      eps =    0%: (nearly) non-shrinking 308935687 (98.44% of steps), runs 1287287, total run length 308935687 (mean 239.99); lower bound total - ns + runs = 6179730, best-possible speedup in steps 50.783
+        run lengths: 1: 277886, 2-3: 230490, 4-7: 169227, 8-15: 123617, 16-31: 95796, 32-63: 79892, 64-127: 73620, 128-255: 71447, 256-511: 62022, 512-1023: 44047, 1024-2047: 27724, >=2048: 31519
+      eps =    1%: (nearly) non-shrinking 311554359 (99.28% of steps), runs 1073873, total run length 311554359 (mean 290.12); lower bound total - ns + runs = 3347644, best-possible speedup in steps 93.746
+        run lengths: 1: 132453, 2-3: 157968, 4-7: 143815, 8-15: 135610, 16-31: 107311, 32-63: 87737, 64-127: 73525, 128-255: 67572, 256-511: 61181, 512-1023: 46698, 1024-2047: 28344, >=2048: 31659
+      eps =    5%: (nearly) non-shrinking 312320859 (99.52% of steps), runs 565607, total run length 312320859 (mean 552.19); lower bound total - ns + runs = 2072878, best-possible speedup in steps 151.397
+        run lengths: 1: 60921, 2-3: 51250, 4-7: 44775, 8-15: 43513, 16-31: 59022, 32-63: 57167, 64-127: 53266, 128-255: 48921, 256-511: 46708, 512-1023: 39373, 1024-2047: 24697, >=2048: 35994
+      eps =   10%: (nearly) non-shrinking 312575972 (99.60% of steps), runs 434467, total run length 312575972 (mean 719.45); lower bound total - ns + runs = 1686625, best-possible speedup in steps 186.069
+        run lengths: 1: 47657, 2-3: 40924, 4-7: 33052, 8-15: 27118, 16-31: 37799, 32-63: 37384, 64-127: 41181, 128-255: 39133, 256-511: 38878, 512-1023: 36218, 1024-2047: 19731, >=2048: 35392
+
+== forward searches (reversed index): 16804 searches, 206292652 backward steps (16802 failed); steps with |I(X)| = 1: 52139835 (25.27%; 10074 of them failed)
+    excluding steps with |I(X)| = 1 (they break runs):
+      eps =    0%: (nearly) non-shrinking 152500048 (73.92% of steps), runs 494438, total run length 152500048 (mean 308.43); lower bound total - ns + runs = 54287042, best-possible speedup in steps 3.800
+        run lengths: 1: 91445, 2-3: 75232, 4-7: 58045, 8-15: 45712, 16-31: 36927, 32-63: 31876, 64-127: 31158, 128-255: 32828, 256-511: 31305, 512-1023: 25076, 1024-2047: 17614, >=2048: 17220
+      eps =    1%: (nearly) non-shrinking 153339604 (74.33% of steps), runs 402797, total run length 153339604 (mean 380.69); lower bound total - ns + runs = 53355845, best-possible speedup in steps 3.866
+        run lengths: 1: 39308, 2-3: 44519, 4-7: 48942, 8-15: 44066, 16-31: 38437, 32-63: 33910, 64-127: 30937, 128-255: 30926, 256-511: 30583, 512-1023: 25717, 1024-2047: 18095, >=2048: 17357
+      eps =    5%: (nearly) non-shrinking 153611693 (74.46% of steps), runs 217708, total run length 153611693 (mean 705.59); lower bound total - ns + runs = 52898667, best-possible speedup in steps 3.900
+        run lengths: 1: 23497, 2-3: 15631, 4-7: 13562, 8-15: 13227, 16-31: 17906, 32-63: 20708, 64-127: 19633, 128-255: 19933, 256-511: 20211, 512-1023: 17815, 1024-2047: 15171, >=2048: 20414
+      eps =   10%: (nearly) non-shrinking 153718899 (74.51% of steps), runs 166039, total run length 153718899 (mean 925.80); lower bound total - ns + runs = 52739792, best-possible speedup in steps 3.912
+        run lengths: 1: 19461, 2-3: 14968, 4-7: 9334, 8-15: 8734, 16-31: 11503, 32-63: 12267, 64-127: 14335, 128-255: 14294, 256-511: 15533, 512-1023: 14175, 1024-2047: 11503, >=2048: 19932
+    counting successful steps with |I(X)| = 1 as non-shrinking:
+      eps =    0%: (nearly) non-shrinking 204629809 (99.19% of steps), runs 504342, total run length 204629809 (mean 405.74); lower bound total - ns + runs = 2167185, best-possible speedup in steps 95.189
+        run lengths: 1: 91627, 2-3: 75406, 4-7: 58182, 8-15: 45819, 16-31: 37105, 32-63: 32114, 64-127: 31479, 128-255: 33334, 256-511: 32141, 512-1023: 26255, 1024-2047: 18983, >=2048: 21897
+      eps =    1%: (nearly) non-shrinking 205469365 (99.60% of steps), runs 412701, total run length 205469365 (mean 497.86); lower bound total - ns + runs = 1235988, best-possible speedup in steps 166.905
+        run lengths: 1: 39490, 2-3: 44693, 4-7: 49079, 8-15: 44173, 16-31: 38615, 32-63: 34148, 64-127: 31258, 128-255: 31432, 256-511: 31419, 512-1023: 26896, 1024-2047: 19464, >=2048: 22034
+      eps =    5%: (nearly) non-shrinking 205741454 (99.73% of steps), runs 227612, total run length 205741454 (mean 903.91); lower bound total - ns + runs = 778810, best-possible speedup in steps 264.882
+        run lengths: 1: 23679, 2-3: 15805, 4-7: 13699, 8-15: 13334, 16-31: 18084, 32-63: 20946, 64-127: 19954, 128-255: 20439, 256-511: 21047, 512-1023: 18994, 1024-2047: 16540, >=2048: 25091
+      eps =   10%: (nearly) non-shrinking 205848660 (99.78% of steps), runs 175943, total run length 205848660 (mean 1169.97); lower bound total - ns + runs = 619935, best-possible speedup in steps 332.765
+        run lengths: 1: 19643, 2-3: 15142, 4-7: 9471, 8-15: 8841, 16-31: 11681, 32-63: 12505, 64-127: 14656, 128-255: 14800, 256-511: 16369, 512-1023: 15354, 1024-2047: 12872, >=2048: 24609
+
+== all searches: 74063 searches, 520120782 backward steps (57254 failed); steps with |I(X)| = 1: 124231259 (23.89%; 27428 of them failed)
+    excluding steps with |I(X)| = 1 (they break runs):
+      eps =    0%: (nearly) non-shrinking 389361665 (74.86% of steps), runs 1763912, total run length 389361665 (mean 220.74); lower bound total - ns + runs = 132523029, best-possible speedup in steps 3.925
+        run lengths: 1: 368914, 2-3: 305338, 4-7: 226965, 8-15: 168988, 16-31: 132185, 32-63: 111102, 64-127: 103886, 128-255: 103019, 256-511: 91524, 512-1023: 67001, 1024-2047: 43112, >=2048: 41878
+      eps =    1%: (nearly) non-shrinking 392819893 (75.52% of steps), runs 1458857, total run length 392819893 (mean 269.27); lower bound total - ns + runs = 128759746, best-possible speedup in steps 4.039
+        run lengths: 1: 171344, 2-3: 202103, 4-7: 192450, 8-15: 179335, 16-31: 145210, 32-63: 120981, 64-127: 103570, 128-255: 97242, 256-511: 89961, 512-1023: 70293, 1024-2047: 44213, >=2048: 42155
+      eps =    5%: (nearly) non-shrinking 393858482 (75.72% of steps), runs 765502, total run length 393858482 (mean 514.51); lower bound total - ns + runs = 127027802, best-possible speedup in steps 4.095
+        run lengths: 1: 84001, 2-3: 66497, 4-7: 58030, 8-15: 56399, 16-31: 76390, 32-63: 77209, 64-127: 72007, 128-255: 67598, 256-511: 65116, 512-1023: 55066, 1024-2047: 37642, >=2048: 49547
+      eps =   10%: (nearly) non-shrinking 394220801 (75.79% of steps), runs 582693, total run length 394220801 (mean 676.55); lower bound total - ns + runs = 126482674, best-possible speedup in steps 4.112
+        run lengths: 1: 66701, 2-3: 55508, 4-7: 42079, 8-15: 35511, 16-31: 48764, 32-63: 48985, 64-127: 54624, 128-255: 52171, 256-511: 52608, 512-1023: 48271, 1024-2047: 29008, >=2048: 48463
+    counting successful steps with |I(X)| = 1 as non-shrinking:
+      eps =    0%: (nearly) non-shrinking 513565496 (98.74% of steps), runs 1791629, total run length 513565496 (mean 286.65); lower bound total - ns + runs = 8346915, best-possible speedup in steps 62.313
+        run lengths: 1: 369513, 2-3: 305896, 4-7: 227409, 8-15: 169436, 16-31: 132901, 32-63: 112006, 64-127: 105099, 128-255: 104781, 256-511: 94163, 512-1023: 70302, 1024-2047: 46707, >=2048: 53416
+      eps =    1%: (nearly) non-shrinking 517023724 (99.40% of steps), runs 1486574, total run length 517023724 (mean 347.80); lower bound total - ns + runs = 4583632, best-possible speedup in steps 113.474
+        run lengths: 1: 171943, 2-3: 202661, 4-7: 192894, 8-15: 179783, 16-31: 145926, 32-63: 121885, 64-127: 104783, 128-255: 99004, 256-511: 92600, 512-1023: 73594, 1024-2047: 47808, >=2048: 53693
+      eps =    5%: (nearly) non-shrinking 518062313 (99.60% of steps), runs 793219, total run length 518062313 (mean 653.11); lower bound total - ns + runs = 2851688, best-possible speedup in steps 182.390
+        run lengths: 1: 84600, 2-3: 67055, 4-7: 58474, 8-15: 56847, 16-31: 77106, 32-63: 78113, 64-127: 73220, 128-255: 69360, 256-511: 67755, 512-1023: 58367, 1024-2047: 41237, >=2048: 61085
+      eps =   10%: (nearly) non-shrinking 518424632 (99.67% of steps), runs 610410, total run length 518424632 (mean 849.31); lower bound total - ns + runs = 2306560, best-possible speedup in steps 225.496
+        run lengths: 1: 67300, 2-3: 56066, 4-7: 42523, 8-15: 35959, 16-31: 49480, 32-63: 49889, 64-127: 55837, 128-255: 53933, 256-511: 55247, 512-1023: 51572, 1024-2047: 32603, >=2048: 60001
+
+== window: 23653 searches, 21921651 backward steps (6849 failed); steps with |I(X)| = 1: 389968 (1.78%; 784 of them failed)
+    excluding steps with |I(X)| = 1 (they break runs):
+      eps =    0%: (nearly) non-shrinking 19356488 (88.30% of steps), runs 522126, total run length 19356488 (mean 37.07); lower bound total - ns + runs = 3087289, best-possible speedup in steps 7.101
+        run lengths: 1: 132540, 2-3: 110025, 4-7: 79444, 8-15: 55842, 16-31: 40905, 32-63: 32195, 64-127: 27351, 128-255: 23498, 256-511: 15074, 512-1023: 5252, 1024-2047: 0, >=2048: 0
+      eps =    1%: (nearly) non-shrinking 20699615 (94.43% of steps), runs 425119, total run length 20699615 (mean 48.69); lower bound total - ns + runs = 1647155, best-possible speedup in steps 13.309
+        run lengths: 1: 60183, 2-3: 74416, 4-7: 68264, 8-15: 65224, 16-31: 48715, 32-63: 37443, 64-127: 27470, 128-255: 21362, 256-511: 14956, 512-1023: 7086, 1024-2047: 0, >=2048: 0
+      eps =    5%: (nearly) non-shrinking 21030406 (95.93% of steps), runs 196095, total run length 21030406 (mean 107.25); lower bound total - ns + runs = 1087340, best-possible speedup in steps 20.161
+        run lengths: 1: 18823, 2-3: 19253, 4-7: 19454, 8-15: 19335, 16-31: 26917, 32-63: 25593, 64-127: 22695, 128-255: 18185, 256-511: 14838, 512-1023: 11002, 1024-2047: 0, >=2048: 0
+      eps =   10%: (nearly) non-shrinking 21109984 (96.30% of steps), runs 145016, total run length 21109984 (mean 145.57); lower bound total - ns + runs = 956683, best-possible speedup in steps 22.914
+        run lengths: 1: 11887, 2-3: 12937, 4-7: 13976, 8-15: 11794, 16-31: 16324, 32-63: 16453, 64-127: 18235, 128-255: 15925, 256-511: 14301, 512-1023: 13184, 1024-2047: 0, >=2048: 0
+    counting successful steps with |I(X)| = 1 as non-shrinking:
+      eps =    0%: (nearly) non-shrinking 19745672 (90.07% of steps), runs 523787, total run length 19745672 (mean 37.70); lower bound total - ns + runs = 2699766, best-possible speedup in steps 8.120
+        run lengths: 1: 132601, 2-3: 110092, 4-7: 79514, 8-15: 55921, 16-31: 41012, 32-63: 32367, 64-127: 27572, 128-255: 23774, 256-511: 15428, 512-1023: 5506, 1024-2047: 0, >=2048: 0
+      eps =    1%: (nearly) non-shrinking 21088799 (96.20% of steps), runs 426780, total run length 21088799 (mean 49.41); lower bound total - ns + runs = 1259632, best-possible speedup in steps 17.403
+        run lengths: 1: 60244, 2-3: 74483, 4-7: 68334, 8-15: 65303, 16-31: 48822, 32-63: 37615, 64-127: 27691, 128-255: 21638, 256-511: 15310, 512-1023: 7340, 1024-2047: 0, >=2048: 0
+      eps =    5%: (nearly) non-shrinking 21419590 (97.71% of steps), runs 197756, total run length 21419590 (mean 108.31); lower bound total - ns + runs = 699817, best-possible speedup in steps 31.325
+        run lengths: 1: 18884, 2-3: 19320, 4-7: 19524, 8-15: 19414, 16-31: 27024, 32-63: 25765, 64-127: 22916, 128-255: 18461, 256-511: 15192, 512-1023: 11256, 1024-2047: 0, >=2048: 0
+      eps =   10%: (nearly) non-shrinking 21499168 (98.07% of steps), runs 146677, total run length 21499168 (mean 146.57); lower bound total - ns + runs = 569160, best-possible speedup in steps 38.516
+        run lengths: 1: 11948, 2-3: 13004, 4-7: 14046, 8-15: 11873, 16-31: 16431, 32-63: 16625, 64-127: 18456, 128-255: 16201, 256-511: 14655, 512-1023: 13438, 1024-2047: 0, >=2048: 0
+
+== mem: 16804 searches, 206292651 backward steps (16801 failed); steps with |I(X)| = 1: 51618447 (25.02%; 10073 of them failed)
+    excluding steps with |I(X)| = 1 (they break runs):
+      eps =    0%: (nearly) non-shrinking 152992971 (74.16% of steps), runs 495812, total run length 152992971 (mean 308.57); lower bound total - ns + runs = 53795492, best-possible speedup in steps 3.835
+        run lengths: 1: 89338, 2-3: 76320, 4-7: 58536, 8-15: 44883, 16-31: 36989, 32-63: 32701, 64-127: 32045, 128-255: 33099, 256-511: 31610, 512-1023: 25529, 1024-2047: 17600, >=2048: 17162
+      eps =    1%: (nearly) non-shrinking 153853485 (74.58% of steps), runs 410709, total run length 153853485 (mean 374.60); lower bound total - ns + runs = 52849875, best-possible speedup in steps 3.903
+        run lengths: 1: 41748, 2-3: 49829, 4-7: 45751, 8-15: 44953, 16-31: 38608, 32-63: 34324, 64-127: 31599, 128-255: 31427, 256-511: 30922, 512-1023: 26174, 1024-2047: 18096, >=2048: 17278
+      eps =    5%: (nearly) non-shrinking 154134905 (74.72% of steps), runs 219470, total run length 154134905 (mean 702.31); lower bound total - ns + runs = 52377216, best-possible speedup in steps 3.939
+        run lengths: 1: 21988, 2-3: 17339, 4-7: 13663, 8-15: 13368, 16-31: 19112, 32-63: 19932, 64-127: 19952, 128-255: 20188, 256-511: 20455, 512-1023: 17784, 1024-2047: 15243, >=2048: 20446
+      eps =   10%: (nearly) non-shrinking 154240898 (74.77% of steps), runs 166064, total run length 154240898 (mean 928.80); lower bound total - ns + runs = 52217817, best-possible speedup in steps 3.951
+        run lengths: 1: 19139, 2-3: 14750, 4-7: 10017, 8-15: 8217, 16-31: 11865, 32-63: 12212, 64-127: 14235, 128-255: 14673, 256-511: 15358, 512-1023: 14078, 1024-2047: 11677, >=2048: 19843
+    counting successful steps with |I(X)| = 1 as non-shrinking:
+      eps =    0%: (nearly) non-shrinking 204601345 (99.18% of steps), runs 505688, total run length 204601345 (mean 404.60); lower bound total - ns + runs = 2196994, best-possible speedup in steps 93.898
+        run lengths: 1: 89518, 2-3: 76482, 4-7: 58651, 8-15: 44992, 16-31: 37169, 32-63: 32932, 64-127: 32362, 128-255: 33630, 256-511: 32432, 512-1023: 26679, 1024-2047: 19028, >=2048: 21813
+      eps =    1%: (nearly) non-shrinking 205461859 (99.60% of steps), runs 420585, total run length 205461859 (mean 488.51); lower bound total - ns + runs = 1251377, best-possible speedup in steps 164.853
+        run lengths: 1: 41928, 2-3: 49991, 4-7: 45866, 8-15: 45062, 16-31: 38788, 32-63: 34555, 64-127: 31916, 128-255: 31958, 256-511: 31744, 512-1023: 27324, 1024-2047: 19524, >=2048: 21929
+      eps =    5%: (nearly) non-shrinking 205743279 (99.73% of steps), runs 229346, total run length 205743279 (mean 897.09); lower bound total - ns + runs = 778718, best-possible speedup in steps 264.913
+        run lengths: 1: 22168, 2-3: 17501, 4-7: 13778, 8-15: 13477, 16-31: 19292, 32-63: 20163, 64-127: 20269, 128-255: 20719, 256-511: 21277, 512-1023: 18934, 1024-2047: 16671, >=2048: 25097
+      eps =   10%: (nearly) non-shrinking 205849272 (99.79% of steps), runs 175940, total run length 205849272 (mean 1170.00); lower bound total - ns + runs = 619319, best-possible speedup in steps 333.096
+        run lengths: 1: 19319, 2-3: 14912, 4-7: 10132, 8-15: 8326, 16-31: 12045, 32-63: 12443, 64-127: 14552, 128-255: 15204, 256-511: 16180, 512-1023: 15228, 1024-2047: 13105, >=2048: 24494
+
+== next: 16802 searches, 85613828 backward steps (16802 failed); steps with |I(X)| = 1: 20083009 (23.46%; 6497 of them failed)
+    excluding steps with |I(X)| = 1 (they break runs):
+      eps =    0%: (nearly) non-shrinking 64512158 (75.35% of steps), runs 251536, total run length 64512158 (mean 256.47); lower bound total - ns + runs = 21353206, best-possible speedup in steps 4.009
+        run lengths: 1: 55591, 2-3: 43761, 4-7: 30940, 8-15: 22551, 16-31: 17364, 32-63: 14330, 64-127: 13332, 128-255: 13594, 256-511: 13535, 512-1023: 11144, 1024-2047: 7898, >=2048: 7496
+      eps =    1%: (nearly) non-shrinking 64927189 (75.84% of steps), runs 220232, total run length 64927189 (mean 294.81); lower bound total - ns + runs = 20906871, best-possible speedup in steps 4.095
+        run lengths: 1: 30105, 2-3: 33339, 4-7: 29493, 8-15: 25092, 16-31: 19450, 32-63: 15304, 64-127: 13564, 128-255: 13527, 256-511: 13500, 512-1023: 11316, 1024-2047: 8022, >=2048: 7520
+      eps =    5%: (nearly) non-shrinking 65081478 (76.02% of steps), runs 132229, total run length 65081478 (mean 492.19); lower bound total - ns + runs = 20664579, best-possible speedup in steps 4.143
+        run lengths: 1: 19693, 2-3: 14274, 4-7: 11351, 8-15: 10469, 16-31: 12455, 32-63: 10976, 64-127: 9727, 128-255: 9292, 256-511: 9612, 512-1023: 8465, 1024-2047: 7228, >=2048: 8687
+      eps =   10%: (nearly) non-shrinking 65151020 (76.10% of steps), runs 105574, total run length 65151020 (mean 617.11); lower bound total - ns + runs = 20568382, best-possible speedup in steps 4.162
+        run lengths: 1: 16214, 2-3: 12853, 4-7: 8752, 8-15: 6766, 16-31: 9072, 32-63: 8053, 64-127: 7819, 128-255: 7279, 256-511: 7416, 512-1023: 6834, 1024-2047: 5828, >=2048: 8688
+    counting successful steps with |I(X)| = 1 as non-shrinking:
+      eps =    0%: (nearly) non-shrinking 84588670 (98.80% of steps), runs 257812, total run length 84588670 (mean 328.10); lower bound total - ns + runs = 1282970, best-possible speedup in steps 66.731
+        run lengths: 1: 55767, 2-3: 43916, 4-7: 31062, 8-15: 22704, 16-31: 17615, 32-63: 14593, 64-127: 13686, 128-255: 14043, 256-511: 14162, 512-1023: 11862, 1024-2047: 8696, >=2048: 9706
+      eps =    1%: (nearly) non-shrinking 85003701 (99.29% of steps), runs 226508, total run length 85003701 (mean 375.28); lower bound total - ns + runs = 836635, best-possible speedup in steps 102.331
+        run lengths: 1: 30281, 2-3: 33494, 4-7: 29615, 8-15: 25245, 16-31: 19701, 32-63: 15567, 64-127: 13918, 128-255: 13976, 256-511: 14127, 512-1023: 12034, 1024-2047: 8820, >=2048: 9730
+      eps =    5%: (nearly) non-shrinking 85157990 (99.47% of steps), runs 138505, total run length 85157990 (mean 614.84); lower bound total - ns + runs = 594343, best-possible speedup in steps 144.048
+        run lengths: 1: 19869, 2-3: 14429, 4-7: 11473, 8-15: 10622, 16-31: 12706, 32-63: 11239, 64-127: 10081, 128-255: 9741, 256-511: 10239, 512-1023: 9183, 1024-2047: 8026, >=2048: 10897
+      eps =   10%: (nearly) non-shrinking 85227532 (99.55% of steps), runs 111850, total run length 85227532 (mean 761.98); lower bound total - ns + runs = 498146, best-possible speedup in steps 171.865
+        run lengths: 1: 16390, 2-3: 13008, 4-7: 8874, 8-15: 6919, 16-31: 9323, 32-63: 8316, 64-127: 8173, 128-255: 7728, 256-511: 8043, 512-1023: 7552, 1024-2047: 6626, >=2048: 10898
+
+== forward: 16804 searches, 206292652 backward steps (16802 failed); steps with |I(X)| = 1: 52139835 (25.27%; 10074 of them failed)
+    excluding steps with |I(X)| = 1 (they break runs):
+      eps =    0%: (nearly) non-shrinking 152500048 (73.92% of steps), runs 494438, total run length 152500048 (mean 308.43); lower bound total - ns + runs = 54287042, best-possible speedup in steps 3.800
+        run lengths: 1: 91445, 2-3: 75232, 4-7: 58045, 8-15: 45712, 16-31: 36927, 32-63: 31876, 64-127: 31158, 128-255: 32828, 256-511: 31305, 512-1023: 25076, 1024-2047: 17614, >=2048: 17220
+      eps =    1%: (nearly) non-shrinking 153339604 (74.33% of steps), runs 402797, total run length 153339604 (mean 380.69); lower bound total - ns + runs = 53355845, best-possible speedup in steps 3.866
+        run lengths: 1: 39308, 2-3: 44519, 4-7: 48942, 8-15: 44066, 16-31: 38437, 32-63: 33910, 64-127: 30937, 128-255: 30926, 256-511: 30583, 512-1023: 25717, 1024-2047: 18095, >=2048: 17357
+      eps =    5%: (nearly) non-shrinking 153611693 (74.46% of steps), runs 217708, total run length 153611693 (mean 705.59); lower bound total - ns + runs = 52898667, best-possible speedup in steps 3.900
+        run lengths: 1: 23497, 2-3: 15631, 4-7: 13562, 8-15: 13227, 16-31: 17906, 32-63: 20708, 64-127: 19633, 128-255: 19933, 256-511: 20211, 512-1023: 17815, 1024-2047: 15171, >=2048: 20414
+      eps =   10%: (nearly) non-shrinking 153718899 (74.51% of steps), runs 166039, total run length 153718899 (mean 925.80); lower bound total - ns + runs = 52739792, best-possible speedup in steps 3.912
+        run lengths: 1: 19461, 2-3: 14968, 4-7: 9334, 8-15: 8734, 16-31: 11503, 32-63: 12267, 64-127: 14335, 128-255: 14294, 256-511: 15533, 512-1023: 14175, 1024-2047: 11503, >=2048: 19932
+    counting successful steps with |I(X)| = 1 as non-shrinking:
+      eps =    0%: (nearly) non-shrinking 204629809 (99.19% of steps), runs 504342, total run length 204629809 (mean 405.74); lower bound total - ns + runs = 2167185, best-possible speedup in steps 95.189
+        run lengths: 1: 91627, 2-3: 75406, 4-7: 58182, 8-15: 45819, 16-31: 37105, 32-63: 32114, 64-127: 31479, 128-255: 33334, 256-511: 32141, 512-1023: 26255, 1024-2047: 18983, >=2048: 21897
+      eps =    1%: (nearly) non-shrinking 205469365 (99.60% of steps), runs 412701, total run length 205469365 (mean 497.86); lower bound total - ns + runs = 1235988, best-possible speedup in steps 166.905
+        run lengths: 1: 39490, 2-3: 44693, 4-7: 49079, 8-15: 44173, 16-31: 38615, 32-63: 34148, 64-127: 31258, 128-255: 31432, 256-511: 31419, 512-1023: 26896, 1024-2047: 19464, >=2048: 22034
+      eps =    5%: (nearly) non-shrinking 205741454 (99.73% of steps), runs 227612, total run length 205741454 (mean 903.91); lower bound total - ns + runs = 778810, best-possible speedup in steps 264.882
+        run lengths: 1: 23679, 2-3: 15805, 4-7: 13699, 8-15: 13334, 16-31: 18084, 32-63: 20946, 64-127: 19954, 128-255: 20439, 256-511: 21047, 512-1023: 18994, 1024-2047: 16540, >=2048: 25091
+      eps =   10%: (nearly) non-shrinking 205848660 (99.78% of steps), runs 175943, total run length 205848660 (mean 1169.97); lower bound total - ns + runs = 619935, best-possible speedup in steps 332.765
+        run lengths: 1: 19643, 2-3: 15142, 4-7: 9471, 8-15: 8841, 16-31: 11681, 32-63: 12505, 64-127: 14656, 128-255: 14800, 256-511: 16369, 512-1023: 15354, 1024-2047: 12872, >=2048: 24609
+
+== with shortcuts tau0: 0 patterns with MEMs differing from plain search
+  backward searches (window + mem + next, text index): 57259 searches, 59658155 backward steps + 10166799 jumps = 69824954 operations; jumps crossed 254169975 characters (replacing that many character steps); plain search's steps 313828130, ratio 4.494
+  forward searches (reversed index): 16804 searches, 36101277 backward steps + 6807655 jumps = 42908932 operations; jumps crossed 170191375 characters (replacing that many character steps); plain search's steps 206292652, ratio 4.808
+  all searches: 74063 searches, 95759432 backward steps + 16974454 jumps = 112733886 operations; jumps crossed 424361350 characters (replacing that many character steps); plain search's steps 520120782, ratio 4.614
+  window: 23653 searches, 8714176 backward steps + 528299 jumps = 9242475 operations; jumps crossed 13207475 characters (replacing that many character steps); plain search's steps 21921651, ratio 2.372
+  mem: 16804 searches, 36098276 backward steps + 6807775 jumps = 42906051 operations; jumps crossed 170194375 characters (replacing that many character steps); plain search's steps 206292651, ratio 4.808
+  next: 16802 searches, 14845703 backward steps + 2830725 jumps = 17676428 operations; jumps crossed 70768125 characters (replacing that many character steps); plain search's steps 85613828, ratio 4.843
+  forward: 16804 searches, 36101277 backward steps + 6807655 jumps = 42908932 operations; jumps crossed 170191375 characters (replacing that many character steps); plain search's steps 206292652, ratio 4.808
+
+== with shortcuts tau6: 0 patterns with MEMs differing from plain search
+  backward searches (window + mem + next, text index): 57259 searches, 39012680 backward steps + 1491440 jumps = 40504120 operations; jumps crossed 274815450 characters (replacing that many character steps); plain search's steps 313828130, ratio 7.748
+  forward searches (reversed index): 16804 searches, 22516877 backward steps + 944557 jumps = 23461434 operations; jumps crossed 183775775 characters (replacing that many character steps); plain search's steps 206292652, ratio 8.793
+  all searches: 74063 searches, 61529557 backward steps + 2435997 jumps = 63965554 operations; jumps crossed 458591225 characters (replacing that many character steps); plain search's steps 520120782, ratio 8.131
+  window: 23653 searches, 7304751 backward steps + 153362 jumps = 7458113 operations; jumps crossed 14616900 characters (replacing that many character steps); plain search's steps 21921651, ratio 2.939
+  mem: 16804 searches, 22502051 backward steps + 947227 jumps = 23449278 operations; jumps crossed 183790600 characters (replacing that many character steps); plain search's steps 206292651, ratio 8.797
+  next: 16802 searches, 9205878 backward steps + 390851 jumps = 9596729 operations; jumps crossed 76407950 characters (replacing that many character steps); plain search's steps 85613828, ratio 8.921
+  forward: 16804 searches, 22516877 backward steps + 944557 jumps = 23461434 operations; jumps crossed 183775775 characters (replacing that many character steps); plain search's steps 206292652, ratio 8.793
+wall 530.07 s, peak 1472620 KB

@@ -1,0 +1,157 @@
+== $HOME/research/mem-finding/tool/bin/katka stpd-prep $HOME/research/rlbwt-tricks/chr19/list33abs.tsv st
+stpd-prep: 33 genomes, |T| = 4063444290 (both strands, A/C/G/T pieces); the first genome (both strands) has 123414728 characters (st.reflen)
+wall 30.91 s, peak 133904 KB: katka stpd-prep $HOME/research/rlbwt-tricks/chr19/list33abs.tsv
+== $HOME/research/deps/Big-BWT/bigbwt st.S
+== $HOME/research/deps/Big-BWT/bigbwt st.S
+Sending logging messages to file: st.S.log
+==== Parsing. Command: $HOME/research/deps/Big-BWT/newscanNT.x st.S -w 10 -p 100
+Elapsed time: 170.7714
+==== Computing BWT of parsing. Command: $HOME/research/deps/Big-BWT/bwtparse st.S
+Elapsed time: 13.0665
+==== Computing final BWT. Command: $HOME/research/deps/Big-BWT/pfbwtNT.x -w 10 st.S
+Elapsed time: 163.7930
+Total construction time: 347.6309
+==== Deleting temporary files.
+==== Done
+wall 347.77 s, peak 2766532 KB: bigbwt st.S 
+== $HOME/research/mem-finding/tool/bin/katka index --parse-oracle st
+parse oracle: n=4063444291, 220376090 phrases, 8512491 distinct; dictionary 150.7 MB (596486099 bases at 2 bits, 1 phrases with other characters, 0 X runs; offsets 31.9 MB), parse 661.1 MB, starts 205.5 MB (2.07 bits per character in all; 104.3 s)
+parse oracle: 1049.257 MB (peak memory of this step 1.70 GB)
+index built in 104.6 s (peak memory 1.70 GB)
+wall 104.58 s, peak 1663480 KB: katka index --parse-oracle
+== $HOME/research/mem-finding/tool/bin/katka index --stpd --parse-oracle st
+RLBWT: n=4063444291 r=68446559, 199.797 MB (15.1 s)
+parse oracle: n=4063444291, 220376090 phrases, 8512491 distinct; dictionary 150.7 MB (596486099 bases at 2 bits, 1 phrases with other characters, 0 X runs; offsets 31.9 MB), parse 661.1 MB, starts 205.5 MB (2.07 bits per character in all; 105.2 s)
+parse oracle: 1049.257 MB (peak memory of this step 1.91 GB)
+STPD: n=4063444291 r=68446559, 68446557 run starts, 44251277 sampled positions (0.647 of r), 177.005 MB on top of the text (+354.433 MB for phi^-1), 549.5 s
+STPD sample built through the parse oracle (peak memory of this step 5.94 GB)
+index built in 671.5 s (peak memory 5.94 GB)
+wall 671.51 s, peak 5802208 KB: katka index --stpd
+== $HOME/research/mem-finding/tool/bin/katka stpd-export st
+stpd-export: 44251277 sampled positions (+ position 0)
+stpd-export: PLCP done (603.6 s)
+katka: cannot open st.T.pa
+Command exited with non-zero status 1
+wall 604.00 s, peak 6276136 KB: katka stpd-export st
+== $HOME/research/mem-finding/tool/bin/katka stpd-export st
+stpd-export: 44251277 sampled positions (+ position 0)
+stpd-export: PLCP done (559.2 s)
+stpd-export: wrote st.T.{colex_m,rbwt,pa,lcs} for 4063444291 rows (3447.1 s)
+wall 3447.22 s, peak 6276468 KB: katka stpd-export st
+== $HOME/research/rlbwt-tricks/STPD-index/build/CLI/stpd-build -i st.T -o st.RLZ-r-index.stpdi -t RLZ -p r-index -l 123414728 -k
+
+[INFO] Suffix Tree path decomposition found! Proceeding to index construction
+
+[INFO] Constructing the STPD-index using the path decomposition in st.T.colex_m
+
+[STEP 1] Constructing the random-access text oracle...
+[STEP 2] Constructing the binary search data structure...
+		- Tabulation length = 7
+		- PA samples width = 32 bits per entry
+		- LCS values width = 3 bits per entry
+		- STPD array size = 44251278
+		- Text size = 4063444290
+		- N/S = 91.8266
+[STEP 3] Constructing the phi function...
+
+[DONE] Index successfully built!
+
+[INFO] Writing components to disk:
+		- Random-access data structure size = 63243941 bytes
+		- Binary search data structure size = 200862232 bytes
+		- Phi-function data structure size = 348628112 bytes
+
+[DONE] Index successfully stored!
+		→ Total index size in disk = 612734285 bytes
+
+malloc_count ### exiting, total: 11,076,040,671, peak: 4,991,987,869, current: 4,096
+wall 1761.55 s, peak 4813320 KB: stpd-build -i st.T
+== $HOME/research/rlbwt-tricks/STPD-index/build/CLI/stpd-build -i st.T -o st.RLZ-move.stpdi -t RLZ -p move -l 123414728 -k
+
+[INFO] Suffix Tree path decomposition found! Proceeding to index construction
+
+[INFO] Constructing the STPD-index using the path decomposition in st.T.colex_m
+
+[STEP 1] Constructing the random-access text oracle...
+[STEP 2] Constructing the binary search data structure...
+		- Tabulation length = 7
+		- PA samples width = 32 bits per entry
+		- LCS values width = 3 bits per entry
+		- STPD array size = 44251278
+		- Text size = 4063444290
+		- N/S = 91.8266
+[STEP 3] Constructing the phi function...
+
+== $HOME/research/rlbwt-tricks/STPD-index/build/CLI/stpd-build -i st.T -o st.RLZ-move.stpdi -t RLZ -p move -l 123414728 -k
+
+[INFO] Suffix Tree path decomposition found! Proceeding to index construction
+
+[INFO] Constructing the STPD-index using the path decomposition in st.T.colex_m
+
+[STEP 1] Constructing the random-access text oracle...
+[STEP 2] Constructing the binary search data structure...
+		- Tabulation length = 7
+		- PA samples width = 32 bits per entry
+		- LCS values width = 3 bits per entry
+		- STPD array size = 44251278
+		- Text size = 4063444290
+		- N/S = 91.8266
+[STEP 3] Constructing the phi function...
+
+== $HOME/research/rlbwt-tricks/STPD-index/build/CLI/stpd-build -i st.T -o st.bitpacked-r-index.stpdi -t bitpacked -p r-index -l 123414728 -k
+
+[INFO] Suffix Tree path decomposition found! Proceeding to index construction
+
+[INFO] Constructing the STPD-index using the path decomposition in st.T.colex_m
+
+[STEP 1] Constructing the random-access text oracle...
+[STEP 2] Constructing the binary search data structure...
+		- Tabulation length = 3
+		- PA samples width = 27 bits per entry
+		- LCS values width = 2 bits per entry
+		- STPD array size = 44251278
+		- Text size = 123414728
+		- N/S = 2.78895
+[STEP 3] Constructing the phi function...
+
+[DONE] Index successfully built!
+
+[INFO] Writing components to disk:
+		- Random-access data structure size = 30853696 bytes
+		- Binary search data structure size = 167671096 bytes
+		- Phi-function data structure size = 348628112 bytes
+
+[DONE] Index successfully stored!
+		→ Total index size in disk = 547152904 bytes
+
+malloc_count ### exiting, total: 5,550,223,623, peak: 3,419,772,147, current: 4,096
+wall 1627.03 s, peak 2294844 KB: stpd-build -i st.T
+== (the bitpacked build above was given -l 123414728, which for the bitpacked oracle keeps only that prefix of the text; discarded, rebuilt below without -l)
+== $HOME/research/rlbwt-tricks/STPD-index/build/CLI/stpd-build -i st.T -o st.bitpacked-r-index.stpdi -t bitpacked -p r-index -k
+
+[INFO] Suffix Tree path decomposition found! Proceeding to index construction
+
+[INFO] Constructing the STPD-index using the path decomposition in st.T.colex_m
+
+[STEP 1] Constructing the random-access text oracle...
+[STEP 2] Constructing the binary search data structure...
+		- Tabulation length = 7
+		- PA samples width = 32 bits per entry
+		- LCS values width = 3 bits per entry
+		- STPD array size = 44251278
+		- Text size = 4063444290
+		- N/S = 91.8266
+[STEP 3] Constructing the phi function...
+
+[DONE] Index successfully built!
+
+[INFO] Writing components to disk:
+		- Random-access data structure size = 1015861088 bytes
+		- Binary search data structure size = 200862232 bytes
+		- Phi-function data structure size = 348628112 bytes
+
+[DONE] Index successfully stored!
+		→ Total index size in disk = 1565351432 bytes
+
+malloc_count ### exiting, total: 6,568,422,151, peak: 4,437,970,675, current: 4,096
+wall 1787.05 s, peak 3289476 KB: stpd-build -i st.T

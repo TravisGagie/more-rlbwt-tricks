@@ -1,0 +1,24 @@
+move structure: 68446512 runs (split at 65535), 676.697 MB (records 547.572, run starts 80.657, runs per symbol 46.370, 8-mer table 2.097)
+index loaded in 1.1 s
+reads=4 MEMs=22711 without MEMs=0 | threads=1 wall 4.14 s, 1034752.8 us/read
+timing: 4 reads, 1 threads; mean per-read time 993643.71 us; total time / reads 1034752.85 us (total 4.139 s)
+searches=92957 char_steps=6802862 parse_steps=1571797 block_steps=2495942 kmer_tests=0 kmer_restarts=0 stpd_jumps=0 stpd_compares=0
+parse steps: entry=725242 inside=43785 end=802770; block attempts=159066, symbol absent=40976, failed block steps=83341, back-ups=25013, exact exits=54478
+profile: TSC 3.192 GHz
+profile two-level, backward searches: 70246 searches, 64144 reaching the parse; right-end character steps 4264011, left-end 831199, in searches without the parse 0; parse steps 1097160
+profile two-level, forward searches: 22711 searches, 22711 reaching the parse; right-end character steps 1421723, left-end 285929, in searches without the parse 0; parse steps 474637
+profile time: parsing the patterns (syncmers, dictionary lookups) 1.343 s
+profile time: read input (FASTA parsing) 0.151 s
+profile time: output (writing lines) 0.000 s
+profile time: all of finder::run (per read) 3.975 s
+profile time: reverse complement (prepare) 0.133 s
+profile time: parsing: closed-syncmer scan 0.722 s
+profile time: parsing: phrase hashes 0.239 s
+profile time: parsing: dictionary slots 0.244 s
+profile time: parsing: finish (blocks, fingerprints) 0.137 s
+profile time: two-level: right-end character steps 0.444 s
+profile time: two-level: entering the parse (B rank) 0.082 s
+profile time: two-level: parse steps (with blocks or shortcuts) 1.663 s
+profile time: two-level: leaving the parse (B select) 0.025 s
+profile time: two-level: left-end character steps 0.135 s
+profile time: sum of the parts 3.976 s (everything else = the total less this)

@@ -1,0 +1,3 @@
+16 individuals: MEMs 22708, plain 321.18 s, shortcuts 42.27 s
+32 individuals: MEMs 18479, plain 352.67 s, shortcuts 45.32 s
+64 individuals: MEMs 16804, plain 381.75 s, shortcuts 48.85 s

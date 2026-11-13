@@ -1,0 +1,7 @@
+$HOME/research/rlbwt-tricks/chr19/c129.csa 1301358901
+$HOME/research/rlbwt-tricks/chr19/c129.info 17
+$HOME/research/rlbwt-tricks/chr19/c129.lvl 317963703
+$HOME/research/rlbwt-tricks/chr19/c129.pstpd 193171912
+$HOME/research/rlbwt-tricks/chr19/c129.ptxt 3577960484
+$HOME/research/rlbwt-tricks/chr19/c129.rlbwt 253566642
+$HOME/research/rlbwt-tricks/chr19/c129.stpd 658824420

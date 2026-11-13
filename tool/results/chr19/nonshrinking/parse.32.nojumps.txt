@@ -1,0 +1,14 @@
+index loaded in 2.1 s
+reads=4 MEMs=18479 without MEMs=0 | threads=1 wall 9.51 s, 2378271.3 us/read
+timing: 4 reads, 1 threads; mean per-read time 2247243.43 us; total time / reads 2378271.28 us (total 9.513 s)
+searches=72371 char_steps=5329354 parse_steps=16368497 block_steps=0 kmer_tests=0 kmer_restarts=0 stpd_jumps=0 stpd_compares=0
+parse steps: entry=16368497 inside=0 end=0; block attempts=0, symbol absent=0, failed block steps=0, back-ups=0, exact exits=0
+nonshrinking parse steps: 16368497 parse steps (37350 failed); from an interval of size 1: 3963414 (17265 failed)
+  eps = 0%: (nearly) non-shrinking 11711685 (71.55%), runs 386125, total run length 11711685 (mean 30.33); lower bound steps - ns + runs = 5042937, best-possible speedup in parse steps 3.246
+  run lengths: 1: 71580, 2-3: 63865, 4-7: 59752, 8-15: 59336, 16-31: 52675, 32-63: 37946, 64-127: 20637, 128-255: 12424, 256-511: 5934, 512-1023: 1698, 1024-2047: 253, >=2048: 25
+  eps = 1%: (nearly) non-shrinking 11776809 (71.95%), runs 404875, total run length 11776809 (mean 29.09); lower bound steps - ns + runs = 4996563, best-possible speedup in parse steps 3.276
+  run lengths: 1: 80602, 2-3: 70115, 4-7: 61901, 8-15: 60185, 16-31: 53033, 32-63: 38014, 64-127: 20662, 128-255: 12434, 256-511: 5951, 512-1023: 1699, 1024-2047: 254, >=2048: 25
+  eps = 5%: (nearly) non-shrinking 11965641 (73.10%), runs 339059, total run length 11965641 (mean 35.29); lower bound steps - ns + runs = 4741915, best-possible speedup in parse steps 3.452
+  run lengths: 1: 58786, 2-3: 54223, 4-7: 51139, 8-15: 49375, 16-31: 45433, 32-63: 37222, 64-127: 20318, 128-255: 13593, 256-511: 6834, 512-1023: 1850, 1024-2047: 261, >=2048: 25
+  eps = 10%: (nearly) non-shrinking 12070517 (73.74%), runs 280888, total run length 12070517 (mean 42.97); lower bound steps - ns + runs = 4578868, best-possible speedup in parse steps 3.575
+  run lengths: 1: 42811, 2-3: 40893, 4-7: 40239, 8-15: 41886, 16-31: 40567, 32-63: 34237, 64-127: 16924, 128-255: 12523, 256-511: 7822, 512-1023: 2616, 1024-2047: 342, >=2048: 28

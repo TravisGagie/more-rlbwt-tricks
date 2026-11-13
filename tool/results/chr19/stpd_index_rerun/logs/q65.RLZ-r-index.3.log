@@ -1,0 +1,8 @@
+[INFO] Loading components to disk:
+		- Random-access text oracle...
+		- Binary search data structure...
+[DONE] Index successfully loaded!
+
+stpd-index-mems: 4 patterns, 18479 MEMs (L = 1000, BML); finding them 48.7211 s (72372 longest-prefix searches, 1041366 jumps, 53888 candidates rejected by the check; time in their LCP 0.567073 s, their binary search 47.4929 s, the check 0.56428 s over 322875490 characters; 757335562 characters copied)
+malloc_count ### exiting, total: 943,780,859, peak: 666,435,206, current: 4,096
+wall 50.53 s, peak 665020 KB

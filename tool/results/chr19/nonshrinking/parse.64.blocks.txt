@@ -1,0 +1,14 @@
+index loaded in 1.0 s
+reads=4 MEMs=16806 without MEMs=0 | threads=1 wall 5.74 s, 1435634.1 us/read
+timing: 4 reads, 1 threads; mean per-read time 1331675.04 us; total time / reads 1435634.07 us (total 5.743 s)
+searches=64289 char_steps=4752917 parse_steps=1107211 block_steps=2548855 kmer_tests=0 kmer_restarts=0 stpd_jumps=0 stpd_compares=0
+parse steps: entry=516634 inside=54512 end=536065; block attempts=114329, symbol absent=21005, failed block steps=65460, back-ups=23887, exact exits=33866
+nonshrinking parse steps: 1107211 parse steps (34789 failed); from an interval of size 1: 215498 (16015 failed)
+  eps = 0%: (nearly) non-shrinking 784990 (70.90%), runs 90540, total run length 784990 (mean 8.67); lower bound steps - ns + runs = 412761, best-possible speedup in parse steps 2.682
+  run lengths: 1: 21406, 2-3: 19466, 4-7: 16676, 8-15: 16795, 16-31: 11882, 32-63: 4054, 64-127: 253, 128-255: 8, 256-511: 0, 512-1023: 0, 1024-2047: 0, >=2048: 0
+  eps = 1%: (nearly) non-shrinking 798924 (72.16%), runs 84721, total run length 798924 (mean 9.43); lower bound steps - ns + runs = 393008, best-possible speedup in parse steps 2.817
+  run lengths: 1: 19776, 2-3: 17352, 4-7: 14674, 8-15: 15662, 16-31: 12179, 32-63: 4768, 64-127: 301, 128-255: 9, 256-511: 0, 512-1023: 0, 1024-2047: 0, >=2048: 0
+  eps = 5%: (nearly) non-shrinking 821552 (74.20%), runs 76537, total run length 821552 (mean 10.73); lower bound steps - ns + runs = 362196, best-possible speedup in parse steps 3.057
+  run lengths: 1: 16966, 2-3: 15795, 4-7: 11679, 8-15: 13402, 16-31: 12345, 32-63: 5910, 64-127: 427, 128-255: 13, 256-511: 0, 512-1023: 0, 1024-2047: 0, >=2048: 0
+  eps = 10%: (nearly) non-shrinking 831490 (75.10%), runs 74368, total run length 831490 (mean 11.18); lower bound steps - ns + runs = 350089, best-possible speedup in parse steps 3.163
+  run lengths: 1: 15778, 2-3: 16108, 4-7: 10774, 8-15: 12599, 16-31: 12219, 32-63: 6387, 64-127: 488, 128-255: 15, 256-511: 0, 512-1023: 0, 1024-2047: 0, >=2048: 0

@@ -1,0 +1,19 @@
+parse oracle: 220466619 phrases (k = 51, s = 12), 8512838 distinct: 1050.148 MB (2.07 bits per character) instead of the text (4065.486 MB)
+STPD: 44361753 sampled positions (r = 68446485), 177.447 MB on top of the text
+STPD over the parse, components (MB): plain parse 661.400, boundaries 205.577, dictionary strings 151.248 (2 bits per base, with exceptions; + offsets 31.923), parse sample 33.501 (9571667 of r_Z = 10332018), entry table 29.795 (+ C 8.620), parse phi^-1 46.118 (locating), character-level sample 177.447 (+ phi^-1 354.443, locating), right end: RLCSA 579.342, B 13.394, dictionary hash 105.221
+index loaded in 1.5 s
+reads=4 MEMs=22711 without MEMs=0 | threads=1 wall 6.13 s, 1533475.0 us/read
+timing: 4 reads, 1 threads; mean per-read time 1427849.74 us; total time / reads 1533475.05 us (total 6.134 s)
+searches=70246 char_steps=1114294 parse_steps=0 block_steps=0 kmer_tests=0 kmer_restarts=0 stpd_jumps=65987 stpd_compares=1681700
+profile: TSC 3.192 GHz; STPD searches 47535 backward + 22711 forward; binary searches 157005, probes 3806497 (phrase comparisons 34174670); extension runs 192124, phrases read 13936110
+profile time: right end (character steps) 0.823 s
+profile time: entering the parse 0.087 s
+profile time: binary search 0.367 s
+profile time: extension (parse loop without binary search) 0.098 s
+profile time: left end (character-level STPD) 2.039 s
+profile time: leaving / re-entering the parse 0.013 s
+profile time: parsing the patterns (syncmers, dictionary lookups) 1.364 s
+profile time: sum of the parts 4.790 s (everything else = the total less this)
+STPD over the parse: right-end character steps 4235527, middle phrase comparisons 13936110, parse-sample binary searches 157005 (3806497 comparisons), left-end character steps 1114294 (character-level STPD jumps 65987)
+parse oracle seeks: same phrase 2786645, next/previous phrase 9616468, predecessor queries 1814710
+wall 7.76 s, peak 2962536 KB

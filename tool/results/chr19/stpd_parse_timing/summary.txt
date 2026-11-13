@@ -1,0 +1,15 @@
+c33 stpd-parse: times 6.08 6.09 6.16 (median 6.09); wall 8.87 s, peak 2962392 KB
+STPD: 44361753 sampled positions (r = 68446485), 177.447 MB on top of the text
+STPD over the parse, components (MB): plain parse 661.400, boundaries 205.577, dictionary strings 151.248 (2 bits per base, with exceptions; + offsets 31.923), parse sample 33.501 (9571667 of r_Z = 10332018), entry table 29.795 (+ C 8.620), parse phi^-1 46.118 (locating), character-level sample 177.447 (+ phi^-1 354.443, locating), right end: RLCSA 579.342, B 13.394, dictionary hash 105.221
+c33 stpd-text: times 3.45 3.47 3.64 (median 3.47); wall 9.39 s, peak 4958424 KB
+STPD: 44361753 sampled positions (r = 68446485), 177.447 MB on top of the text
+c65 stpd-parse: times 6.31 6.34 6.36 (median 6.34); wall 10.95 s, peak 4524976 KB
+STPD: 46890805 sampled positions (r = 72587343), 193.425 MB on top of the text
+STPD over the parse, components (MB): plain parse 1302.516, boundaries 404.828, dictionary strings 170.273 (2 bits per base, with exceptions; + offsets 35.708), parse sample 41.765 (11521370 of r_Z = 12954298), entry table 34.517 (+ C 10.515), parse phi^-1 60.424 (locating), character-level sample 193.425 (+ phi^-1 392.372, locating), right end: RLCSA 1192.675, B 15.377, dictionary hash 116.700
+c65 stpd-text: times 3.30 3.31 3.32 (median 3.31); wall 14.71 s, peak 8883876 KB
+STPD: 46890805 sampled positions (r = 72587343), 193.425 MB on top of the text
+c129 stpd-parse: times 6.44 6.44 6.45 (median 6.44); wall 13.29 s, peak 6487112 KB
+STPD: 51044493 sampled positions (r = 79393605), 216.939 MB on top of the text
+STPD over the parse, components (MB): plain parse 2586.474, boundaries 803.924, dictionary strings 200.153 (2 bits per base, with exceptions; + offsets 41.294), parse sample 55.441 (14784283 of r_Z = 17449211), entry table 41.294 (+ C 13.155), parse phi^-1 85.061 (locating), character-level sample 216.939 (+ phi^-1 446.847, locating), right end: RLCSA 1301.359, B 17.969, dictionary hash 133.642
+c129 stpd-oracle: times 17.34 17.41 17.58 (median 17.41); wall 20.64 s, peak 4726008 KB
+STPD: 51044493 sampled positions (r = 79393605), 216.939 MB on top of the text

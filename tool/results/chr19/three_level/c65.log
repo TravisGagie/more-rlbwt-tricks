@@ -1,0 +1,8 @@
+$HOME/research/rlbwt-tricks/chr19/c65: m = 434172121 phrases, sigma = 9522052, blocks 52209743 (50.6 s)
+  k2 = 5, s2 = 2: 216835475 level-2 phrases, 8241034 distinct (80.4 s)
+  k2 = 9, s2 = 2: 108703098 level-2 phrases, 5764269 distinct (100.4 s)
+  k2 = 17, s2 = 2: 54453409 level-2 phrases, 4366104 distinct (116.5 s)
+  k2 = 33, s2 = 2: 27376022 level-2 phrases, 3458576 distinct (130.6 s)
+  k2 = 65, s2 = 2: 13807675 level-2 phrases, 2755507 distinct (143.7 s)
+done (146.7 s)
+wall 146.85 s, peak 5352004 KB

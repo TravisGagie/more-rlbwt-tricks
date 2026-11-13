@@ -1,0 +1,5 @@
+ell25_theta0, bml, L = 1000: 4 patterns; total of median times 364643 ms plain, 79849.8 ms with shortcuts (speedup 4.56661)
+ell100_theta0, bml, L = 1000: 4 patterns; total of median times 364643 ms plain, 86004.3 ms with shortcuts (speedup 4.23982)
+ell25_theta0, fb, L = 1000: 4 patterns; total of median times 360194 ms plain, 80751.2 ms with shortcuts (speedup 4.46054)
+ell100_theta0, fb, L = 1000: 4 patterns; total of median times 360194 ms plain, 84898.6 ms with shortcuts (speedup 4.24263)
+wall 3177.92 s, peak 957908 KB

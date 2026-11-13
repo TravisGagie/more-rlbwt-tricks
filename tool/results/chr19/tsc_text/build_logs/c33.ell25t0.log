@@ -1,0 +1,2 @@
+text shortcuts (ell 25, tau 0) over CHM13 = the first sequence (61707364 characters) and its reverse complement: anchors 4936586, unusable 0, colliding 907574, entrances 4029012, rows 250468961, backward steps 224139950, deaths 100997969; 133.187 MB (reference 15.427, entrance starts 6.842, symbols 46.963, targets 16.116, run bits 8.556) -> $HOME/research/rlbwt-tricks/chr19/tsc/c33.ell25t0.tsc (39.2 s, peak memory of this step 3.56 GB)
+wall 39.26 s, peak 3479960 KB

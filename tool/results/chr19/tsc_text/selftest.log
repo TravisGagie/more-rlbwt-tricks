@@ -1,0 +1,133 @@
+== unit tests
+unit tests: passed
+== data
+== index of both strands (20 genomes, 4 species)
+  same: B_lambda of the tag runs against brute force
+== brute force: MEMs, intervals, KeBaB, two-level, tags (s = 1)
+parse oracle: n=1054781, 145961 phrases, 68801 distinct; dictionary 0.5 MB (1989211 bases at 2 bits, 80 phrases with other characters, 6082 X runs; offsets 0.2 MB), parse 0.3 MB, starts 0.1 MB (8.60 bits per character in all; 0.1 s)
+two-level locate: characters: 273191 run samples 0.717 MB, phi^-1 0.906 MB (0.1 s)
+two-level locate: parse 72571 run samples 0.202 MB, blocks 12337 run samples 0.027 MB, block -> phrase 0.013 MB, phrase -> text 0.116 MB; in all 1.982 MB (characters 1.623, parse 0.318, blocks 0.040) (0.1 s)
+STPD: n=1054781 r=273191, 273189 run starts, 273189 sampled positions (1.000 of r), 0.717 MB on top of the text (+0.906 MB for phi^-1), 0.1 s
+parse oracle: n=1054781, 236023 phrases, 86599 distinct; dictionary 0.4 MB (1471815 bases at 2 bits, 74 phrases with other characters, 6074 X runs; offsets 0.2 MB), parse 0.5 MB, starts 0.2 MB (9.78 bits per character in all; 0.1 s)
+parse oracle: n=1054781, 145961 phrases, 68801 distinct; dictionary 0.5 MB (1989211 bases at 2 bits, 80 phrases with other characters, 6082 X runs; offsets 0.2 MB), parse 0.3 MB, starts 0.1 MB (8.60 bits per character in all; 0.0 s)
+parse STPD: m=145961, sigma=68801, r_Z=72571 parse BWT runs, 72569 run starts, 70682 sampled (0.974 of r_Z): sample 0.159 MB, entry 0.155 MB, C 0.037 MB, phi^-1 0.202 MB (0.0 s)
+parse oracle: n=1054781, 145961 phrases, 68801 distinct; dictionary 0.5 MB (1989211 bases at 2 bits, 80 phrases with other characters, 6082 X runs; offsets 0.2 MB), parse 0.3 MB, starts 0.1 MB (8.60 bits per character in all; 0.0 s)
+RLZAP parse (J = 4, D = 4, M = 2): reference 6421 phrases; target 139540 phrases in 117974 factors (1.18 phrases per factor); 123398 literal phrases (115565 factors only a literal); 1384 pointer changes, 269 explicit pointers; 1653 stored pointer values
+  sizes (MB): reference ids 0.014 + starts 0.009; factor starts (parse 0.053, text 0.095); literal counts 0.049; literals 0.262; pointers (change positions 0.002, values 0.004): parse part 0.487; dictionary 0.527 (+ offsets 0.181) (0.1 s)
+parse oracle (12,3): 236023 phrases; every position read forward and backward, 20000 random reads and lce checked
+RLZAP parse oracle: 117974 factors over 139540 target phrases; every position read forward and backward, 20000 random reads and lces checked
+STPD over the parse: 20920 longest-suffix searches checked against plain search, 259210354 occurrences located by phi^-1 over the parse checked against SA
+STPD (text and parse oracle): 20920 longest-suffix searches checked (start and lex-smallest occurrence), 683956070 occurrences located by phi^-1 checked against SA
+longest t (t = 1, 3, 5; -D 0 and 14): 8160 exact runs checked (no filter, KeBaB streaming, KeBaB batch: 326 second batches, 447 whole-read fallbacks); KeBaB top: 613 of 4080 runs differ from the t longest
+two-level locate: 62760 toeholds checked against SA[sp] (582 block steps among them), 13186218 occurrences of MEMs checked against the suffix array
+KeBaB check (T = t, 2t, t + 2; strict and not): 24480 runs checked, 6426 fell back; --check-seed: same output, 934 seeded fallbacks, backward steps 10500375 -> 10188844 (fewer in 543 runs, more in 377); KeBaB top with a fixed L: 2040 runs checked
+MEM tests on 340 patterns (4080 runs, 241412 MEMs from plain BML/FB): passed
+|st-colex-(rev(S)$)| by definition = 179572; PREFIX.stpd sample = 179570; r = 273191
+== brute force: tags (s4)
+longest t (t = 1, 3, 5; -D 0 and 14): 1800 exact runs checked (no filter, KeBaB streaming, KeBaB batch: 0 second batches, 0 whole-read fallbacks); KeBaB top: 0 of 0 runs differ from the t longest
+KeBaB check (T = t, 2t, t + 2; strict and not): 0 runs checked, 0 fell back; --check-seed: same output, 0 seeded fallbacks, backward steps 0 -> 0 (fewer in 0 runs, more in 0); KeBaB top with a fixed L: 0 runs checked
+MEM tests on 300 patterns (3600 runs, 239044 MEMs from plain BML/FB): passed
+== brute force: tags (g)
+longest t (t = 1, 3, 5; -D 0 and 14): 1800 exact runs checked (no filter, KeBaB streaming, KeBaB batch: 0 second batches, 0 whole-read fallbacks); KeBaB top: 0 of 0 runs differ from the t longest
+KeBaB check (T = t, 2t, t + 2; strict and not): 0 runs checked, 0 fell back; --check-seed: same output, 0 seeded fallbacks, backward steps 0 -> 0 (fewer in 0 runs, more in 0); KeBaB top with a fixed L: 0 runs checked
+MEM tests on 300 patterns (3600 runs, 239044 MEMs from plain BML/FB): passed
+== brute force: tags (sp)
+longest t (t = 1, 3, 5; -D 0 and 14): 1800 exact runs checked (no filter, KeBaB streaming, KeBaB batch: 0 second batches, 0 whole-read fallbacks); KeBaB top: 0 of 0 runs differ from the t longest
+KeBaB check (T = t, 2t, t + 2; strict and not): 0 runs checked, 0 fell back; --check-seed: same output, 0 seeded fallbacks, backward steps 0 -> 0 (fewer in 0 runs, more in 0); KeBaB top with a fixed L: 0 runs checked
+MEM tests on 300 patterns (3600 runs, 239044 MEMs from plain BML/FB): passed
+== homopolymer compression
+parse oracle: n=792835, 110365 phrases, 55676 distinct; dictionary 0.4 MB (1609214 bases at 2 bits, 83 phrases with other characters, 6085 X runs; offsets 0.1 MB), parse 0.2 MB, starts 0.1 MB (8.88 bits per character in all; 0.0 s)
+two-level locate: characters: 204817 run samples 0.512 MB, phi^-1 0.654 MB (0.0 s)
+two-level locate: parse 58655 run samples 0.157 MB, blocks 9902 run samples 0.022 MB, block -> phrase 0.010 MB, phrase -> text 0.088 MB; in all 1.443 MB (characters 1.166, parse 0.245, blocks 0.032) (0.1 s)
+longest t (t = 1, 3, 5; -D 0 and 14): 7200 exact runs checked (no filter, KeBaB streaming, KeBaB batch: 322 second batches, 449 whole-read fallbacks); KeBaB top: 620 of 3600 runs differ from the t longest
+two-level locate: 45240 toeholds checked against SA[sp] (241 block steps among them), 9445740 occurrences of MEMs checked against the suffix array
+KeBaB check (T = t, 2t, t + 2; strict and not): 21600 runs checked, 6458 fell back; --check-seed: same output, 922 seeded fallbacks, backward steps 9159039 -> 8755888 (fewer in 671 runs, more in 208); KeBaB top with a fixed L: 1800 runs checked
+MEM tests on 300 patterns (3600 runs, 237828 MEMs from plain BML/FB): passed
+== minimizer digests (k = 4, w = 11)
+longest t (t = 1, 3, 5; -D 0 and 14): 0 exact runs checked (no filter, KeBaB streaming, KeBaB batch: 0 second batches, 0 whole-read fallbacks); KeBaB top: 0 of 0 runs differ from the t longest
+KeBaB check (T = t, 2t, t + 2; strict and not): 0 runs checked, 0 fell back; --check-seed: same output, 0 seeded fallbacks, backward steps 0 -> 0 (fewer in 0 runs, more in 0); KeBaB top with a fixed L: 0 runs checked
+MEM tests on 300 patterns (1200 runs, 99852 MEMs from plain BML/FB): passed
+== chromosome-19-like collection (k = 51, s = 12)
+parse oracle: n=960175, 47767 phrases, 13344 distinct; dictionary 0.2 MB (968316 bases at 2 bits, 9 phrases with other characters, 9 X runs; offsets 0.0 MB), parse 0.1 MB, starts 0.0 MB (3.39 bits per character in all; 0.0 s)
+two-level locate: characters: 108726 run samples 0.272 MB, phi^-1 0.359 MB (0.0 s)
+two-level locate: parse 14647 run samples 0.039 MB, blocks 3557 run samples 0.008 MB, block -> phrase 0.005 MB, phrase -> text 0.045 MB; in all 0.727 MB (characters 0.631, parse 0.084, blocks 0.012) (0.0 s)
+STPD: n=960175 r=108726, 108724 run starts, 108724 sampled positions (1.000 of r), 0.272 MB on top of the text (+0.359 MB for phi^-1), 0.0 s
+parse oracle: n=960175, 224671 phrases, 36605 distinct; dictionary 0.2 MB (600398 bases at 2 bits, 5 phrases with other characters, 5 X runs; offsets 0.1 MB), parse 0.4 MB, starts 0.2 MB (7.07 bits per character in all; 0.0 s)
+parse oracle: n=960175, 47767 phrases, 13344 distinct; dictionary 0.2 MB (968316 bases at 2 bits, 9 phrases with other characters, 9 X runs; offsets 0.0 MB), parse 0.1 MB, starts 0.0 MB (3.39 bits per character in all; 0.0 s)
+parse STPD: m=47767, sigma=13344, r_Z=14647 parse BWT runs, 14645 run starts, 13979 sampled (0.954 of r_Z): sample 0.028 MB, entry 0.027 MB, C 0.009 MB, phi^-1 0.039 MB (0.0 s)
+parse oracle: n=960175, 47767 phrases, 13344 distinct; dictionary 0.2 MB (968316 bases at 2 bits, 9 phrases with other characters, 9 X runs; offsets 0.0 MB), parse 0.1 MB, starts 0.0 MB (3.39 bits per character in all; 0.0 s)
+RLZAP parse (J = 4, D = 4, M = 2): reference 5981 phrases; target 41786 phrases in 5505 factors (7.59 phrases per factor); 11291 literal phrases (2994 factors only a literal); 1162 pointer changes, 61 explicit pointers; 1223 stored pointer values
+  sizes (MB): reference ids 0.010 + starts 0.008; factor starts (parse 0.004, text 0.007); literal counts 0.003; literals 0.020; pointers (change positions 0.001, values 0.002): parse part 0.057; dictionary 0.245 (+ offsets 0.033) (0.0 s)
+parse oracle (12,3): 224671 phrases; every position read forward and backward, 20000 random reads and lce checked
+RLZAP parse oracle: 5505 factors over 41786 target phrases; every position read forward and backward, 20000 random reads and lces checked
+STPD over the parse: 1040 longest-suffix searches checked against plain search, 1563427 occurrences located by phi^-1 over the parse checked against SA
+STPD (text and parse oracle): 1040 longest-suffix searches checked (start and lex-smallest occurrence), 4057690 occurrences located by phi^-1 checked against SA
+longest t (t = 1, 3, 5; -D 0 and 14): 138 exact runs checked (no filter, KeBaB streaming, KeBaB batch: 0 second batches, 0 whole-read fallbacks); KeBaB top: 0 of 0 runs differ from the t longest
+two-level locate: 3120 toeholds checked against SA[sp] (199 block steps among them), 110456 occurrences of MEMs checked against the suffix array
+KeBaB check (T = t, 2t, t + 2; strict and not): 0 runs checked, 0 fell back; --check-seed: same output, 0 seeded fallbacks, backward steps 0 -> 0 (fewer in 0 runs, more in 0); KeBaB top with a fixed L: 0 runs checked
+MEM tests on 23 patterns (276 runs, 16980 MEMs from plain BML/FB): passed
+|st-colex-(rev(S)$)| by definition = 71870; PREFIX.stpd sample = 71868; r = 108726
+==   with the most frequent successor
+parse oracle: n=960175, 47767 phrases, 13344 distinct; dictionary 0.2 MB (968316 bases at 2 bits, 9 phrases with other characters, 9 X runs; offsets 0.0 MB), parse 0.1 MB, starts 0.0 MB (3.39 bits per character in all; 0.0 s)
+two-level locate: characters: 108726 run samples 0.272 MB, phi^-1 0.359 MB (0.0 s)
+two-level locate: parse 14647 run samples 0.039 MB, blocks 1872 run samples 0.003 MB, block -> phrase 0.002 MB, phrase -> text 0.045 MB; in all 0.720 MB (characters 0.631, parse 0.084, blocks 0.005) (0.0 s)
+longest t (t = 1, 3, 5; -D 0 and 14): 138 exact runs checked (no filter, KeBaB streaming, KeBaB batch: 0 second batches, 0 whole-read fallbacks); KeBaB top: 0 of 0 runs differ from the t longest
+two-level locate: 3120 toeholds checked against SA[sp] (0 block steps among them), 110456 occurrences of MEMs checked against the suffix array
+KeBaB check (T = t, 2t, t + 2; strict and not): 0 runs checked, 0 fell back; --check-seed: same output, 0 seeded fallbacks, backward steps 0 -> 0 (fewer in 0 runs, more in 0); KeBaB top with a fixed L: 0 runs checked
+MEM tests on 23 patterns (276 runs, 16980 MEMs from plain BML/FB): passed
+==   with shortcuts over phrases (heavy paths and the reference's parse): the same MEMs and intervals as plain search
+==   with the move structure (index --move, find --move; plain and two-level search): the same MEMs and intervals as plain search, every step checked against the RLCSA
+==   almost-funnels on the text, both strands (index --text-shortcuts, on the move structure): the same MEMs and intervals as plain search, every jump checked against the RLCSA
+== command line
+  same: 4 threads
+  same: two-level search with tags
+  same: two-level search without jumps, grammar-compressed tags
+  same: Elias-Fano RLCSA, lookup table, sampled tags, FASTA
+  same: explicit RLCSA, sampled tags, LF from the RLCSA
+  same: RLBWT, sampled tags
+  same: no RLBWT file: --csa
+  same: no RLBWT file: --csa with sampled tags
+  same: no RLBWT file: --efcsa with sampled tags and a lookup table
+  same: binary searches narrowed by the lookup table
+  same: binary searches narrowed by the lookup table, Elias-Fano RLCSA, 4 threads
+  same: absent k-mers answered by the lookup table
+  same: absent k-mers and narrowed binary searches
+  same: the compact lookup table
+  same: absent k-mers and narrowed searches, compact table
+  same: absent k-mers and narrowed searches, compact table, Elias-Fano RLCSA
+  same: absent k-mers and narrowed searches with k = L (base by base)
+  same: gzipped reads
+  same: forward-backward search (all MEMs of at least L)
+  same: STPD search with tags (intervals of the reported MEMs by backward search)
+  same: STPD search, chromosome-like
+  same: STPD search without intervals (the same MEMs)
+  same: STPD search with the parse oracle (the text read through the two-level parse)
+  same: STPD locating with the parse oracle
+  same: STPD over the parse, L = 1
+  same: STPD over the parse, forward-backward, L = 1
+  same: STPD over the parse, L = 25
+  same: STPD over the parse, forward-backward, L = 25
+  same: STPD over the parse, L = 100
+  same: STPD over the parse, forward-backward, L = 100
+  same: STPD over the parse, L = 1000
+  same: STPD over the parse, forward-backward, L = 1000
+  same: STPD over the parse, --locate (occurrence counts = ep - sp)
+  same: STPD over the parse through the RLZAP parse oracle, L = 1
+  same: STPD over the parse through the RLZAP parse oracle, L = 100
+  same: STPD over the parse through the RLZAP parse oracle, L = 1000
+  same: STPD over the parse through the RLZAP parse oracle, --locate
+  same: two-level search with blocks, --locate (the same MEMs and intervals, occurrence counts = ep - sp), L = 100
+  same: two-level search with blocks, --locate (the same MEMs and intervals, occurrence counts = ep - sp), L = 1000
+  same: two-level locating and STPD over the parse list the same positions for every MEM
+  same: preset chr19 (two-level, blocks) = plain search
+  same: preset novel (inline KeBaB) = plain BML
+  same: preset silva
+== order-k block feasibility (katka-blocks)
+  katka-blocks: BML's MEMs equal the listing's, k-mer tables checked, every step classified
+== preset zymo (one BWT string per dataset, species tags)
+  same: preset zymo
+  species tags present
+  same: B_lambda with one terminator per dataset (boundary records and fingerprints, one value of lambda per pass, temporary files in --tmp) against brute force
+  same: the tag array built with --tag-lcp
+  temporary files removed
+self-test passed

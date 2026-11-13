@@ -1,0 +1,6 @@
+RLBWT: n = 4002108659, r = 37017420, 182869912 bytes [0.266463 s]
+ell = 25: 2055337 entrances, 95280788 deaths [85.5182 s]
+  theta = 0: 2055337 entrances, 89144626 bytes
+ell = 100: 590191 entrances, 22332745 deaths [89.6212 s]
+  theta = 0: 590191 entrances, 35603346 bytes
+wall 180.43 s, peak 3910088 KB

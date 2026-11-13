@@ -1,0 +1,16 @@
+shortcuts over phrases (heavy:0.9): 8101535, 184.473 MB
+index loaded in 1.2 s
+reads=4 MEMs=16806 without MEMs=0 | threads=1 wall 5.16 s, 1290016.8 us/read
+timing: 4 reads, 1 threads; mean per-read time 1183469.83 us; total time / reads 1290016.83 us (total 5.160 s)
+searches=64289 char_steps=4752917 parse_steps=1966728 block_steps=0 kmer_tests=0 kmer_restarts=0 stpd_jumps=0 stpd_compares=0
+parse steps: entry=1966728 inside=0 end=0; block attempts=0, symbol absent=0, failed block steps=0, back-ups=0, exact exits=0
+nonshrinking parse steps: 1966728 parse steps (34789 failed); from an interval of size 1: 357039 (16015 failed)
+  eps = 0%: (nearly) non-shrinking 1107210 (56.30%), runs 201484, total run length 1107210 (mean 5.50); lower bound steps - ns + runs = 1061002, best-possible speedup in parse steps 1.854
+  run lengths: 1: 81232, 2-3: 46530, 4-7: 33366, 8-15: 23141, 16-31: 12427, 32-63: 4252, 64-127: 495, 128-255: 40, 256-511: 1, 512-1023: 0, 1024-2047: 0, >=2048: 0
+  eps = 1%: (nearly) non-shrinking 1139920 (57.96%), runs 219039, total run length 1139920 (mean 5.20); lower bound steps - ns + runs = 1045847, best-possible speedup in parse steps 1.881
+  run lengths: 1: 94411, 2-3: 50791, 4-7: 33694, 8-15: 22700, 16-31: 12302, 32-63: 4605, 64-127: 495, 128-255: 40, 256-511: 1, 512-1023: 0, 1024-2047: 0, >=2048: 0
+  eps = 5%: (nearly) non-shrinking 1248396 (63.48%), runs 221123, total run length 1248396 (mean 5.65); lower bound steps - ns + runs = 939455, best-possible speedup in parse steps 2.093
+  run lengths: 1: 88275, 2-3: 50864, 4-7: 36849, 8-15: 25861, 16-31: 13217, 32-63: 5498, 64-127: 518, 128-255: 40, 256-511: 1, 512-1023: 0, 1024-2047: 0, >=2048: 0
+  eps = 10%: (nearly) non-shrinking 1318061 (67.02%), runs 204719, total run length 1318061 (mean 6.44); lower bound steps - ns + runs = 853386, best-possible speedup in parse steps 2.305
+  run lengths: 1: 74716, 2-3: 46411, 4-7: 34275, 8-15: 26657, 16-31: 15652, 32-63: 6355, 64-127: 604, 128-255: 48, 256-511: 1, 512-1023: 0, 1024-2047: 0, >=2048: 0
+shortcuts: entrances met=1227119, pattern not alpha=371187, taken=819740 (phrases crossed 15377513), failed midway=36192

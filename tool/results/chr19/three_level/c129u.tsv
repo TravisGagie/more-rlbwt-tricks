@@ -1,0 +1,28 @@
+prefix	$HOME/research/rlbwt-tricks/chr19/unique/c129u
+phrases	862158111
+distinct	11011641
+blocks	177297475
+phrases_per_block	4.863
+
+k2	s2	level2_phrases	distinct	phrases_per_level2_phrase
+5	2	431293974	10691090	1.999
+9	2	216392367	7911274	3.984
+17	2	108116721	6298699	7.974
+33	2	54266332	5234177	15.888
+65	2	27349546	4394893	31.524
+
+MEMs	16806
+level1_phrases_per_MEM_mean	665.42
+level1_phrases_per_MEM_median	361.0
+level1_phrases_total	11183098
+blocks_per_MEM_mean	130.22
+blocks_per_MEM_median	100.0
+block_steps_total	2188512
+phrases_not_in_dictionary	0
+
+k2	s2	MEMs_with_a_whole_level2_phrase	whole_level2_mean	whole_level2_median	fringe_level1_mean	fringe_level1_median	fringe_blocks_mean	steps_level2+level1_total	steps_level2+blocks_total	steps_blocks_total
+5	2	16806	329.67	178.0	6.40	6.0	3.83	5648037	5604909	2188512
+9	2	16806	164.11	87.0	13.31	13.0	6.80	2981677	2872278	2188512
+17	2	16805	80.38	42.0	27.63	27.0	12.66	1815249	1563575	2188512
+33	2	15976	38.90	20.0	55.65	55.0	23.43	1588930	1047455	2188512
+65	2	13271	18.24	8.0	104.30	103.0	38.94	2059427	961011	2188512

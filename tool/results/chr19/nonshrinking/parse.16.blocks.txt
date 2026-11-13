@@ -1,0 +1,14 @@
+index loaded in 0.5 s
+reads=4 MEMs=22711 without MEMs=0 | threads=1 wall 5.95 s, 1486500.3 us/read
+timing: 4 reads, 1 threads; mean per-read time 1379272.55 us; total time / reads 1486500.26 us (total 5.946 s)
+searches=92957 char_steps=6802862 parse_steps=2547359 block_steps=1814194 kmer_tests=0 kmer_restarts=0 stpd_jumps=0 stpd_compares=0
+parse steps: entry=1333558 inside=61513 end=1152288; block attempts=147083, symbol absent=43759, failed block steps=72088, back-ups=25207, exact exits=44660
+nonshrinking parse steps: 2547359 parse steps (44293 failed); from an interval of size 1: 454145 (19854 failed)
+  eps = 0%: (nearly) non-shrinking 1954727 (76.74%), runs 135322, total run length 1954727 (mean 14.45); lower bound steps - ns + runs = 727954, best-possible speedup in parse steps 3.499
+  run lengths: 1: 21456, 2-3: 22353, 4-7: 21294, 8-15: 26236, 16-31: 25776, 32-63: 15678, 64-127: 2246, 128-255: 276, 256-511: 7, 512-1023: 0, 1024-2047: 0, >=2048: 0
+  eps = 1%: (nearly) non-shrinking 1957292 (76.84%), runs 136356, total run length 1957292 (mean 14.35); lower bound steps - ns + runs = 726423, best-possible speedup in parse steps 3.507
+  run lengths: 1: 21860, 2-3: 22799, 4-7: 21433, 8-15: 26281, 16-31: 25775, 32-63: 15679, 64-127: 2246, 128-255: 276, 256-511: 7, 512-1023: 0, 1024-2047: 0, >=2048: 0
+  eps = 5%: (nearly) non-shrinking 1978115 (77.65%), runs 127918, total run length 1978115 (mean 15.46); lower bound steps - ns + runs = 697162, best-possible speedup in parse steps 3.654
+  run lengths: 1: 20316, 2-3: 21265, 4-7: 18720, 8-15: 23114, 16-31: 24543, 32-63: 17075, 64-127: 2533, 128-255: 345, 256-511: 7, 512-1023: 0, 1024-2047: 0, >=2048: 0
+  eps = 10%: (nearly) non-shrinking 1995112 (78.32%), runs 120532, total run length 1995112 (mean 16.55); lower bound steps - ns + runs = 672779, best-possible speedup in parse steps 3.786
+  run lengths: 1: 18736, 2-3: 20182, 4-7: 16543, 8-15: 20488, 16-31: 23164, 32-63: 18188, 64-127: 2811, 128-255: 401, 256-511: 19, 512-1023: 0, 1024-2047: 0, >=2048: 0

@@ -1,0 +1,4 @@
+parse STPD: m=862158111, sigma=11011641, r_Z=17449211 parse BWT runs, 17449209 run starts, 14784283 sampled (0.847 of r_Z): sample 55.441 MB, entry 41.294 MB, C 13.155 MB, phi^-1 85.061 MB (274.5 s)
+STPD over the parse: 109.890 MB (+85.061 MB for locating); parse oracle 3631.845 MB (peak memory of this step 11.53 GB)
+index built in 279.0 s (peak memory 11.53 GB)
+wall 279.02 s, peak 11260096 KB

@@ -1,0 +1,7 @@
+$HOME/research/rlbwt-tricks/chr19/c33.csa 579342093
+$HOME/research/rlbwt-tricks/chr19/c33.info 17
+$HOME/research/rlbwt-tricks/chr19/c33.lvl 208527959
+$HOME/research/rlbwt-tricks/chr19/c33.pstpd 116856184
+$HOME/research/rlbwt-tricks/chr19/c33.ptxt 1036369054
+$HOME/research/rlbwt-tricks/chr19/c33.rlbwt 191252588
+$HOME/research/rlbwt-tricks/chr19/c33.stpd 527612556

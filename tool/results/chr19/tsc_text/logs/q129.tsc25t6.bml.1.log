@@ -1,0 +1,9 @@
+text shortcuts: ell 25, tau 6, 4029012 entrances, 975452282 rows, 657.640 MB
+move structure: 79393831 runs (split at 65535), 800.469 MB (records 635.151, run starts 109.425, runs per symbol 53.797, 8-mer table 2.097)
+index loaded in 0.8 s
+reads=4 MEMs=16806 without MEMs=0 | threads=1 wall 7.65 s, 1912553.6 us/read
+timing: 4 reads, 1 threads; mean per-read time 1870946.52 us; total time / reads 1912553.61 us (total 7.650 s)
+searches=47483 char_steps=39293392 parse_steps=0 block_steps=0 kmer_tests=0 kmer_restarts=0 stpd_jumps=0 stpd_compares=0
+text shortcuts: entrances met 2970863, alpha not matched 1503452, jumps taken 1458059 (characters crossed 264819925), tiers with an empty interval 37305
+shortcuts: entrances met=2970863, pattern not alpha=1503452, taken=1458059 (phrases crossed 264819925), failed midway=37305
+wall 8.56 s, peak 1649664 KB

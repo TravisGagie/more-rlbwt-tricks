@@ -1,0 +1,75 @@
+wall 6.42 s, peak 3950704 KB: python3 $HOME/research/mem-finding/tool/experiments/fasta_from_S.py
+stpd-prep: 65 genomes, |T| = 7999396890 (both strands, A/C/G/T pieces); the first genome (both strands) has 123414728 characters (st.reflen)
+wall 63.20 s, peak 133984 KB: katka stpd-prep
+Sending logging messages to file: st.S.log
+==== Parsing. Command: $HOME/research/deps/Big-BWT/newscanNT.x st.S -w 10 -p 100
+Elapsed time: 347.7750
+==== Computing BWT of parsing. Command: $HOME/research/deps/Big-BWT/bwtparse st.S
+Elapsed time: 29.4304
+==== Computing final BWT. Command: $HOME/research/deps/Big-BWT/pfbwtNT.x -w 10 st.S
+Elapsed time: 234.9546
+Total construction time: 612.1627
+==== Deleting temporary files.
+==== Done
+wall 612.35 s, peak 3705588 KB: bigbwt st.S
+parse oracle: n=7999396891, 434112020 phrases, 9519619 distinct; dictionary 169.0 MB (668873765 bases at 2 bits, 1 phrases with other characters, 0 X runs; offsets 35.7 MB), parse 1302.3 MB, starts 404.7 MB (1.91 bits per character in all; 202.5 s)
+parse oracle: 1911.770 MB (peak memory of this step 2.21 GB)
+index built in 203.0 s (peak memory 2.21 GB)
+wall 203.01 s, peak 2153884 KB: katka index
+== $HOME/research/mem-finding/tool/bin/katka index --stpd --parse-oracle st
+RLBWT: n=7999396891 r=72587410, 226.705 MB (30.7 s)
+parse oracle: n=7999396891, 434112020 phrases, 9519619 distinct; dictionary 169.0 MB (668873765 bases at 2 bits, 1 phrases with other characters, 0 X runs; offsets 35.7 MB), parse 1302.3 MB, starts 404.7 MB (1.91 bits per character in all; 206.4 s)
+parse oracle: 1911.770 MB (peak memory of this step 2.37 GB)
+STPD: n=7999396891 r=72587410, 72587408 run starts, 46786104 sampled positions (0.645 of r), 192.993 MB on top of the text (+392.359 MB for phi^-1), 1038.8 s
+STPD sample built through the parse oracle (peak memory of this step 7.17 GB)
+index built in 1278.6 s (peak memory 7.17 GB)
+wall 1278.66 s, peak 7001736 KB: katka index --stpd
+== $HOME/research/mem-finding/tool/bin/katka stpd-export st
+stpd-export: 46786104 sampled positions (+ position 0)
+Command terminated by signal 9
+wall 1047.57 s, peak 11514032 KB: katka stpd-export st
+== $HOME/research/mem-finding/tool/bin/katka stpd-export st
+stpd-export: 46786104 sampled positions (+ position 0)
+stpd-export: PLCP done (1085.9 s)
+stpd-export: wrote st.T.{colex_m,rbwt,pa,lcs} for 7999396891 rows (6865.2 s)
+wall 6865.41 s, peak 11492116 KB: katka stpd-export st
+== $HOME/research/rlbwt-tricks/STPD-index/build/CLI/stpd-build -i st.T -o st.RLZ-r-index.stpdi -t RLZ -p r-index -l 123414728 -k
+
+[INFO] Suffix Tree path decomposition found! Proceeding to index construction
+
+[INFO] Constructing the STPD-index using the path decomposition in st.T.colex_m
+
+[STEP 1] Constructing the random-access text oracle...
+[STEP 2] Constructing the binary search data structure...
+		- Tabulation length = 7
+		- PA samples width = 33 bits per entry
+		- LCS values width = 3 bits per entry
+		- STPD array size = 46786105
+		- Text size = 7999396890
+		- N/S = 170.978
+[STEP 3] Constructing the phi function...
+
+[DONE] Index successfully built!
+
+[INFO] Writing components to disk:
+		- Random-access data structure size = 95443141 bytes
+		- Binary search data structure size = 218216216 bytes
+		- Phi-function data structure size = 386278960 bytes
+
+[DONE] Index successfully stored!
+		→ Total index size in disk = 699938317 bytes
+
+malloc_count ### exiting, total: 15,794,239,799, peak: 9,330,732,725, current: 4,096
+wall 3305.66 s, peak 8983736 KB: stpd-build -i st.T
+== $HOME/research/rlbwt-tricks/STPD-index/build/CLI/stpd-build -i st.T -o st.bitpacked-r-index.stpdi -t bitpacked -p r-index -k
+
+[INFO] Suffix Tree path decomposition found! Proceeding to index construction
+
+[INFO] Constructing the STPD-index using the path decomposition in st.T.colex_m
+
+[STEP 1] Constructing the random-access text oracle...
+[STEP 2] Constructing the binary search data structure...
+		- Tabulation length = 7
+		- PA samples width = 33 bits per entry
+		- LCS values width = 3 bits per entry
+== (stopped at 19:42 when the request's scope was narrowed to RLZ + r-index; no bitpacked index at 32)

@@ -1,0 +1,24 @@
+[2026-11-11 13:00:18] 16 individuals: build fwd, tau = 0, ell = 25,100
+[2026-11-11 13:03:22] 16 individuals: build rev, tau = 0, ell = 25,100
+[2026-11-11 13:06:13] 16 individuals: query
+16 individuals, ell100_theta0 bml: MEMs 22708, plain 304.65 s, shortcuts 71.41 s
+16 individuals, ell100_theta0 fb: MEMs 22708, plain 300.58 s, shortcuts 71.99 s
+16 individuals, ell25_theta0 bml: MEMs 22708, plain 304.65 s, shortcuts 67.27 s
+16 individuals, ell25_theta0 fb: MEMs 22708, plain 300.58 s, shortcuts 69.19 s
+[2026-11-11 13:50:31] 32 individuals: build fwd, tau = 0, ell = 25,100
+[2026-11-11 13:53:32] 32 individuals: build rev, tau = 0, ell = 25,100
+[2026-11-11 13:56:32] 32 individuals: query
+32 individuals, ell100_theta0 bml: MEMs 18479, plain 342.10 s, shortcuts 80.12 s
+32 individuals, ell100_theta0 fb: MEMs 18479, plain 332.72 s, shortcuts 78.91 s
+32 individuals, ell25_theta0 bml: MEMs 18479, plain 342.10 s, shortcuts 75.50 s
+32 individuals, ell25_theta0 fb: MEMs 18479, plain 332.72 s, shortcuts 74.92 s
+head: error writing 'standard output': Disk quota exceeded
+exit 1
+[2026-11-11 14:47:08] 64 individuals: build fwd, tau = 0, ell = 25,100
+[2026-11-11 14:50:21] 64 individuals: build rev, tau = 0, ell = 25,100
+[2026-11-11 14:53:32] 64 individuals: query
+64 individuals, ell100_theta0 bml: MEMs 16804, plain 364.64 s, shortcuts 86.00 s
+64 individuals, ell100_theta0 fb: MEMs 16804, plain 360.19 s, shortcuts 84.90 s
+64 individuals, ell25_theta0 bml: MEMs 16804, plain 364.64 s, shortcuts 79.85 s
+64 individuals, ell25_theta0 fb: MEMs 16804, plain 360.19 s, shortcuts 80.75 s
+exit 0

@@ -1,0 +1,16 @@
+$HOME/research/rlbwt-tricks/chr19/c65: m = 434172121 phrases, sigma = 9522052, parse BWT 12954298 runs, smallest-rule blocks 52209743 (sided 0, max block 0)
+parse recovered (55.2 s)
+successors (110.2 s)
+smallest: z = 52209743, sigma = 1780430, r = 4548667 (129.4 s)
+largest: z = 53020440, sigma = 1774492, r = 4551591 (148.8 s)
+perphrase: z = 36168623, sigma = 1751008, r = 4142168 (162.1 s)
+frequent: z = 14425400, sigma = 1950966, r = 3500457 (170.5 s)
+unique: z = 75378134, sigma = 1849468, r = 5017741 (198.2 s)
+the index's rule (smallest) agrees: z = 52209743, sigma = 1780430
+smallest: block order equals the parse order
+largest: block order equals the parse order
+perphrase: block order equals the parse order
+frequent: block order equals the parse order
+unique: block order equals the parse order
+done (283.0 s)
+wall 283.06 s, peak 5460616 KB

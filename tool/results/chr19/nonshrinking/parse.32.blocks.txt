@@ -1,0 +1,14 @@
+index loaded in 1.0 s
+reads=4 MEMs=18479 without MEMs=0 | threads=1 wall 5.79 s, 1446818.9 us/read
+timing: 4 reads, 1 threads; mean per-read time 1338169.64 us; total time / reads 1446818.87 us (total 5.787 s)
+searches=72371 char_steps=5329354 parse_steps=1569397 block_steps=2130105 kmer_tests=0 kmer_restarts=0 stpd_jumps=0 stpd_compares=0
+parse steps: entry=764825 inside=55016 end=749556; block attempts=123828, symbol absent=27774, failed block steps=67468, back-ups=23861, exact exits=37396
+nonshrinking parse steps: 1569397 parse steps (37350 failed); from an interval of size 1: 306583 (17265 failed)
+  eps = 0%: (nearly) non-shrinking 1147671 (73.13%), runs 104258, total run length 1147671 (mean 11.01); lower bound steps - ns + runs = 525984, best-possible speedup in parse steps 2.984
+  run lengths: 1: 21283, 2-3: 20163, 4-7: 17631, 8-15: 19907, 16-31: 16729, 32-63: 7633, 64-127: 857, 128-255: 54, 256-511: 1, 512-1023: 0, 1024-2047: 0, >=2048: 0
+  eps = 1%: (nearly) non-shrinking 1150853 (73.33%), runs 105412, total run length 1150853 (mean 10.92); lower bound steps - ns + runs = 523956, best-possible speedup in parse steps 2.995
+  run lengths: 1: 21600, 2-3: 20826, 4-7: 17772, 8-15: 19915, 16-31: 16752, 32-63: 7635, 64-127: 857, 128-255: 54, 256-511: 1, 512-1023: 0, 1024-2047: 0, >=2048: 0
+  eps = 5%: (nearly) non-shrinking 1178915 (75.12%), runs 91970, total run length 1178915 (mean 12.82); lower bound steps - ns + runs = 482452, best-possible speedup in parse steps 3.253
+  run lengths: 1: 17951, 2-3: 17716, 4-7: 13461, 8-15: 16049, 16-31: 16033, 32-63: 9535, 64-127: 1134, 128-255: 90, 256-511: 1, 512-1023: 0, 1024-2047: 0, >=2048: 0
+  eps = 10%: (nearly) non-shrinking 1190898 (75.88%), runs 88440, total run length 1190898 (mean 13.47); lower bound steps - ns + runs = 466939, best-possible speedup in parse steps 3.361
+  run lengths: 1: 16685, 2-3: 17670, 4-7: 12244, 8-15: 14766, 16-31: 15429, 32-63: 10289, 64-127: 1245, 128-255: 111, 256-511: 1, 512-1023: 0, 1024-2047: 0, >=2048: 0

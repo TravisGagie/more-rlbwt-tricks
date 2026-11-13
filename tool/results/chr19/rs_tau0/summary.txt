@@ -1,0 +1,12 @@
+16 individuals, ell100_theta0 bml: MEMs 22708, plain 304.65 s, shortcuts 71.41 s
+16 individuals, ell100_theta0 fb: MEMs 22708, plain 300.58 s, shortcuts 71.99 s
+16 individuals, ell25_theta0 bml: MEMs 22708, plain 304.65 s, shortcuts 67.27 s
+16 individuals, ell25_theta0 fb: MEMs 22708, plain 300.58 s, shortcuts 69.19 s
+32 individuals, ell100_theta0 bml: MEMs 18479, plain 342.10 s, shortcuts 80.12 s
+32 individuals, ell100_theta0 fb: MEMs 18479, plain 332.72 s, shortcuts 78.91 s
+32 individuals, ell25_theta0 bml: MEMs 18479, plain 342.10 s, shortcuts 75.50 s
+32 individuals, ell25_theta0 fb: MEMs 18479, plain 332.72 s, shortcuts 74.92 s
+64 individuals, ell100_theta0 bml: MEMs 16804, plain 364.64 s, shortcuts 86.00 s
+64 individuals, ell100_theta0 fb: MEMs 16804, plain 360.19 s, shortcuts 84.90 s
+64 individuals, ell25_theta0 bml: MEMs 16804, plain 364.64 s, shortcuts 79.85 s
+64 individuals, ell25_theta0 fb: MEMs 16804, plain 360.19 s, shortcuts 80.75 s

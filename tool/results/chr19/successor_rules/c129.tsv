@@ -1,0 +1,19 @@
+prefix	$HOME/research/rlbwt-tricks/chr19/c129
+phrases	862158111
+distinct	11011641
+occurrences_with_successor	862158110
+rule	followed	fraction	blocks	symbols	block_bwt_runs	block_order_equals_parse_order
+smallest	741535546	0.860092	120622565	2580091	8009328	yes
+largest	739641123	0.857895	122516988	2572240	8012801	yes
+perphrase	784395201	0.909804	77762910	2602881	7353671	yes
+frequent	833104124	0.966301	29053987	2956029	6147538	yes
+unique	684860636	0.794356	177297475	2598749	8602928	yes
+distinct_with_ge2_successors	1072637
+distinct_with_ge3_successors	196961
+their_occurrences	83282395	0.096598
+ge3_frequent_is_smallest	51664	0.262306
+ge3_frequent_is_largest	43419	0.220445
+ge3_frequent_is_neither	101878	0.517250
+ge3_max_count_tied	5913	0.030021
+ge3_smallest_attains_max	51664	0.262306
+ge3_largest_attains_max	47426	0.240789

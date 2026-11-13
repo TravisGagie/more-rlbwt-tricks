@@ -1,8 +1,10 @@
 build/
-final/
-continuation/
-results/
-data/
-selftest/
-chr19/
-*.log
+# outputs of the earlier implementation's scripts, at the top of the repository
+/final/
+/continuation/
+/results/
+/data/
+/selftest/
+/chr19/
+/*.log
+twolevel/*.log

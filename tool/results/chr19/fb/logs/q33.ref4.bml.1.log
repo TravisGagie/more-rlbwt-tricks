@@ -1,0 +1,7 @@
+shortcuts over phrases (ref:4): 773337, 18.841 MB
+index loaded in 0.5 s
+reads=4 MEMs=22711 without MEMs=0 | threads=1 wall 7.29 s, 1822188.6 us/read
+timing: 4 reads, 1 threads; mean per-read time 1720137.59 us; total time / reads 1822188.59 us (total 7.289 s)
+searches=92957 char_steps=6802862 parse_steps=10763725 block_steps=0 kmer_tests=0 kmer_restarts=0 stpd_jumps=0 stpd_compares=0
+parse steps: entry=10763725 inside=0 end=0; block attempts=0, symbol absent=0, failed block steps=0, back-ups=0, exact exits=0
+shortcuts: entrances met=1674942, pattern not alpha=575611, taken=1089914 (phrases crossed 4359656), failed midway=9417
