@@ -1,0 +1,7 @@
+# started on Sun Nov 22 12:52:02 2026
+
+3145201941,,cycles:u,987973137,100.00,,
+4121256718,,instructions:u,987973137,100.00,,
+234257,,mem_load_retired.l3_miss:u,987973137,100.00,,
+3858255,,dtlb_load_misses.walk_active:u,987973137,100.00,,
+39841270,,branch-misses:u,987973137,100.00,,

@@ -1,0 +1,18 @@
+[37m[INFO] 11:17:47 - Number of threads: 1
+[0m[37m[INFO] 11:17:47 - Number of threads: 1
+[0m[37m[INFO] 11:17:47 - Movi index version: 2.0.0
+[0m[37m[INFO] 11:17:47 - The regular index is being used.
+[0m[37m[INFO] 11:17:47 - All the move rows are read.
+[0m[37m[INFO] 11:17:47 - Time measured for loading the index: 0.290 seconds.
+
+[0m[37m[INFO] 11:17:47 - Reading the ftab.
+ftab_k: 10	ftab_size: 1048576
+
+[0m[37m[INFO] 11:17:47 - Ftab was read!
+[0m[37m[INFO] 11:17:47 - Latency hiding is disabled...
+[0m[92m
+[SUCCESS] 11:18:52 - 2 reads are processed.
+
+[0m[37m[INFO] 11:18:52 - Time measured for processing the reads: 65.210 seconds.
+
+[0m

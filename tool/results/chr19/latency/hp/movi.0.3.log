@@ -1,0 +1,21 @@
+[37m[INFO] 01:00:19 - Number of threads: 1
+[0m[37m[INFO] 01:00:19 - Number of threads: 1
+[0m[37m[INFO] 01:00:19 - Movi index version: 2.0.0
+[0m[37m[INFO] 01:00:19 - The regular index is being used.
+[0m[37m[INFO] 01:00:20 - All the move rows are read.
+[0m[37m[INFO] 01:00:20 - Time measured for loading the index: 0.273 seconds.
+
+[0m[37m[INFO] 01:00:20 - Reading the ftab.
+ftab_k: 10	ftab_size: 1048576
+
+[0m[37m[INFO] 01:00:20 - Ftab was read!
+[0m[33m
+
+[WARN] 01:00:20 - Setting minimum MEM (length 1000) greater than ftab k (10) causes a slower MEM search.
+[0m[37m[INFO] 01:00:20 - Latency hiding is disabled...
+[0m[92m
+[SUCCESS] 01:00:46 - 2 reads are processed.
+
+[0m[37m[INFO] 01:00:46 - Time measured for processing the reads: 26.283 seconds.
+
+[0m

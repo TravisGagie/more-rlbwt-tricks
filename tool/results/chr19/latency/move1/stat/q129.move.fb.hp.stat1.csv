@@ -1,0 +1,7 @@
+# started on Sun Nov 22 12:51:02 2026
+
+85568680380,,cycles:u,18989913566,100.00,,
+38587957525,,instructions:u,18989913566,100.00,,
+62192905951,,cycle_activity.stalls_total:u,18989913566,100.00,,
+59909177788,,cycle_activity.stalls_mem_any:u,18989913566,100.00,,
+55118459973,,cycle_activity.stalls_l3_miss:u,18989913566,100.00,,

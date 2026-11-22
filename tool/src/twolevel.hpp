@@ -275,6 +275,7 @@ struct two_level {
         if (parse_only) { pbwt = EFRank(); has_blocks = 0; fclose(f); return; }
         if (has_blocks) { BS.load(f); bbwt.load(f); succp.load(f); dstart.load(f); jv.load(f); rvec(f, ccont); rvec(f, sidev); }
         fclose(f);
+        if (!getenv("KATKA_NO_FIRST_RUN")) { pbwt.build_first(); if (has_blocks) bbwt.build_first(); }   // the first-run tables (KATKA_NO_FIRST_RUN: none)
     }
 };
 
@@ -454,6 +455,32 @@ struct twolevel_locate {
     }
 };
 
+#ifdef KATKA_LATCOUNT
+// Counting build for the latency study (results/chr19/latency/README.md): steps per symbol in pbwt and bbwt, written
+// at exit to $KATKA_LATCOUNT_OUT.{pbwt,bbwt}.steps (one uint64 per symbol id).  Not for timing.
+struct lat_count {
+    std::vector<uint64_t> p, b;
+    inline void step(std::vector<uint64_t> &v, uint64_t c) { if (c >= v.size()) v.resize(c + 1, 0); ++v[c]; }
+    ~lat_count() {
+        const char *o = getenv("KATKA_LATCOUNT_OUT");
+        if (!o) return;
+        for (int k = 0; k < 2; ++k) {
+            std::string f = std::string(o) + (k ? ".bbwt.steps" : ".pbwt.steps");
+            const std::vector<uint64_t> &v = k ? b : p;
+            FILE *w = fopen(f.c_str(), "wb");
+            if (w) { fwrite(v.data(), 8, v.size(), w); fclose(w); }
+        }
+    }
+};
+inline lat_count g_lat;
+#define LATCOUNT(x) x
+#else
+#define LATCOUNT(x)
+#endif
+
+// Lookahead distance d of the parse steps' prefetches (latency study): $KATKA_LA_D, 0 (none) by default.
+inline const int64_t g_la_d = getenv("KATKA_LA_D") ? atoll(getenv("KATKA_LA_D")) : 0;
+
 // The longest suffix X[j..end) of X[begin..end) that occurs in S, and its interval: the same result as
 // plain backward search (Theorem "twolevel"; with jumps, Lemmas "blockstart" and "backup").  Returns j.
 // With TL (and B, the RLBWT), *toehold is set to SA[out.sp] (if out is not empty).
@@ -502,6 +529,8 @@ inline u64 search2(const stepper &st, const two_level &L, const pattern_parse &p
     const auto &S = pi.S;
     int64_t idx = (int64_t)(std::upper_bound(S.begin(), S.end(), end - K) - S.begin()) - 1;
     PROF(const int pd = g_prof.dir; ++g_prof.tl_searches[pd]; u64 prof_t = ps_prof::now(), prof_c = cnt.char_steps);
+    if (g_la_d && idx > 0)                                // lookahead: the new window's first phrases, before its character steps
+        for (int64_t q = idx - 1, lo = std::max<int64_t>(0, idx - 1 - 2 * g_la_d); q >= lo; --q) if (pi.pid[q]) L.pbwt.pf_first(pi.pid[q]);
     if (idx >= 0 && S[idx] >= begin && char_steps_to(S[idx])) {
         PROF(g_prof.cyc[16] += ps_prof::now() - prof_t; g_prof.tl_right[pd] += cnt.char_steps - prof_c; ++g_prof.tl_parse[pd]; prof_t = ps_prof::now();
              const u64 prof_p = cnt.parse_steps);
@@ -515,10 +544,20 @@ inline u64 search2(const stepper &st, const two_level &L, const pattern_parse &p
         jumps = jumps && L.has_blocks && !L.SC;               // shortcuts replace block steps
         if (L.SC && TLc) die("shortcuts over phrases do not support locating");
         u64 seg = 0; int segkind = 0;                        // parse steps since the last attempt; 0: entry, 1: re-crossing
+        // lookahead (latency study): stage 1 (pf_first) issued down to p1, stage 2 (pf_runs) down to p2, for the phrases
+        // 2d and d steps ahead in pi.pid; after a jump (blocks, shortcuts) they restart below the new i
+        int64_t p1 = g_la_d && i > 0 ? std::max<int64_t>(0, i - 1 - 2 * g_la_d) - 1 : i - 1, p2 = i - 1;   // stage 1 was issued at entry
+        auto lookahead = [&]() {
+            if (p1 > i - 1) p1 = i - 1;
+            if (p2 > i - 1) p2 = i - 1;
+            for (const int64_t lo = std::max<int64_t>(0, i - 1 - 2 * g_la_d); p1 >= lo; --p1) if (pi.pid[p1]) L.pbwt.pf_first(pi.pid[p1]);
+            for (const int64_t lo = std::max<int64_t>(0, i - 1 - g_la_d); p2 >= lo; --p2) if (pi.pid[p2]) L.pbwt.pf_runs(pi.pid[p2]);
+        };
 #ifdef KATKA_NS
         rl_counts &nsr = g_ns.rl[g_ns.dir]; ++nsr.searches; u64 ns_toe = plo; bool ns_in1 = false;
 #endif
         while (i > 0 && S[i - 1] >= begin && pi.pid[i - 1]) {
+            if (g_la_d) lookahead();
             if (jumps && i <= noblock_above && !pi.cont[i]) {
                 (segkind ? cnt.pe_inside : cnt.pe_entry) += seg; seg = 0;    // the match went on past them
                 ++cnt.b_attempts;
@@ -541,6 +580,7 @@ inline u64 search2(const stepper &st, const two_level &L, const pattern_parse &p
                     if (!y) { ++cnt.b_nosym; break; }
                     uint64_t o1, o2;
                     L.bbwt.lf2(y, blo, bhi, o1, o2);
+                    LATCOUNT(g_lat.step(g_lat.b, y));
                     ++cnt.block_steps;
                     if (o1 >= o2) { ++cnt.b_fail; break; }
                     if (cur != i && pi.real[cur]) { sblo = blo; sbhi = bhi; scur = cur; sbt = bt; }
@@ -579,6 +619,7 @@ inline u64 search2(const stepper &st, const two_level &L, const pattern_parse &p
             }
             uint64_t o1, o2;
             L.pbwt.lf2(pi.pid[i - 1], plo, phi + 1, o1, o2);
+            LATCOUNT(g_lat.step(g_lat.p, pi.pid[i - 1]));
             ++cnt.parse_steps; ++seg;
 #ifdef KATKA_NS
             g_ns.step(phi - plo + 1, o1 < o2 ? o2 - o1 : 0);

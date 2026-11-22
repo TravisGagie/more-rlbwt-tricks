@@ -1,0 +1,23 @@
+parse's index: bbwt	bits.hpp:104	8.1360	uint64_t b = j * l, w = b >> 6, o = b & 63, x = low[w] >> o;
+parse's index: bbwt	bits.hpp:113	4.3985	uint64_t word = high[w] & (~0ull << (p & 63));
+parse's index: bbwt	bits.hpp:112	3.9659	uint64_t i = k / SAMPLE1, p = f1[i], rem = k - i * SAMPLE1, w = p >> 6
+parse's index: pbwt	bits.hpp:104	3.7255	uint64_t b = j * l, w = b >> 6, o = b & 63, x = low[w] >> o;
+parse's index: pbwt	bits.hpp:112	3.3409	uint64_t i = k / SAMPLE1, p = f1[i], rem = k - i * SAMPLE1, w = p >> 6
+parse's index: bbwt	bits.hpp:131	3.0886	uint64_t word = ONE ? high[w] : ~high[w];
+parse's index: bbwt	bits.hpp:240	2.5718	uint64_t b = i * w, k = b >> 6, o = b & 63, x = d[k] >> o;
+parse's index: pbwt	bits.hpp:113	2.2473	uint64_t word = high[w] & (~0ull << (p & 63));
+parse's index: pbwt	bits.hpp:122	1.5503	uint64_t lo = smp[i] >> 9;
+parse's index: pbwt	bits.hpp:131	1.4542	uint64_t word = ONE ? high[w] : ~high[w];
+parse's index: bbwt	bits.hpp:122	1.0696	uint64_t lo = smp[i] >> 9;
+parse's index: pbwt	bits.hpp:124	1.0455	auto before = [&](uint64_t blk) { return ONE ? ones[blk] : (blk << 9) 
+parse's index: bbwt	bits.hpp:124	0.5408	auto before = [&](uint64_t blk) { return ONE ? ones[blk] : (blk << 9) 
+parse's index: bbwt	bits.hpp:117	0.4807	rem -= c; word = high[++w];
+parse's index: pbwt	bits.hpp:129	0.4447	uint64_t rem = k - before(lo);
+parse's index: bbwt	bits.hpp:105	0.3605	if (o + l > 64) x |= low[w + 1] << (64 - o);
+parse's index: bbwt	bits.hpp:129	0.3485	uint64_t rem = k - before(lo);
+parse's index: bbwt	bits.hpp:123	0.2764	uint64_t hi = (i + 1 < smp.size()) ? (smp[i + 1] >> 9) + 1 : ones.size
+parse's index: pbwt	bits.hpp:105	0.2524	if (o + l > 64) x |= low[w + 1] << (64 - o);
+parse's index: pbwt	bits.hpp:117	0.1803	rem -= c; word = high[++w];
+parse's index: pbwt	bits.hpp:123	0.1562	uint64_t hi = (i + 1 < smp.size()) ? (smp[i + 1] >> 9) + 1 : ones.size
+parse's index: pbwt	bits.hpp:152	0.0361	while (!word) word = ~high[++w];
+parse's index: bbwt	bits.hpp:152	0.0240	while (!word) word = ~high[++w];

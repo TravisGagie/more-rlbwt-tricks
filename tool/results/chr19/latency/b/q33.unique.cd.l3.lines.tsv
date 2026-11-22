@@ -1,0 +1,25 @@
+parse's index: bbwt	bits.hpp:104	7.4895	uint64_t b = j * l, w = b >> 6, o = b & 63, x = low[w] >> o;
+parse's index: bbwt	bits.hpp:512	4.1734	const first_run e = ft[c];
+parse's index: bbwt	bits.hpp:131	2.3940	uint64_t word = ONE ? high[w] : ~high[w];
+parse's index: bbwt	bits.hpp:113	1.4882	uint64_t word = high[w] & (~0ull << (p & 63));
+parse's index: pbwt	bits.hpp:104	1.0029	uint64_t b = j * l, w = b >> 6, o = b & 63, x = low[w] >> o;
+parse's index: pbwt	bits.hpp:113	0.8897	uint64_t word = high[w] & (~0ull << (p & 63));
+parse's index: bbwt	bits.hpp:513	0.7603	if (ft[c + 1].b == e.b) { o1 = o2 = n; return; }                     /
+parse's index: bbwt	bits.hpp:112	0.6632	uint64_t i = k / SAMPLE1, p = f1[i], rem = k - i * SAMPLE1, w = p >> 6
+parse's index: pbwt	bits.hpp:513	0.4691	if (ft[c + 1].b == e.b) { o1 = o2 = n; return; }                     /
+parse's index: pbwt	bits.hpp:105	0.3073	if (o + l > 64) x |= low[w + 1] << (64 - o);
+parse's index: bbwt	bits.hpp:123	0.2426	uint64_t hi = (i + 1 < smp.size()) ? (smp[i + 1] >> 9) + 1 : ones.size
+parse's index: bbwt	bits.hpp:105	0.2265	if (o + l > 64) x |= low[w + 1] << (64 - o);
+parse's index: bbwt	bits.hpp:124	0.2103	auto before = [&](uint64_t blk) { return ONE ? ones[blk] : (blk << 9) 
+parse's index: bbwt	bits.hpp:129	0.2103	uint64_t rem = k - before(lo);
+parse's index: bbwt	bits.hpp:122	0.1941	uint64_t lo = smp[i] >> 9;
+parse's index: pbwt	bits.hpp:123	0.1618	uint64_t hi = (i + 1 < smp.size()) ? (smp[i + 1] >> 9) + 1 : ones.size
+parse's index: bbwt	bits.hpp:117	0.1456	rem -= c; word = high[++w];
+parse's index: pbwt	bits.hpp:124	0.0809	auto before = [&](uint64_t blk) { return ONE ? ones[blk] : (blk << 9) 
+parse's index: pbwt	bits.hpp:512	0.0809	const first_run e = ft[c];
+parse's index: pbwt	bits.hpp:112	0.0809	uint64_t i = k / SAMPLE1, p = f1[i], rem = k - i * SAMPLE1, w = p >> 6
+parse's index: pbwt	bits.hpp:117	0.0324	rem -= c; word = high[++w];
+parse's index: pbwt	bits.hpp:131	0.0324	uint64_t word = ONE ? high[w] : ~high[w];
+parse's index: bbwt	bits.hpp:108	0.0162	inline bool hbit(uint64_t p) const { return (high[p >> 6] >> (p & 63))
+parse's index: pbwt	bits.hpp:108	0.0162	inline bool hbit(uint64_t p) const { return (high[p >> 6] >> (p & 63))
+parse's index: pbwt	bits.hpp:122	0.0162	uint64_t lo = smp[i] >> 9;

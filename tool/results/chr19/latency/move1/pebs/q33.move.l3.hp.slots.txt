@@ -1,0 +1,2 @@
+samples 275029; share per slot: 0: 14.43% 1: 12.11% 2: 12.17% 3: 12.07% 4: 12.41% 5: 12.41% 6: 12.22% 7: 12.17%
+excess at slot 0 (fast-forward reads crossing into a new line, at most): 2.21% of the samples

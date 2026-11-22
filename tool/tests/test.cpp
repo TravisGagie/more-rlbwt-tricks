@@ -356,7 +356,7 @@ static int mems_test(int argc, char **argv) {
 
     u64 nmems = 0, nchecked = 0, nlongest = 0, ntop = 0, ntop_differ = 0, kb_multi = 0, kb_fall = 0;
     u64 ntoe = 0, nblk = 0, nlocc = 0;
-    u64 kc_runs = 0, kc_fall = 0, nfixed = 0, kc_seeded = 0, kc_s1 = 0, kc_s2 = 0, kc_fewer = 0, kc_more = 0;
+    u64 kc_runs = 0, kc_fall = 0, kc_fewT = 0, kc_fewT_acc = 0, nfixed = 0, kc_seeded = 0, kc_s1 = 0, kc_s2 = 0, kc_fewer = 0, kc_more = 0;
     for (size_t pi = 0; pi < pats.size(); ++pi) {
         const string &P = pats[pi];
         if (digest) {
@@ -521,7 +521,8 @@ static int mems_test(int argc, char **argv) {
                     ++ntop; ntop_differ += as_set(got) != w;
                     // --kebab-check T t: strict gives exactly the t longest with ties; non-strict the same lengths
                     // of the t longest, and only MEMs among them
-                    for (u64 T : {t, 2 * t, t + 2})
+                    // (T = 1000: every pattern has at most T pseudo-MEMs, accepted iff t MEMs were found)
+                    for (u64 T : {t, 2 * t, t + 2, (u64)1000})
                         for (int strict = 0; strict < 2; ++strict) {
                             mem_options c = q; c.kebab_rule = mem_options::CHECK; c.check_T = T; c.check_strict = strict;
                             {   // --check-seed: the same output (backward steps compared, not required to drop: a larger
@@ -539,6 +540,7 @@ static int mems_test(int argc, char **argv) {
                             vector<mem> g;
                             find_mems(Qc, P, c, [&](const mem &M) { g.push_back(M); });
                             kc_fall += Qc.cnt.kb_fallbacks; ++kc_runs;
+                            if (Qc.cnt.kb_pseudo <= T) { ++kc_fewT; kc_fewT_acc += !Qc.cnt.kb_fallbacks; }
                             std::set<std::pair<u64, u64>> gs = as_set(g);
                             if (strict) CHECK(gs == w && g.size() == w.size(), "KeBaB check T=%lu t=%lu strict L=%lu pattern %zu: %zu MEMs, brute %zu", T, t, L, pi, g.size(), w.size());
                             else {
@@ -724,8 +726,8 @@ static int mems_test(int argc, char **argv) {
     printf("longest t (t = 1, 3, 5; -D 0 and 14): %lu exact runs checked (no filter, KeBaB streaming, KeBaB batch: %lu second batches, %lu whole-read fallbacks); KeBaB top: %lu of %lu runs differ from the t longest\n",
            nlongest, kb_multi, kb_fall, ntop_differ, ntop);
     if (TLC.n) printf("two-level locate: %lu toeholds checked against SA[sp] (%lu block steps among them), %lu occurrences of MEMs checked against the suffix array\n", ntoe, nblk, nlocc);
-    printf("KeBaB check (T = t, 2t, t + 2; strict and not): %lu runs checked, %lu fell back; --check-seed: same output, %lu seeded fallbacks, backward steps %lu -> %lu (fewer in %lu runs, more in %lu); KeBaB top with a fixed L: %lu runs checked\n",
-           kc_runs, kc_fall, kc_seeded, kc_s1, kc_s2, kc_fewer, kc_more, nfixed);
+    printf("KeBaB check (T = t, 2t, t + 2, 1000; strict and not): %lu runs checked, %lu fell back, %lu with at most T pseudo-MEMs (%lu of them accepted); --check-seed: same output, %lu seeded fallbacks, backward steps %lu -> %lu (fewer in %lu runs, more in %lu); KeBaB top with a fixed L: %lu runs checked\n",
+           kc_runs, kc_fall, kc_fewT, kc_fewT_acc, kc_seeded, kc_s1, kc_s2, kc_fewer, kc_more, nfixed);
     printf("MEM tests on %zu patterns (%lu runs, %lu MEMs from plain BML/FB): %s\n", pats.size(), nchecked, nmems, failures ? "FAILED" : "passed");
     return failures ? 1 : 0;
 }

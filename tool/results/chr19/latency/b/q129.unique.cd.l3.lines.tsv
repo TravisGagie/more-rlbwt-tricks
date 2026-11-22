@@ -1,0 +1,24 @@
+parse's index: bbwt	bits.hpp:104	10.6923	uint64_t b = j * l, w = b >> 6, o = b & 63, x = low[w] >> o;
+parse's index: bbwt	bits.hpp:512	4.9185	const first_run e = ft[c];
+parse's index: bbwt	bits.hpp:113	3.8091	uint64_t word = high[w] & (~0ull << (p & 63));
+parse's index: bbwt	bits.hpp:131	3.4349	uint64_t word = ONE ? high[w] : ~high[w];
+parse's index: bbwt	bits.hpp:112	2.0182	uint64_t i = k / SAMPLE1, p = f1[i], rem = k - i * SAMPLE1, w = p >> 6
+parse's index: pbwt	bits.hpp:104	1.5370	uint64_t b = j * l, w = b >> 6, o = b & 63, x = low[w] >> o;
+parse's index: bbwt	bits.hpp:513	0.9356	if (ft[c + 1].b == e.b) { o1 = o2 = n; return; }                     /
+parse's index: bbwt	bits.hpp:124	0.7618	auto before = [&](uint64_t blk) { return ONE ? ones[blk] : (blk << 9) 
+parse's index: bbwt	bits.hpp:122	0.7217	uint64_t lo = smp[i] >> 9;
+parse's index: bbwt	bits.hpp:123	0.6282	uint64_t hi = (i + 1 < smp.size()) ? (smp[i + 1] >> 9) + 1 : ones.size
+parse's index: bbwt	bits.hpp:105	0.6148	if (o + l > 64) x |= low[w + 1] << (64 - o);
+parse's index: pbwt	bits.hpp:113	0.4678	uint64_t word = high[w] & (~0ull << (p & 63));
+parse's index: bbwt	bits.hpp:117	0.4544	rem -= c; word = high[++w];
+parse's index: bbwt	bits.hpp:129	0.4411	uint64_t rem = k - before(lo);
+parse's index: pbwt	bits.hpp:105	0.3074	if (o + l > 64) x |= low[w + 1] << (64 - o);
+parse's index: pbwt	bits.hpp:112	0.2138	uint64_t i = k / SAMPLE1, p = f1[i], rem = k - i * SAMPLE1, w = p >> 6
+parse's index: pbwt	bits.hpp:123	0.1604	uint64_t hi = (i + 1 < smp.size()) ? (smp[i + 1] >> 9) + 1 : ones.size
+parse's index: pbwt	bits.hpp:124	0.1069	auto before = [&](uint64_t blk) { return ONE ? ones[blk] : (blk << 9) 
+parse's index: pbwt	bits.hpp:513	0.0936	if (ft[c + 1].b == e.b) { o1 = o2 = n; return; }                     /
+parse's index: pbwt	bits.hpp:512	0.0535	const first_run e = ft[c];
+parse's index: pbwt	bits.hpp:117	0.0535	rem -= c; word = high[++w];
+parse's index: pbwt	bits.hpp:131	0.0401	uint64_t word = ONE ? high[w] : ~high[w];
+parse's index: pbwt	bits.hpp:152	0.0267	while (!word) word = ~high[++w];
+parse's index: pbwt	bits.hpp:108	0.0134	inline bool hbit(uint64_t p) const { return (high[p >> 6] >> (p & 63))

@@ -1,0 +1,7 @@
+# started on Sun Nov 22 00:48:35 2026
+
+24027891294,,cycles:u,6002420034,100.00,,
+33582399483,,instructions:u,6002420034,100.00,,
+830038167,,dtlb_load_misses.walk_active:u,6002420034,100.00,,
+21829569,,dtlb_load_misses.miss_causes_a_walk:u,6002420034,100.00,,
+5553397881,,cycle_activity.stalls_l3_miss:u,6002420034,100.00,,

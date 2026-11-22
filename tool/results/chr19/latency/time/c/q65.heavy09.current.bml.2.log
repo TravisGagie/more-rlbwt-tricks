@@ -1,0 +1,8 @@
+move structure: 72587408 runs (split at 65535), 724.924 MB (records 580.699, run starts 92.949, runs per symbol 49.179, 8-mer table 2.097)
+shortcuts over phrases (heavy:0.9): 7443788, 156.224 MB
+index loaded in 0.8 s
+reads=4 MEMs=18479 without MEMs=0 | threads=1 wall 3.14 s, 785021.9 us/read
+timing: 4 reads, 1 threads; mean per-read time 747090.05 us; total time / reads 785021.87 us (total 3.140 s)
+searches=72371 char_steps=5329354 parse_steps=1970597 block_steps=0 kmer_tests=0 kmer_restarts=0 stpd_jumps=0 stpd_compares=0
+parse steps: entry=1970597 inside=0 end=0; block attempts=0, symbol absent=0, failed block steps=0, back-ups=0, exact exits=0
+shortcuts: entrances met=1234539, pattern not alpha=425187, taken=772194 (phrases crossed 14397900), failed midway=37158

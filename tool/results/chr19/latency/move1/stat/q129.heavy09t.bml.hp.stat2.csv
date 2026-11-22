@@ -1,0 +1,7 @@
+# started on Sun Nov 22 12:51:58 2026
+
+15302860847,,cycles:u,3728322195,100.00,,
+24724735270,,instructions:u,3728322195,100.00,,
+12441887,,mem_load_retired.l3_miss:u,3728322195,100.00,,
+134596319,,dtlb_load_misses.walk_active:u,3728322195,100.00,,
+123254136,,branch-misses:u,3728322195,100.00,,

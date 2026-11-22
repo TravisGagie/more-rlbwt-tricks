@@ -1,0 +1,25 @@
+samples 5930, of which load 288; shares below are of the 5642 others
+   60.03%  text index (move structure)
+   23.08%  parse's index: pbwt
+   13.45%  pattern parsing
+    1.54%  other in katka (find_all(finder const&, read_parser&, _IO_FILE*, int, _IO_FILE*, _IO_FILE*, read_parser*, bem_store*)::{lambda()#1}::operator()() const)
+    1.45%  outside katka: libc.so.6
+    0.34%  other in katka (libc.so.6)
+    0.05%  other in katka (katka::segments(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, katka::kmer_filter const*, std::vector<std::pair<unsigned long, unsigned long>, std::allocator<std::pair<unsigned long, unsigned long> > >&, unsigned long*))
+    0.04%  outside katka: ld-linux-x86-64.so.2
+    0.02%  other in katka (cmd_find(int, char**))
+parse's index by class:
+   14.71%  parse's index: pbwt (a) finding c's first run
+    0.82%  parse's index: pbwt (c1) predecessor searches for c n + sp, c n + ep
+    7.55%  parse's index: pbwt (c2) KS.access(j), FP.access2(j), arithmetic
+parse's index, top source lines (innermost):
+    7.96%  pbwt bits.hpp:104  uint64_t b = j * l, w = b >> 6, o = b & 63, x = low[w] >> o;
+    5.09%  pbwt bits.hpp:112  uint64_t i = k / SAMPLE1, p = f1[i], rem = k - i * SAMPLE1, w = p >> 6
+    4.18%  pbwt bits.hpp:113  uint64_t word = high[w] & (~0ull << (p & 63));
+    2.92%  pbwt bits.hpp:131  uint64_t word = ONE ? high[w] : ~high[w];
+    0.97%  pbwt bits.hpp:122  uint64_t lo = smp[i] >> 9;
+    0.67%  pbwt bits.hpp:124  auto before = [&](uint64_t blk) { return ONE ? ones[blk] : (blk << 9) 
+    0.46%  pbwt bits.hpp:117  rem -= c; word = high[++w];
+    0.39%  pbwt bits.hpp:129  uint64_t rem = k - before(lo);
+    0.25%  pbwt bits.hpp:105  if (o + l > 64) x |= low[w + 1] << (64 - o);
+    0.18%  pbwt bits.hpp:123  uint64_t hi = (i + 1 < smp.size()) ? (smp[i + 1] >> 9) + 1 : ones.size

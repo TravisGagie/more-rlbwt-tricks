@@ -1,0 +1,11 @@
+parse's index: pbwt	bits.hpp:513	11.9017	if (ft[c + 1].b == e.b) { o1 = o2 = n; return; }                     /
+parse's index: pbwt	bits.hpp:113	11.3920	uint64_t word = high[w] & (~0ull << (p & 63));
+parse's index: pbwt	bits.hpp:105	7.8445	if (o + l > 64) x |= low[w + 1] << (64 - o);
+parse's index: pbwt	bits.hpp:104	4.7267	uint64_t b = j * l, w = b >> 6, o = b & 63, x = low[w] >> o;
+parse's index: pbwt	bits.hpp:123	0.6396	uint64_t hi = (i + 1 < smp.size()) ? (smp[i + 1] >> 9) + 1 : ones.size
+parse's index: pbwt	bits.hpp:108	0.3697	inline bool hbit(uint64_t p) const { return (high[p >> 6] >> (p & 63))
+parse's index: pbwt	bits.hpp:124	0.3697	auto before = [&](uint64_t blk) { return ONE ? ones[blk] : (blk << 9) 
+parse's index: pbwt	bits.hpp:112	0.0899	uint64_t i = k / SAMPLE1, p = f1[i], rem = k - i * SAMPLE1, w = p >> 6
+parse's index: pbwt	bits.hpp:117	0.0799	rem -= c; word = high[++w];
+parse's index: pbwt	bits.hpp:131	0.0300	uint64_t word = ONE ? high[w] : ~high[w];
+parse's index: pbwt	bits.hpp:152	0.0100	while (!word) word = ~high[++w];

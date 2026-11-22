@@ -1,0 +1,7 @@
+# started on Sun Nov 22 12:44:33 2026
+
+71273489366,,cycles:u,15888685740,100.00,,
+32582453253,,instructions:u,15888685740,100.00,,
+135070979,,mem_load_retired.l3_miss:u,15888685740,100.00,,
+73085376,,dtlb_load_misses.walk_active:u,15888685740,100.00,,
+183544363,,branch-misses:u,15888685740,100.00,,

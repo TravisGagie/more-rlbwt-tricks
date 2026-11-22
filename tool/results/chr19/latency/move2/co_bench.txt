@@ -1,0 +1,5 @@
+K =  1: 20000000 yields, 2.14 ns and 6.8 TSC cycles per yield; every coroutine ran all its yields; out of turn 0
+K =  2: 40000000 yields, 11.50 ns and 36.7 TSC cycles per yield; every coroutine ran all its yields; out of turn 0
+K =  8: 160000000 yields, 13.25 ns and 42.3 TSC cycles per yield; every coroutine ran all its yields; out of turn 0
+K = 16: 320000000 yields, 13.69 ns and 43.7 TSC cycles per yield; every coroutine ran all its yields; out of turn 0
+K = 32: 640000000 yields, 13.77 ns and 43.9 TSC cycles per yield; every coroutine ran all its yields; out of turn 0

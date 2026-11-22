@@ -1,0 +1,5 @@
+[M::rb3_fmi_load_all::0.026*1.21] loaded the BWT
+[M::worker_pipeline::60.388*1.00] processed 2 sequences
+[M::main] Version: 3.10-r285-dirty
+[M::main] CMD: ./rb3-bin mem -t 1 -l 1000 rb3/index.fmd rb3/queries.fa
+[M::main] Real time: 60.390 sec; CPU: 60.393 sec; Peak RSS: 0.338 GB

@@ -1,0 +1,5 @@
+== d start 2026-11-21 23:05:28: NS '33 65 129', ROWS 'nojumps unique', VARIANTS 'current=bin/katka-base table=bin/katka-table la0=bin/katka-la:KATKA_LA_D=0 la4=bin/katka-la:KATKA_LA_D=4 la8=bin/katka-la:KATKA_LA_D=8 la16=bin/katka-la:KATKA_LA_D=16', REP 3
+-- c33 done 23:11:45
+-- c65 done 23:18:19
+-- c129 done 23:25:39
+== d done 2026-11-21 23:25:39

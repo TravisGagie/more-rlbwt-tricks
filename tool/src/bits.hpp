@@ -442,10 +442,63 @@ struct EFRank {
         else if (i1 <= i2) rank_pair(fb, a1, a2, base, i1, i2, r1, r2);
         else { r1 = rank_from(fb, a1, base, i1); r2 = rank_from(fb, a2, base, i2); }
     }
-    // LF without a C array: C[c] + rank_c(i)
-    inline uint64_t lf_one(uint64_t base, uint64_t b, uint64_t i) const {
+    // The first-run table for lf2, for every symbol whatever sigma (built at load by build_first, not saved): ft[c].b is
+    // c's first run in KS (count_less(c n)) and ft[c].fb its position in F (n if b = nruns), c = 0 .. sigma; c occurs if
+    // and only if ft[c + 1].b > ft[c].b.  32 bits each, so only if nruns and n are below 2^32 (otherwise empty, and lf2
+    // finds c's first run in KS as before).
+    struct first_run { uint32_t b, fb; };
+    std::vector<first_run> ft;
+    void build_first() {
+        ft.clear();
+        if (nruns >= (1ull << 32) || n >= (1ull << 32) || !sigma) return;
+        ft.resize((size_t)sigma + 1);
+        uint64_t j = 0, p = 0, q = 0;                 // run j; its one in KS.high at p, in FP.high at q
+        auto ks_next = [&]() { while (!KS.hbit(p)) ++p; uint64_t v = ((p - j) << KS.l) | KS.get_low(j); ++p; return v; };
+        auto fp_next = [&]() { while (!FP.hbit(q)) ++q; uint64_t v = ((q - j) << FP.l) | FP.get_low(j); ++q; return v; };
+        uint64_t c = 0;
+        while (j < nruns) {
+            const uint64_t v = ks_next(), f = fp_next(), cj = v / n;
+            for (; c <= cj && c <= sigma; ++c) ft[c] = {(uint32_t)j, (uint32_t)f};
+            ++j;
+        }
+        for (; c <= sigma; ++c) ft[c] = {(uint32_t)nruns, (uint32_t)n};
+    }
+    // Lookahead prefetches (latency study, find's KATKA_LA_D): stage 1, for a symbol 2d steps ahead, the table entry
+    // (without the table: the select-zero sample where count_less(c n) starts); stage 2, d steps ahead, the lines its
+    // step will read: in KS, the select-zero sample and the counts of ones and high-bit words around bit
+    // (c n >> l) + j, j = c's first run (the j-th one is at or just after it), the select-one sample for j and the low
+    // bits of KS[j]; in FP, the same for FP[j] (without the table: the block of high bits the sample points to).
+    static inline void pf(const void *p) { __builtin_prefetch(p); }
+    inline void pf_first(uint32_t c) const {                                     // LATPF
+        if (c >= sigma) return;
+        if (!ft.empty()) { pf(&ft[c]); return; }                                 // LATPF
+        const uint64_t h = ((uint64_t)c * n) >> KS.l;
+        if (h) pf(&KS.s0[(h - 1) / EliasFano::SAMPLE]);                          // LATPF
+    }
+    inline void pf_runs(uint32_t c) const {                                      // LATPF
+        if (c >= sigma) return;
+        const uint64_t h = ((uint64_t)c * n) >> KS.l;
+        if (ft.empty()) {
+            if (!h) return;
+            const uint64_t q = KS.s0[(h - 1) / EliasFano::SAMPLE] >> 9;          // LATPF
+            pf(&KS.ones[q]); pf(&KS.high[q * 8]); pf(&KS.high[q * 8 + 8]);       // LATPF
+            return;
+        }
+        const first_run e = ft[c];                                               // LATPF
+        const uint64_t j = e.b;
+        if (j >= nruns) return;
+        const uint64_t p = h + j, q = ((uint64_t)e.fb >> FP.l) + j;
+        if (h) pf(&KS.s0[(h - 1) / EliasFano::SAMPLE]);                          // LATPF
+        pf(&KS.ones[p >> 9]); pf(&KS.high[(p >> 9) * 8]); pf(&KS.high[p >> 6]); pf(&KS.high[(p >> 6) + 1]);   // LATPF
+        pf(&KS.low[(j * KS.l) >> 6]);                                            // LATPF
+        if (!KS.f1.empty()) pf(&KS.f1[j / EliasFano::SAMPLE1]);                  // LATPF
+        pf(&FP.high[q >> 6]); pf(&FP.low[(j * FP.l) >> 6]);                      // LATPF
+        if (!FP.f1.empty()) pf(&FP.f1[j / EliasFano::SAMPLE1]);                  // LATPF
+    }
+    // LF without a C array: C[c] + rank_c(i); fb: c's first run's position in F, or ~0 to read it from FP here
+    inline uint64_t lf_one(uint64_t base, uint64_t b, uint64_t fb, uint64_t i) const {
         uint64_t a = i ? KS.count_less(base + (i > n ? n : i)) : b;
-        if (a == b) return b < nruns ? FP.access(b) : n;
+        if (a == b) return fb != ~0ull ? fb : b < nruns ? FP.access(b) : n;
         uint64_t j = a - 1, start = KS.access(j) - base, f, fn;
         if (j + 1 < nruns) FP.access2(j, f, fn); else { f = FP.access(j); fn = n; }
         uint64_t len = fn - f, d = i - start;
@@ -454,11 +507,19 @@ struct EFRank {
     // a backward step: [i1, i2) -> [o1, o2) (empty if o1 >= o2)
     inline void lf2(uint32_t c, uint64_t i1, uint64_t i2, uint64_t &o1, uint64_t &o2) const {
         if (c >= sigma) { o1 = o2 = n; return; }
-        uint64_t base = (uint64_t)c * n, b = KS.count_less(base);
-        if (b == nruns || KS.access(b) >= base + n) { o1 = o2 = n; return; }    // c does not occur
-        o1 = lf_one(base, b, i1); o2 = lf_one(base, b, i2);
+        uint64_t base = (uint64_t)c * n, b, fb;
+        if (!ft.empty()) {                                                       // LATFIRST: c's first run from the table
+            const first_run e = ft[c];
+            if (ft[c + 1].b == e.b) { o1 = o2 = n; return; }                     // LATFIRST: c does not occur
+            b = e.b; fb = e.fb;
+        } else {
+            b = KS.count_less(base);
+            if (b == nruns || KS.access(b) >= base + n) { o1 = o2 = n; return; }    // c does not occur
+            fb = ~0ull;
+        }
+        o1 = lf_one(base, b, fb, i1); o2 = lf_one(base, b, fb, i2);
     }
-    uint64_t bytes() const { return KS.bytes() + FP.bytes() + slot.size() * 4 + (first.size() + ffirst.size()) * 8; }
+    uint64_t bytes() const { return KS.bytes() + FP.bytes() + slot.size() * 4 + (first.size() + ffirst.size()) * 8 + ft.size() * sizeof(first_run); }
     void save(FILE *f) const { wr(f, n); wr(f, sigma); wr(f, nruns); KS.save(f); FP.save(f); }
     void load(FILE *f) { rd(f, n); rd(f, sigma); rd(f, nruns); KS.load(f); FP.load(f); }
 };

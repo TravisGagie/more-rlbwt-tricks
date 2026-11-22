@@ -1,0 +1,11 @@
+samples 59076, of which load 74; shares below are of the 59002 others
+   99.58%  text index (move structure)
+    0.15%  other in katka (find_all(finder const&, read_parser&, _IO_FILE*, int, _IO_FILE*, _IO_FILE*, read_parser*, bem_store*)::{lambda()#1}::operator()() const)
+    0.13%  other in katka (void katka::bml_segment<finder::run(katka::segment_search&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*) const::{lambda(katka::mem const&)#1}>(katka::segment_search&, unsigned long, katka::mem_options const&, katka::read_state&, finder::run(katka::segment_search&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*) const::{lambda(katka::mem const&)#1}))
+    0.10%  outside katka: libc.so.6
+    0.04%  other in katka (read_parser::next(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&))
+    0.01%  outside katka: ld-linux-x86-64.so.2
+    0.00%  other in katka (katka::segment_search::steps_left(char const*, unsigned long, unsigned long, unsigned long, katka::interval&))
+    0.00%  other in katka (katka::segments(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, katka::kmer_filter const*, std::vector<std::pair<unsigned long, unsigned long>, std::allocator<std::pair<unsigned long, unsigned long> > >&, unsigned long*))
+parse's index by class:
+parse's index, top source lines (innermost):

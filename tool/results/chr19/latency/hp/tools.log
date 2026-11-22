@@ -1,0 +1,18 @@
+ropebwt3 hp=0 round 1: 69.601 s, huge pages 0.0% of 338 MB
+--- restarted 00:53:09 (Movi 2 helper binaries copied; probe on bin/movi-regular-thresholds)
+ropebwt3 hp=0 round 1: 70.389 s, huge pages 0.0% of 338 MB
+Movi 2 hp=0 round 1: 28.35 s wall, huge pages 0.0% of 2 MB
+ropebwt3 hp=1 round 1: 61.196 s, huge pages 86.7% of 346 MB
+Movi 2 hp=1 round 1: 24.61 s wall, huge pages 0.0% of 2 MB
+round 1: outputs with and without identical
+ropebwt3 hp=0 round 2: 66.112 s, huge pages 0.0% of 338 MB
+Movi 2 hp=0 round 2: 26.80 s wall, huge pages 0.0% of 2 MB
+ropebwt3 hp=1 round 2: 60.362 s, huge pages 86.7% of 346 MB
+Movi 2 hp=1 round 2: 23.95 s wall, huge pages 0.0% of 2 MB
+round 2: outputs with and without identical
+ropebwt3 hp=0 round 3: 65.778 s, huge pages 0.0% of 338 MB
+Movi 2 hp=0 round 3: 26.61 s wall, huge pages 0.0% of 2 MB
+ropebwt3 hp=1 round 3: 60.075 s, huge pages 86.7% of 346 MB
+Movi 2 hp=1 round 3: 23.47 s wall, huge pages 0.0% of 2 MB
+round 3: outputs with and without identical
+== done

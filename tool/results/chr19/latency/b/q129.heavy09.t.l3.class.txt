@@ -1,0 +1,28 @@
+samples 3891, of which load 286; shares below are of the 3605 others
+   53.43%  text index (move structure)
+   23.74%  parse's index: pbwt
+   18.17%  pattern parsing
+    2.27%  other in katka (find_all(finder const&, read_parser&, _IO_FILE*, int, _IO_FILE*, _IO_FILE*, read_parser*, bem_store*)::{lambda()#1}::operator()() const)
+    1.75%  outside katka: libc.so.6
+    0.47%  other in katka (read_parser::next(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&))
+    0.08%  outside katka: ld-linux-x86-64.so.2
+    0.06%  other in katka (katka::segments(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, katka::kmer_filter const*, std::vector<std::pair<unsigned long, unsigned long>, std::allocator<std::pair<unsigned long, unsigned long> > >&, unsigned long*))
+    0.03%  other in katka (cmd_find(int, char**))
+parse's index by class:
+   16.03%  parse's index: pbwt (a) finding c's first run
+    0.25%  parse's index: pbwt (c1) predecessor searches for c n + sp, c n + ep
+    7.46%  parse's index: pbwt (c2) KS.access(j), FP.access2(j), arithmetic
+parse's index, top source lines (innermost):
+    8.49%  pbwt bits.hpp:104  uint64_t b = j * l, w = b >> 6, o = b & 63, x = low[w] >> o;
+    3.55%  pbwt bits.hpp:512  const first_run e = ft[c];
+    3.13%  pbwt bits.hpp:113  uint64_t word = high[w] & (~0ull << (p & 63));
+    2.80%  pbwt bits.hpp:131  uint64_t word = ONE ? high[w] : ~high[w];
+    2.41%  pbwt bits.hpp:112  uint64_t i = k / SAMPLE1, p = f1[i], rem = k - i * SAMPLE1, w = p >> 6
+    0.67%  pbwt bits.hpp:513  if (ft[c + 1].b == e.b) { o1 = o2 = n; return; }                     /
+    0.64%  pbwt bits.hpp:122  uint64_t lo = smp[i] >> 9;
+    0.50%  pbwt bits.hpp:124  auto before = [&](uint64_t blk) { return ONE ? ones[blk] : (blk << 9) 
+    0.44%  pbwt bits.hpp:105  if (o + l > 64) x |= low[w + 1] << (64 - o);
+    0.39%  pbwt bits.hpp:123  uint64_t hi = (i + 1 < smp.size()) ? (smp[i + 1] >> 9) + 1 : ones.size
+    0.36%  pbwt bits.hpp:117  rem -= c; word = high[++w];
+    0.33%  pbwt bits.hpp:129  uint64_t rem = k - before(lo);
+    0.03%  pbwt bits.hpp:152  while (!word) word = ~high[++w];

@@ -910,7 +910,88 @@ static void bem_classify(const finder &K, const bem_store &S, FILE *out, int nth
     }
 }
 
+// Chopped and interleaved plain search on the move structure (latency hiding on the move structure, part 2), for
+// one chunk of reads.  Environment:
+//   KATKA_CHOP=P        P pieces in all, shared among the chunk's segments (maximal A/C/G/T runs) in proportion to
+//                       length (round(n / (total / P)) per segment, at least 1), cut evenly;
+//   KATKA_CHOP_LEN=l    instead, pieces of about l characters (ceil(n / l) per segment, cut evenly);
+//   KATKA_CHOP_AT=c,... instead, these cuts in every segment (offsets in the segment; those outside it are ignored);
+//   KATKA_CO_K=K        run the pieces in K coroutines on this thread, round-robin (src/coro.hpp), each yielding in
+//                       every backward step on the move structure (move_index::step<true>); without it, one by one.
+// Each segment gets its own segment_search (a copy of Q, prepared on it); the pieces (bml_piece / fb_piece) collect
+// their MEMs, chop_filter joins them, and each read is then written by finder::run with Q.replay set, so its output
+// is the unchopped search's.  Only plain search on the move structure, --format mems, without -X, --top, --longest,
+// KeBaB, -D, digests, homopolymer compression, --mate2, locating or text shortcuts.
+struct chop_config {
+    u64 pieces = 0, len = 0; std::vector<u64> at; int K = 0;
+    bool on() const { return pieces || len || !at.empty(); }
+    static chop_config from_env() {
+        chop_config c;
+        if (const char *v = getenv("KATKA_CHOP")) c.pieces = std::stoull(v);
+        if (const char *v = getenv("KATKA_CHOP_LEN")) c.len = std::stoull(v);
+        if (const char *v = getenv("KATKA_CHOP_AT")) { std::string t = v; size_t p = 0; while (p < t.size()) { size_t q = t.find(',', p); if (q == std::string::npos) q = t.size(); if (q > p) c.at.push_back(std::stoull(t.substr(p, q - p))); p = q + 1; } std::sort(c.at.begin(), c.at.end()); }
+        if (const char *v = getenv("KATKA_CO_K")) c.K = std::stoi(v);
+        return c;
+    }
+};
+static const chop_config g_chop = chop_config::from_env();
+static void chop_check(const finder &K, bool mate2) {
+    const mem_options &o = K.opt;
+    if (!K.S.mv || K.TL || K.SP || K.PS || K.table || K.S.tsc || !K.mems_format || K.classify || K.hpc || mate2 || K.locate ||
+        o.adaptive || o.top || o.longest || o.fixed_top || o.min3 || o.pseudo || o.inline_check || o.digest)
+        die("KATKA_CHOP: only plain search on the move structure (--move), --format mems, with plain options");
+    if (g_chop.K < 0 || g_chop.K > 4096) die("KATKA_CO_K: 0 to 4096");
+}
+static u64 chop_chunk(const finder &K, segment_search &Q, const std::vector<string> &names, const std::vector<string> &seqs, std::vector<string> &lines,
+                      std::vector<string> *slines) {
+    struct seg { size_t read; u64 r0, n; segment_search Q; std::vector<u64> cut; std::vector<std::vector<mem>> out; };
+    struct piece { seg *s; size_t k; };
+    std::vector<seg> segs; std::vector<std::pair<u64, u64>> sg;
+    u64 total = 0;
+    for (size_t i = 0; i < seqs.size(); ++i) {
+        segments(seqs[i], nullptr, sg);
+        for (auto [r0, n] : sg) { segs.push_back(seg{i, r0, n, Q, {}, {}}); total += n; }
+    }
+    std::vector<piece> work;
+    for (seg &S : segs) {
+        S.Q.cnt = search_counters(); S.Q.replay = nullptr;
+        S.Q.prepare(seqs[S.read].data() + S.r0, S.n);
+        if (!g_chop.at.empty()) { S.cut.push_back(0); for (u64 c : g_chop.at) if (c > 0 && c < S.n) S.cut.push_back(c); }
+        else {
+            u64 p = g_chop.len ? (S.n + g_chop.len - 1) / g_chop.len : std::max<u64>(1, (u64)std::llround((double)S.n * (double)g_chop.pieces / (double)total));
+            for (u64 k = 0; k < p; ++k) S.cut.push_back(S.n * k / p);
+            S.cut.erase(std::unique(S.cut.begin(), S.cut.end()), S.cut.end());
+        }
+        S.out.assign(S.cut.size(), {});
+        for (size_t k = 0; k < S.cut.size(); ++k) work.push_back(piece{&S, k});
+    }
+    const u64 L = K.opt.L; const bool fb = K.opt.fb;
+    auto run_piece = [&](const piece &p) {
+        seg &S = *p.s;
+        const u64 lo = S.cut[p.k], hi = p.k + 1 < S.cut.size() ? S.cut[p.k + 1] : S.n;
+        if (fb) fb_piece(S.Q, S.r0, lo, hi, L, S.out[p.k]); else bml_piece(S.Q, S.r0, lo, hi, L, S.out[p.k]);
+    };
+    if (g_chop.K > 0) {
+        size_t next = 0;
+        co_sched CS;
+        CS.run(std::min<int>(g_chop.K, (int)std::max<size_t>(1, work.size())), [&](int) { while (next < work.size()) run_piece(work[next++]); });
+    } else for (const piece &p : work) run_piece(p);
+    std::vector<std::vector<mem>> per_read(seqs.size());
+    u64 nm = 0, dropped = 0;
+    for (seg &S : segs) { chop_filter(S.out, S.cut, S.r0, per_read[S.read], &dropped); Q.cnt.add(S.Q.cnt); }
+    for (size_t i = 0; i < seqs.size(); ++i) {
+        Q.replay = &per_read[i];
+        nm += K.run(Q, names[i], seqs[i], lines[i], slines ? &(*slines)[i] : nullptr);
+        Q.replay = nullptr;
+    }
+    static bool said = false;
+    if (!said) { said = true; fprintf(stderr, "chopped search: %zu pieces in %zu segments (first chunk), %s; %lu tails dropped\n", work.size(), segs.size(),
+                                      g_chop.K > 0 ? ("interleaved, K = " + std::to_string(g_chop.K)).c_str() : "one by one", dropped); }
+    return nm;
+}
+
 static run_stats find_all(const finder &K, read_parser &P, FILE *out, int nthreads, FILE *sout = nullptr, FILE *lout = nullptr, read_parser *P2 = nullptr, bem_store *BS = nullptr) {
+    if (g_chop.on()) chop_check(K, P2 != nullptr);
     const size_t CHUNK = 256;
     std::mutex in_m, out_m, st_m;
     std::condition_variable out_cv;
@@ -945,6 +1026,11 @@ static run_stats find_all(const finder &K, read_parser &P, FILE *out, int nthrea
                 my = next_in++;
             }
             lines.resize(names.size()); slines.resize(names.size()); plines.resize(names.size());
+            if (g_chop.on()) {
+                const double t0r = now();
+                const u64 m = chop_chunk(K, Q, names, seqs, lines, sout ? &slines : nullptr);
+                st.read_time += now() - t0r; st.reads += names.size(); st.mems += m;
+            } else
             for (size_t i = 0; i < names.size(); ++i) {
                 const double t0r = now();
                 PROF(const u64 prof_r = ps_prof::now());
@@ -1184,6 +1270,8 @@ static int cmd_find(int argc, char **argv) {
     if (twolevel) {
         L2.load(prefix + ".lvl", use_pstpd);
         K.TL = &L2;
+        if (!L2.pbwt.ft.empty())
+            fprintf(stderr, "first-run tables: parse %.3f MB, blocks %.3f MB (built at load)\n", L2.pbwt.ft.size() * 8 / 1e6, L2.bbwt.ft.size() * 8 / 1e6);
         if (!pscfile.empty()) {
             static parse_shortcuts PSC;
             PSC.load(pscfile);

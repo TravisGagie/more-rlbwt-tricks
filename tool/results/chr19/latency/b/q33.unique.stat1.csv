@@ -1,0 +1,7 @@
+# started on Sat Nov 21 22:45:51 2026
+
+17366156176,,cycles:u,4667539389,100.00,,
+24671589675,,instructions:u,4667539389,100.00,,
+7264780780,,cycle_activity.stalls_total:u,4667539389,100.00,,
+5652165240,,cycle_activity.stalls_mem_any:u,4667539389,100.00,,
+3591367472,,cycle_activity.stalls_l3_miss:u,4667539389,100.00,,

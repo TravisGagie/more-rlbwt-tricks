@@ -1,0 +1,7 @@
+# started on Sat Nov 21 22:48:05 2026
+
+33870321780,,cycles:u,8629042345,100.00,,
+38592933605,,instructions:u,8629042345,100.00,,
+33572653,,mem_load_retired.l3_miss:u,8629042345,100.00,,
+4369122622,,dtlb_load_misses.walk_active:u,8629042345,100.00,,
+248822369,,branch-misses:u,8629042345,100.00,,

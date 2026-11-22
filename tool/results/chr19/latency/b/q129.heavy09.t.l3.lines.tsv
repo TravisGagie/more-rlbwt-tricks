@@ -1,0 +1,13 @@
+parse's index: pbwt	bits.hpp:104	8.4882	uint64_t b = j * l, w = b >> 6, o = b & 63, x = low[w] >> o;
+parse's index: pbwt	bits.hpp:512	3.5506	const first_run e = ft[c];
+parse's index: pbwt	bits.hpp:113	3.1345	uint64_t word = high[w] & (~0ull << (p & 63));
+parse's index: pbwt	bits.hpp:131	2.8017	uint64_t word = ONE ? high[w] : ~high[w];
+parse's index: pbwt	bits.hpp:112	2.4133	uint64_t i = k / SAMPLE1, p = f1[i], rem = k - i * SAMPLE1, w = p >> 6
+parse's index: pbwt	bits.hpp:513	0.6657	if (ft[c + 1].b == e.b) { o1 = o2 = n; return; }                     /
+parse's index: pbwt	bits.hpp:122	0.6380	uint64_t lo = smp[i] >> 9;
+parse's index: pbwt	bits.hpp:124	0.4993	auto before = [&](uint64_t blk) { return ONE ? ones[blk] : (blk << 9) 
+parse's index: pbwt	bits.hpp:105	0.4438	if (o + l > 64) x |= low[w + 1] << (64 - o);
+parse's index: pbwt	bits.hpp:123	0.3883	uint64_t hi = (i + 1 < smp.size()) ? (smp[i + 1] >> 9) + 1 : ones.size
+parse's index: pbwt	bits.hpp:117	0.3606	rem -= c; word = high[++w];
+parse's index: pbwt	bits.hpp:129	0.3329	uint64_t rem = k - before(lo);
+parse's index: pbwt	bits.hpp:152	0.0277	while (!word) word = ~high[++w];

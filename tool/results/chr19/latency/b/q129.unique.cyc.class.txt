@@ -1,0 +1,44 @@
+samples 15015, of which load 803; shares below are of the 14212 others
+   25.89%  pattern parsing
+   25.87%  parse's index: bbwt
+   21.09%  text index (move structure)
+    9.45%  outside katka: [unknown]
+    8.51%  outside katka: libc.so.6
+    5.72%  parse's index: pbwt
+    1.63%  other in katka (katka::segments(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, katka::kmer_filter const*, std::vector<std::pair<unsigned long, unsigned long>, std::allocator<std::pair<unsigned long, unsigned long> > >&, unsigned long*))
+    1.02%  other in katka (find_all(finder const&, read_parser&, _IO_FILE*, int, _IO_FILE*, _IO_FILE*, read_parser*, bem_store*)::{lambda()#1}::operator()() const)
+    0.72%  other in katka (read_parser::next(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&))
+    0.04%  outside katka: ld-linux-x86-64.so.2
+    0.03%  other in katka (void katka::bml_segment<finder::run(katka::segment_search&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*) const::{lambda(katka::mem const&)#1}>(katka::segment_search&, unsigned long, katka::mem_options const&, katka::read_state&, finder::run(katka::segment_search&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*) const::{lambda(katka::mem const&)#1}))
+    0.01%  other in katka (_start)
+    0.01%  other in katka (std::vector<unsigned int, std::allocator<unsigned int> >::_M_fill_assign(unsigned long, unsigned int const&))
+    0.01%  outside katka: libstdc++.so.6.0.35
+    0.01%  other in katka (std::vector<int, std::allocator<int> >::_M_fill_assign(unsigned long, int const&))
+parse's index by class:
+    7.94%  parse's index: bbwt (a) finding c's first run
+    8.16%  parse's index: bbwt (c1) predecessor searches for c n + sp, c n + ep
+    9.77%  parse's index: bbwt (c2) KS.access(j), FP.access2(j), arithmetic
+    3.39%  parse's index: pbwt (a) finding c's first run
+    0.80%  parse's index: pbwt (c1) predecessor searches for c n + sp, c n + ep
+    1.53%  parse's index: pbwt (c2) KS.access(j), FP.access2(j), arithmetic
+parse's index, top source lines (innermost):
+    4.47%  bbwt bits.hpp:105  if (o + l > 64) x |= low[w + 1] << (64 - o);
+    3.11%  bbwt bits.hpp:115  uint64_t c = __builtin_popcountll(word);
+    2.51%  bbwt bits.hpp:112  uint64_t i = k / SAMPLE1, p = f1[i], rem = k - i * SAMPLE1, w = p >> 6
+    1.77%  bbwt bits.hpp:152  while (!word) word = ~high[++w];
+    1.11%  pbwt bits.hpp:105  if (o + l > 64) x |= low[w + 1] << (64 - o);
+    0.95%  bbwt bits.hpp:132  uint64_t c = __builtin_popcountll(word);
+    0.94%  bbwt bits.hpp:22  return __builtin_ctzll(_pdep_u64(1ull << k, w));
+    0.93%  bbwt bits.hpp:104  uint64_t b = j * l, w = b >> 6, o = b & 63, x = low[w] >> o;
+    0.90%  pbwt bits.hpp:112  uint64_t i = k / SAMPLE1, p = f1[i], rem = k - i * SAMPLE1, w = p >> 6
+    0.80%  bbwt bits.hpp:133  if (rem < c) return (w << 6) + select_in_word(word, rem);
+    0.76%  pbwt bits.hpp:115  uint64_t c = __builtin_popcountll(word);
+    0.73%  bbwt bits.hpp:127  if (before(mid) <= k) lo = mid; else hi = mid;
+    0.65%  bbwt bits.hpp:142  while (!hbit(q)) ++q;
+    0.54%  pbwt bits.hpp:123  uint64_t hi = (i + 1 < smp.size()) ? (smp[i + 1] >> 9) + 1 : ones.size
+    0.53%  bbwt bits.hpp:169  while (lo < hi && get_low(lo) < xl) ++lo;
+    0.52%  bbwt bits.hpp:116  if (rem < c) return (w << 6) + select_in_word(word, rem);
+    0.52%  pbwt bits.hpp:127  if (before(mid) <= k) lo = mid; else hi = mid;
+    0.47%  bbwt bits.hpp:143  b = ((q - j - 1) << l) | get_low(j + 1);
+    0.46%  bbwt bits.hpp:117  rem -= c; word = high[++w];
+    0.45%  bbwt bits.hpp:167  if (get_low(mid) < xl) lo = mid + 1; else hi = mid;

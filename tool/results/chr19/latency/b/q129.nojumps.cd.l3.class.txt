@@ -1,0 +1,26 @@
+samples 10268, of which load 261; shares below are of the 10007 others
+   51.72%  text index (move structure)
+   37.45%  parse's index: pbwt
+    8.88%  pattern parsing
+    0.80%  outside katka: libc.so.6
+    0.48%  other in katka (find_all(finder const&, read_parser&, _IO_FILE*, int, _IO_FILE*, _IO_FILE*, read_parser*, bem_store*)::{lambda()#1}::operator()() const)
+    0.37%  other in katka (read_parser::next(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&))
+    0.26%  other in katka (katka::segments(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, katka::kmer_filter const*, std::vector<std::pair<unsigned long, unsigned long>, std::allocator<std::pair<unsigned long, unsigned long> > >&, unsigned long*))
+    0.02%  outside katka: ld-linux-x86-64.so.2
+    0.01%  other in katka (katka::rlbwt::~rlbwt())
+parse's index by class:
+   23.23%  parse's index: pbwt (a) finding c's first run
+    0.35%  parse's index: pbwt (c1) predecessor searches for c n + sp, c n + ep
+   13.87%  parse's index: pbwt (c2) KS.access(j), FP.access2(j), arithmetic
+parse's index, top source lines (innermost):
+   11.90%  pbwt bits.hpp:513  if (ft[c + 1].b == e.b) { o1 = o2 = n; return; }                     /
+   11.39%  pbwt bits.hpp:113  uint64_t word = high[w] & (~0ull << (p & 63));
+    7.84%  pbwt bits.hpp:105  if (o + l > 64) x |= low[w + 1] << (64 - o);
+    4.73%  pbwt bits.hpp:104  uint64_t b = j * l, w = b >> 6, o = b & 63, x = low[w] >> o;
+    0.64%  pbwt bits.hpp:123  uint64_t hi = (i + 1 < smp.size()) ? (smp[i + 1] >> 9) + 1 : ones.size
+    0.37%  pbwt bits.hpp:108  inline bool hbit(uint64_t p) const { return (high[p >> 6] >> (p & 63))
+    0.37%  pbwt bits.hpp:124  auto before = [&](uint64_t blk) { return ONE ? ones[blk] : (blk << 9) 
+    0.09%  pbwt bits.hpp:112  uint64_t i = k / SAMPLE1, p = f1[i], rem = k - i * SAMPLE1, w = p >> 6
+    0.08%  pbwt bits.hpp:117  rem -= c; word = high[++w];
+    0.03%  pbwt bits.hpp:131  uint64_t word = ONE ? high[w] : ~high[w];
+    0.01%  pbwt bits.hpp:152  while (!word) word = ~high[++w];

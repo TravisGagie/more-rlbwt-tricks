@@ -1,0 +1,23 @@
+samples 275029, of which load 13; shares of the 275016 others
+   99.46%  the LF step: destination row or fast-forward
+    0.11%  other (unsigned long katka::EliasFano::select_<true>(unsigned long))
+    0.09%  other (katka::EliasFano::count_less(unsigned long) const)
+    0.08%  outside katka: libc.so.6
+    0.06%  the 8-mer table
+    0.05%  repositioning: scanning the neighbouring runs
+    0.04%  other (katka::segment_search::steps_left(char const*, unsigned long)
+    0.02%  other (katka::segments(std::__cxx11::basic_string<char, std::char_t)
+    0.02%  other (katka::find_mems<finder::run(katka::segment_search&, std::__)
+    0.02%  other (katka::EliasFano::access(unsigned long) const)
+    0.02%  other (read_parser::next(std::__cxx11::basic_string<char, std::char)
+    0.02%  the record at the interval's start (sym(a))
+    0.01%  repositioning: the new end's record
+    0.00%  the record at the interval's end (sym(e))
+    0.00%  outside katka: ld-linux-x86-64.so.2
+    0.00%  the record of the row the step starts from (off, dest)
+    0.00%  outside katka: libstdc++.so.6.0.35
+    0.00%  other (find_all(finder const&, read_parser&, _IO_FILE*, int, _IO_FI)
+    0.00%  repositioning: runs_of (Elias-Fano)
+instructions of the LF step's `while (o >= len(q))` line:
+  0x337ab   52.21%  
+  0x3376b   47.26%  

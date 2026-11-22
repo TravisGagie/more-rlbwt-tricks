@@ -1,0 +1,51 @@
+
+bin/katka-g:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000033760 <_ZNK5katka10move_index4stepERNS0_6cursorEh+0x360>:
+_ZNK5katka10move_index2lfERmS1_():
+src/move.hpp:101 (discriminator 4)
+   33760:	sub    %rax,%rsi
+   33763:	inc    %rcx
+_ZNK5katka10move_index3lenEm():
+src/move.hpp:28 (discriminator 1)
+   33766:	mov    $0x3,%eax
+   3376b:	shrx   %rax,(%rbx,%rcx,8),%rax
+   33771:	movzwl %ax,%eax
+_ZNK5katka10move_index2lfERmS1_():
+src/move.hpp:101 (discriminator 3)
+   33774:	cmp    %rax,%rsi
+   33777:	jae    33760 <_ZNK5katka10move_index4stepERNS0_6cursorEh+0x360>
+_ZNK5katka10move_index3offEm():
+src/move.hpp:29 (discriminator 1)
+   33779:	mov    %rdx,%rdi
+_ZNK5katka10move_index4destEm():
+src/move.hpp:30 (discriminator 1)
+   3377c:	shr    $0x23,%rdx
+_ZNK5katka10move_index3offEm():
+src/move.hpp:29 (discriminator 1)
+   33780:	shr    $0x13,%rdi
+   33784:	movzwl %di,%edi
+_ZNK5katka10move_index2lfERmS1_():
+src/move.hpp:100 (discriminator 1)
+   33787:	add    %r8,%rdi
+_ZNK5katka10move_index4destEm():
+src/move.hpp:30
+   3378a:	jmp    337a6 <_ZNK5katka10move_index4stepERNS0_6cursorEh+0x3a6>
+   3378c:	nopw   0x0(%rax,%rax,1)
+   33795:	data16 cs nopw 0x0(%rax,%rax,1)
+_ZNK5katka10move_index2lfERmS1_():
+src/move.hpp:101 (discriminator 4)
+   337a0:	sub    %rax,%rdi
+   337a3:	inc    %rdx
+_ZNK5katka10move_index3lenEm():
+src/move.hpp:28 (discriminator 1)
+   337a6:	mov    $0x3,%eax
+   337ab:	shrx   %rax,(%rbx,%rdx,8),%rax
+   337b1:	movzwl %ax,%eax
+_ZNK5katka10move_index2lfERmS1_():
+src/move.hpp:101 (discriminator 3)
+   337b4:	cmp    %rax,%rdi
+   337b7:	jae    337a0 <_ZNK5katka10move_index4stepERNS0_6cursorEh+0x3a0>

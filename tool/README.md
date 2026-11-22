@@ -211,6 +211,7 @@ Section numbers are those of the abandoned *Three Examples of MEM-Finding* draft
 | §5 "Implementation and setup" | `src/twolevel_build.hpp` | streaming parse of S, B, the parse BWT (libsais), successors, blocks, symbols, block BWT |
 | *More RLBWT Tricks*: almost-funnels over phrases (heavy paths, placed from the reference's parse) | `src/pshortcut.hpp`, `src/pshortcut_build.hpp` | the shortcuts' structure and their jump in `search2`; their construction from `PREFIX.lvl` |
 | *More RLBWT Tricks*: the move structure | `src/move.hpp` | the records, the (run, offset) cursor of an interval's ends, the backward step, the 8-mer table |
+| Latency hiding (`results/chr19/latency/`) | `src/coro.hpp`; `src/move.hpp` (`step<true>`); `src/mems.hpp` (`bml_piece`, `fb_piece`, `chop_filter`); `src/main.cpp` (`chop_chunk`); `src/bits.hpp` (`EFRank::lf2`'s first-run table) | stackful coroutines and their switch; the prefetch-and-yield step; plain search chopped into pieces and their MEMs joined; the first-run table and lookahead prefetching in the parse's steps |
 | *More RLBWT Tricks*: almost-funnels on the text, both strands | `src/tshortcut.hpp`; `src/mems.hpp` (`tsc_try`) | Reportable Shortcuts' construction on the move structure, along CHM13 and its reverse complement; the jump (Lemma 3) |
 | *More RLBWT Tricks*: our STPD of the parse | `src/pstpd.hpp`, `src/parse_text.hpp` | the parse sample, entry table and φ⁻¹ over the parse; the parse as a text oracle (plain or RLZAP) |
 | App. B "Minimizer digests"; App. A "Digests", "BML with digests" | `src/digest.hpp`, `src/mems.hpp` (`bml_digest_run`) | symmetric digests, the byte map, the windows' digest ranges and spans; BML on digests |
@@ -234,6 +235,11 @@ Reading order: `bits.hpp` → `rlbwt.hpp` → `search.hpp` → `mems.hpp` → `t
   - It runs BML and forward–backward search on their longest-prefix matching (`experiments/stpd_index_mems.cpp`, compiled against their code by `experiments/build_stpd_index_mems.sh`), and their `locate_all_occurrences` for every MEM.
   - It runs katka's plain, two-level and STPD searches (with and without intervals, with two-level intervals, with `--locate`).
   - It compares the MEM sets and the occurrence counts, and writes times, sizes and peak memory to `WORK/summary.txt`.
+- `experiments/latency/` (results in `results/chr19/latency/`, one README for each part): where the time of plain and two-level search goes on chr19, and two ways of hiding it.
+  - **Counting and profiling:** the counters and profiles, the first-run table of `EFRank::lf2` and lookahead prefetching in the parse's steps (`KATKA_LA_D`). The scripts `a_*`, `b_*`, `time.sh` and `hp_*` produce them.
+  - **Timing:** `final.sh` re-times every timed row of the paper's tables without and with huge pages (`GLIBC_TUNABLES=glibc.malloc.hugetlb=1`).
+  - **Plain search on the move structure:** `p1_*` bound what hiding its latency could give. `p2_*` check and time it chopped into pieces (`KATKA_CHOP`) and interleaved in K coroutines on one thread (`KATKA_CO_K`, `src/coro.hpp`).
+  - **Builds:** `bin/katka` from this repository is the build the scripts call `bin/katka-chop`, `bin/katka-table` and `bin/katka-la`. The variants are chosen by the environment variables above; with none set, it is the search with the first-run table. `bin/katka-base` has the searches of tag `more-rlbwt-tricks-arxiv-v3`, unchanged. `bin/katka-g` and `bin/katka-la-g` are the same builds with `-g`, used for the profiles.
 - `tests/exp_kebab.sh PREFIX queries.fa [L] [k] [R]`: KeBaB then BML, plain BML, and KeBaB inside BML, on queries mostly absent from the text (Section 3.2). It reports the median time of R runs, k-mer tests, window restarts, backward steps and MEMs, and checks that all three give the same MEMs. `tests/gen_novel.py` makes synthetic queries of that kind.
 
 ## Testing

@@ -1,0 +1,5 @@
+[M::rb3_fmi_load_all::0.031*1.17] loaded the BWT
+[M::worker_pipeline::74.275*1.00] processed 2 sequences
+[M::main] Version: 3.10-r285-dirty
+[M::main] CMD: ~/data/latency/hp5/rb3-bin mem -t 1 --old-mem -l 1000 ~/data/latency/final/tools/n64/rb3/index.fmd ~/data/latency/hp5/rb3/queries.fa
+[M::main] Real time: 74.276 sec; CPU: 74.279 sec; Peak RSS: 0.403 GB

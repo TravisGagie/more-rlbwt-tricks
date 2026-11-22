@@ -1,0 +1,41 @@
+samples 8909, of which load 1823; shares below are of the 7086 others
+   29.68%  pattern parsing
+   22.28%  text index (move structure)
+   17.03%  parse's index: pbwt
+   14.45%  outside katka: [unknown]
+   12.07%  outside katka: libc.so.6
+    3.16%  other in katka (find_all(finder const&, read_parser&, _IO_FILE*, int, _IO_FILE*, _IO_FILE*, read_parser*, bem_store*)::{lambda()#1}::operator()() const)
+    0.79%  other in katka (libc.so.6)
+    0.28%  other in katka (read_parser::next(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&))
+    0.14%  other in katka (katka::segments(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, katka::kmer_filter const*, std::vector<std::pair<unsigned long, unsigned long>, std::allocator<std::pair<unsigned long, unsigned long> > >&, unsigned long*))
+    0.04%  outside katka: ld-linux-x86-64.so.2
+    0.04%  other in katka (void katka::bml_segment<finder::run(katka::segment_search&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*) const::{lambda(katka::mem const&)#1}>(katka::segment_search&, unsigned long, katka::mem_options const&, katka::read_state&, finder::run(katka::segment_search&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*) const::{lambda(katka::mem const&)#1}))
+    0.01%  outside katka: libstdc++.so.6.0.35
+    0.01%  other in katka (katka::find_mems<finder::run(katka::segment_search&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*) const::{lambda(katka::mem const&)#1}>(katka::segment_search&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, katka::mem_options const&, finder::run(katka::segment_search&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*) const::{lambda(katka::mem const&)#1})::{lambda(unsigned long, unsigned long)#1}::operator()(unsigned long, unsigned long) const)
+parse's index by class:
+    7.73%  parse's index: pbwt (a) finding c's first run
+    0.18%  parse's index: pbwt (b) other, depends on c only
+    0.01%  parse's index: pbwt (c) lf_one
+    3.18%  parse's index: pbwt (c1) predecessor searches for c n + sp, c n + ep
+    5.93%  parse's index: pbwt (c2) KS.access(j), FP.access2(j), arithmetic
+parse's index, top source lines (innermost):
+    3.98%  pbwt bits.hpp:105  if (o + l > 64) x |= low[w + 1] << (64 - o);
+    1.91%  pbwt bits.hpp:115  uint64_t c = __builtin_popcountll(word);
+    1.31%  pbwt bits.hpp:152  while (!word) word = ~high[++w];
+    1.03%  pbwt bits.hpp:112  uint64_t i = k / SAMPLE1, p = f1[i], rem = k - i * SAMPLE1, w = p >> 6
+    1.02%  pbwt bits.hpp:513  if (ft[c + 1].b == e.b) { o1 = o2 = n; return; }                     /
+    0.59%  pbwt bits.hpp:104  uint64_t b = j * l, w = b >> 6, o = b & 63, x = low[w] >> o;
+    0.54%  pbwt bits.hpp:127  if (before(mid) <= k) lo = mid; else hi = mid;
+    0.52%  pbwt bits.hpp:133  if (rem < c) return (w << 6) + select_in_word(word, rem);
+    0.51%  pbwt bits.hpp:132  uint64_t c = __builtin_popcountll(word);
+    0.41%  pbwt bits.hpp:22  return __builtin_ctzll(_pdep_u64(1ull << k, w));
+    0.41%  pbwt bits.hpp:167  if (get_low(mid) < xl) lo = mid + 1; else hi = mid;
+    0.40%  pbwt bits.hpp:169  while (lo < hi && get_low(lo) < xl) ++lo;
+    0.32%  pbwt bits.hpp:177  }
+    0.32%  pbwt bits.hpp:143  b = ((q - j - 1) << l) | get_low(j + 1);
+    0.30%  pbwt bits.hpp:131  uint64_t word = ONE ? high[w] : ~high[w];
+    0.28%  pbwt bits.hpp:142  while (!hbit(q)) ++q;
+    0.25%  pbwt bits.hpp:116  if (rem < c) return (w << 6) + select_in_word(word, rem);
+    0.17%  pbwt bits.hpp:117  rem -= c; word = high[++w];
+    0.17%  pbwt bits.hpp:165  while (hi - lo > 8) {
+    0.16%  pbwt bits.hpp:123  uint64_t hi = (i + 1 < smp.size()) ? (smp[i + 1] >> 9) + 1 : ones.size

@@ -1,0 +1,13 @@
+pattern length, all four patterns: 122434624
+16 individuals: 22711 MEMs, max 136795, ten longest [136795, 95696, 90960, 88080, 87417, 86908, 85987, 85891, 83777, 78066]
+   64 pieces, B = 1,913,041: sum M^2/(2B) = 889,574 characters, 0.7266% of the pattern length
+   128 pieces, B = 956,520: sum M^2/(2B) = 1,779,149 characters, 1.4531% of the pattern length
+   256 pieces, B = 478,260: sum M^2/(2B) = 3,558,297 characters, 2.9063% of the pattern length
+32 individuals: 18479 MEMs, max 136795, ten longest [136795, 126571, 110500, 108339, 104610, 99000, 98152, 95696, 95211, 92157]
+   64 pieces, B = 1,913,041: sum M^2/(2B) = 1,258,058 characters, 1.0275% of the pattern length
+   128 pieces, B = 956,520: sum M^2/(2B) = 2,516,117 characters, 2.0551% of the pattern length
+   256 pieces, B = 478,260: sum M^2/(2B) = 5,032,233 characters, 4.1101% of the pattern length
+64 individuals: 16806 MEMs, max 176757, ten longest [176757, 150187, 147226, 136795, 130882, 129633, 126571, 122328, 121340, 118004]
+   64 pieces, B = 1,913,041: sum M^2/(2B) = 1,554,631 characters, 1.2698% of the pattern length
+   128 pieces, B = 956,520: sum M^2/(2B) = 3,109,261 characters, 2.5395% of the pattern length
+   256 pieces, B = 478,260: sum M^2/(2B) = 6,218,522 characters, 5.0791% of the pattern length

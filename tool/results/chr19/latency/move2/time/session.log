@@ -1,0 +1,677 @@
+== final start 2026-11-22 13:24:04: NS '33 65 129', REP 3; up since 2026-11-22 08:08:16; load average: 0.92, 0.95, 0.94
+[2026-11-22 13:24:04] c33 move bml off round 1
+  20.375 s; huge pages 0.0% of 864 MB resident (AnonHugePages 0 KB, Rss 885240 KB)
+[2026-11-22 13:24:26] c33 move fb off round 1
+  19.856 s; huge pages 0.0% of 865 MB resident (AnonHugePages 0 KB, Rss 885288 KB)
+[2026-11-22 13:24:48] c33 move bml hp round 1
+  16.917 s; huge pages 90.3% of 866 MB resident (AnonHugePages 800768 KB, Rss 887052 KB)
+[2026-11-22 13:25:06] c33 move fb hp round 1
+  15.730 s; huge pages 90.5% of 866 MB resident (AnonHugePages 802816 KB, Rss 886936 KB)
+[2026-11-22 13:25:22] c33 move+chop bml hp round 1
+  16.158 s; huge pages 87.6% of 934 MB resident (AnonHugePages 837632 KB, Rss 956656 KB)
+[2026-11-22 13:25:40] c33 move+chop fb hp round 1
+  15.793 s; huge pages 87.4% of 934 MB resident (AnonHugePages 835584 KB, Rss 956508 KB)
+[2026-11-22 13:25:56] c33 move+chop bml off round 1
+  19.459 s; huge pages 0.0% of 933 MB resident (AnonHugePages 0 KB, Rss 955828 KB)
+[2026-11-22 13:26:17] c33 move+chop fb off round 1
+  19.070 s; huge pages 0.0% of 933 MB resident (AnonHugePages 0 KB, Rss 955876 KB)
+[2026-11-22 13:26:37] c33 move+co4 bml off round 1
+  8.867 s; huge pages 0.0% of 937 MB resident (AnonHugePages 0 KB, Rss 959920 KB)
+[2026-11-22 13:26:47] c33 move+co4 fb off round 1
+  8.631 s; huge pages 0.0% of 937 MB resident (AnonHugePages 0 KB, Rss 959956 KB)
+[2026-11-22 13:26:57] c33 move+co4 bml hp round 1
+  7.171 s; huge pages 87.2% of 940 MB resident (AnonHugePages 839680 KB, Rss 962804 KB)
+[2026-11-22 13:27:05] c33 move+co4 fb hp round 1
+  6.978 s; huge pages 87.4% of 938 MB resident (AnonHugePages 839680 KB, Rss 960764 KB)
+[2026-11-22 13:27:13] c33 move+co6 bml hp round 1
+  6.630 s; huge pages 87.2% of 940 MB resident (AnonHugePages 839680 KB, Rss 962720 KB)
+[2026-11-22 13:27:21] c33 move+co6 fb hp round 1
+  6.321 s; huge pages 87.2% of 940 MB resident (AnonHugePages 839680 KB, Rss 962688 KB)
+[2026-11-22 13:27:29] c33 move+co6 bml off round 1
+  9.184 s; huge pages 0.0% of 939 MB resident (AnonHugePages 0 KB, Rss 961912 KB)
+[2026-11-22 13:27:39] c33 move+co6 fb off round 1
+  8.949 s; huge pages 0.0% of 939 MB resident (AnonHugePages 0 KB, Rss 961924 KB)
+[2026-11-22 13:27:49] c33 move+co8 bml off round 1
+  8.679 s; huge pages 0.0% of 941 MB resident (AnonHugePages 0 KB, Rss 964060 KB)
+[2026-11-22 13:28:00] c33 move+co8 fb off round 1
+  9.234 s; huge pages 0.0% of 941 MB resident (AnonHugePages 0 KB, Rss 963952 KB)
+[2026-11-22 13:28:10] c33 move+co8 bml hp round 1
+  6.338 s; huge pages 86.8% of 942 MB resident (AnonHugePages 837632 KB, Rss 964748 KB)
+[2026-11-22 13:28:18] c33 move+co8 fb hp round 1
+  6.249 s; huge pages 87.0% of 942 MB resident (AnonHugePages 839680 KB, Rss 964744 KB)
+[2026-11-22 13:28:26] c33 move+co16 bml hp round 1
+  7.146 s; huge pages 86.5% of 951 MB resident (AnonHugePages 841728 KB, Rss 973320 KB)
+[2026-11-22 13:28:34] c33 move+co16 fb hp round 1
+  6.986 s; huge pages 86.5% of 950 MB resident (AnonHugePages 841728 KB, Rss 973292 KB)
+[2026-11-22 13:28:42] c33 move+co16 bml off round 1
+  11.051 s; huge pages 0.0% of 949 MB resident (AnonHugePages 0 KB, Rss 972264 KB)
+[2026-11-22 13:28:54] c33 move+co16 fb off round 1
+  10.232 s; huge pages 0.0% of 950 MB resident (AnonHugePages 0 KB, Rss 972416 KB)
+[2026-11-22 13:29:06] c33 move+co32 bml off round 1
+  11.947 s; huge pages 0.0% of 966 MB resident (AnonHugePages 0 KB, Rss 988888 KB)
+[2026-11-22 13:29:20] c33 move+co32 fb off round 1
+  11.170 s; huge pages 0.0% of 965 MB resident (AnonHugePages 0 KB, Rss 988640 KB)
+[2026-11-22 13:29:32] c33 move+co32 bml hp round 1
+  8.290 s; huge pages 85.1% of 968 MB resident (AnonHugePages 843776 KB, Rss 991548 KB)
+[2026-11-22 13:29:42] c33 move+co32 fb hp round 1
+  8.542 s; huge pages 84.9% of 966 MB resident (AnonHugePages 839680 KB, Rss 989420 KB)
+[2026-11-22 13:29:53] c33 heavy08 bml hp round 1
+  2.905 s; huge pages 84.2% of 1535 MB resident (AnonHugePages 1323008 KB, Rss 1571736 KB)
+[2026-11-22 13:29:57] c33 heavy08 fb hp round 1
+  2.822 s; huge pages 86.3% of 1536 MB resident (AnonHugePages 1357824 KB, Rss 1573144 KB)
+[2026-11-22 13:30:01] c33 heavy08 bml off round 1
+  3.215 s; huge pages 0.0% of 1534 MB resident (AnonHugePages 0 KB, Rss 1570436 KB)
+[2026-11-22 13:30:07] c33 heavy08 fb off round 1
+  3.156 s; huge pages 0.0% of 1534 MB resident (AnonHugePages 0 KB, Rss 1570444 KB)
+[2026-11-22 13:30:11] c33 heavy08+table bml off round 1
+  3.112 s; huge pages 0.0% of 1648 MB resident (AnonHugePages 0 KB, Rss 1687812 KB)
+[2026-11-22 13:30:17] c33 heavy08+table fb off round 1
+  3.094 s; huge pages 0.0% of 1648 MB resident (AnonHugePages 0 KB, Rss 1687832 KB)
+[2026-11-22 13:30:23] c33 heavy08+table bml hp round 1
+  2.769 s; huge pages 86.6% of 1610 MB resident (AnonHugePages 1427456 KB, Rss 1648868 KB)
+[2026-11-22 13:30:27] c33 heavy08+table fb hp round 1
+  2.720 s; huge pages 86.8% of 1611 MB resident (AnonHugePages 1431552 KB, Rss 1649916 KB)
+[2026-11-22 13:30:31] c33 move bml hp round 2
+  15.968 s; huge pages 90.5% of 866 MB resident (AnonHugePages 802816 KB, Rss 887088 KB)
+[2026-11-22 13:30:49] c33 move fb hp round 2
+  15.625 s; huge pages 90.5% of 866 MB resident (AnonHugePages 802816 KB, Rss 886968 KB)
+[2026-11-22 13:31:05] c33 move bml off round 2
+  19.244 s; huge pages 0.0% of 864 MB resident (AnonHugePages 0 KB, Rss 885200 KB)
+[2026-11-22 13:31:25] c33 move fb off round 2
+  18.804 s; huge pages 0.0% of 865 MB resident (AnonHugePages 0 KB, Rss 885288 KB)
+[2026-11-22 13:31:46] c33 move+chop bml off round 2
+  19.390 s; huge pages 0.0% of 933 MB resident (AnonHugePages 0 KB, Rss 955856 KB)
+[2026-11-22 13:32:06] c33 move+chop fb off round 2
+  18.970 s; huge pages 0.0% of 933 MB resident (AnonHugePages 0 KB, Rss 955900 KB)
+[2026-11-22 13:32:26] c33 move+chop bml hp round 2
+  16.080 s; huge pages 87.6% of 934 MB resident (AnonHugePages 837632 KB, Rss 956672 KB)
+[2026-11-22 13:32:44] c33 move+chop fb hp round 2
+  15.746 s; huge pages 87.6% of 934 MB resident (AnonHugePages 837632 KB, Rss 956524 KB)
+[2026-11-22 13:33:00] c33 move+co4 bml hp round 2
+  7.103 s; huge pages 87.4% of 940 MB resident (AnonHugePages 841728 KB, Rss 962792 KB)
+[2026-11-22 13:33:08] c33 move+co4 fb hp round 2
+  6.954 s; huge pages 87.4% of 938 MB resident (AnonHugePages 839680 KB, Rss 960768 KB)
+[2026-11-22 13:33:16] c33 move+co4 bml off round 2
+  8.840 s; huge pages 0.0% of 937 MB resident (AnonHugePages 0 KB, Rss 959940 KB)
+[2026-11-22 13:33:26] c33 move+co4 fb off round 2
+  8.717 s; huge pages 0.0% of 937 MB resident (AnonHugePages 0 KB, Rss 959952 KB)
+[2026-11-22 13:33:36] c33 move+co6 bml off round 2
+  9.160 s; huge pages 0.0% of 939 MB resident (AnonHugePages 0 KB, Rss 961928 KB)
+[2026-11-22 13:33:46] c33 move+co6 fb off round 2
+  8.913 s; huge pages 0.0% of 939 MB resident (AnonHugePages 0 KB, Rss 961920 KB)
+[2026-11-22 13:33:57] c33 move+co6 bml hp round 2
+  6.415 s; huge pages 87.2% of 940 MB resident (AnonHugePages 839680 KB, Rss 962672 KB)
+[2026-11-22 13:34:05] c33 move+co6 fb hp round 2
+  6.472 s; huge pages 87.6% of 941 MB resident (AnonHugePages 843776 KB, Rss 963116 KB)
+[2026-11-22 13:34:13] c33 move+co8 bml hp round 2
+  6.287 s; huge pages 86.8% of 942 MB resident (AnonHugePages 837632 KB, Rss 964888 KB)
+[2026-11-22 13:34:21] c33 move+co8 fb hp round 2
+  6.209 s; huge pages 86.8% of 942 MB resident (AnonHugePages 837632 KB, Rss 964804 KB)
+[2026-11-22 13:34:29] c33 move+co8 bml off round 2
+  9.413 s; huge pages 0.0% of 941 MB resident (AnonHugePages 0 KB, Rss 963968 KB)
+[2026-11-22 13:34:39] c33 move+co8 fb off round 2
+  9.126 s; huge pages 0.0% of 941 MB resident (AnonHugePages 0 KB, Rss 963928 KB)
+[2026-11-22 13:34:49] c33 move+co16 bml off round 2
+  11.033 s; huge pages 0.0% of 949 MB resident (AnonHugePages 0 KB, Rss 972148 KB)
+[2026-11-22 13:35:01] c33 move+co16 fb off round 2
+  10.661 s; huge pages 0.0% of 950 MB resident (AnonHugePages 0 KB, Rss 972296 KB)
+[2026-11-22 13:35:13] c33 move+co16 bml hp round 2
+  7.267 s; huge pages 86.3% of 950 MB resident (AnonHugePages 839680 KB, Rss 972860 KB)
+[2026-11-22 13:35:21] c33 move+co16 fb hp round 2
+  7.136 s; huge pages 86.3% of 950 MB resident (AnonHugePages 839680 KB, Rss 972848 KB)
+[2026-11-22 13:35:29] c33 move+co32 bml hp round 2
+  8.521 s; huge pages 84.9% of 966 MB resident (AnonHugePages 839680 KB, Rss 989488 KB)
+[2026-11-22 13:35:39] c33 move+co32 fb hp round 2
+  8.348 s; huge pages 84.6% of 966 MB resident (AnonHugePages 837632 KB, Rss 989540 KB)
+[2026-11-22 13:35:50] c33 move+co32 bml off round 2
+  11.828 s; huge pages 0.0% of 966 MB resident (AnonHugePages 0 KB, Rss 988952 KB)
+[2026-11-22 13:36:04] c33 move+co32 fb off round 2
+  11.501 s; huge pages 0.0% of 966 MB resident (AnonHugePages 0 KB, Rss 988676 KB)
+[2026-11-22 13:36:16] c33 heavy08 bml off round 2
+  3.207 s; huge pages 0.0% of 1534 MB resident (AnonHugePages 0 KB, Rss 1570504 KB)
+[2026-11-22 13:36:22] c33 heavy08 fb off round 2
+  3.164 s; huge pages 0.0% of 1534 MB resident (AnonHugePages 0 KB, Rss 1570488 KB)
+[2026-11-22 13:36:26] c33 heavy08 bml hp round 2
+  2.875 s; huge pages 86.6% of 1535 MB resident (AnonHugePages 1361920 KB, Rss 1572172 KB)
+[2026-11-22 13:36:30] c33 heavy08 fb hp round 2
+  2.814 s; huge pages 86.6% of 1536 MB resident (AnonHugePages 1361920 KB, Rss 1573180 KB)
+[2026-11-22 13:36:34] c33 heavy08+table bml hp round 2
+  2.754 s; huge pages 86.9% of 1610 MB resident (AnonHugePages 1433600 KB, Rss 1648896 KB)
+[2026-11-22 13:36:38] c33 heavy08+table fb hp round 2
+  2.740 s; huge pages 87.2% of 1610 MB resident (AnonHugePages 1437696 KB, Rss 1648796 KB)
+[2026-11-22 13:36:42] c33 heavy08+table bml off round 2
+  3.109 s; huge pages 0.0% of 1648 MB resident (AnonHugePages 0 KB, Rss 1687800 KB)
+[2026-11-22 13:36:48] c33 heavy08+table fb off round 2
+  3.085 s; huge pages 0.0% of 1648 MB resident (AnonHugePages 0 KB, Rss 1687760 KB)
+[2026-11-22 13:36:54] c33 move bml off round 3
+  19.200 s; huge pages 0.0% of 864 MB resident (AnonHugePages 0 KB, Rss 885220 KB)
+[2026-11-22 13:37:14] c33 move fb off round 3
+  18.796 s; huge pages 0.0% of 865 MB resident (AnonHugePages 0 KB, Rss 885292 KB)
+[2026-11-22 13:37:35] c33 move bml hp round 3
+  15.975 s; huge pages 90.5% of 866 MB resident (AnonHugePages 802816 KB, Rss 887164 KB)
+[2026-11-22 13:37:53] c33 move fb hp round 3
+  15.635 s; huge pages 90.3% of 866 MB resident (AnonHugePages 800768 KB, Rss 887024 KB)
+[2026-11-22 13:38:09] c33 move+chop bml hp round 3
+  16.089 s; huge pages 87.3% of 934 MB resident (AnonHugePages 835584 KB, Rss 956628 KB)
+[2026-11-22 13:38:27] c33 move+chop fb hp round 3
+  15.759 s; huge pages 87.6% of 934 MB resident (AnonHugePages 837632 KB, Rss 956516 KB)
+[2026-11-22 13:38:43] c33 move+chop bml off round 3
+  19.391 s; huge pages 0.0% of 933 MB resident (AnonHugePages 0 KB, Rss 955848 KB)
+[2026-11-22 13:39:03] c33 move+chop fb off round 3
+  18.969 s; huge pages 0.0% of 933 MB resident (AnonHugePages 0 KB, Rss 955892 KB)
+[2026-11-22 13:39:23] c33 move+co4 bml off round 3
+  8.847 s; huge pages 0.0% of 937 MB resident (AnonHugePages 0 KB, Rss 959956 KB)
+[2026-11-22 13:39:33] c33 move+co4 fb off round 3
+  8.617 s; huge pages 0.0% of 937 MB resident (AnonHugePages 0 KB, Rss 959956 KB)
+[2026-11-22 13:39:43] c33 move+co4 bml hp round 3
+  7.097 s; huge pages 87.2% of 938 MB resident (AnonHugePages 837632 KB, Rss 960712 KB)
+[2026-11-22 13:39:52] c33 move+co4 fb hp round 3
+  7.107 s; huge pages 87.2% of 938 MB resident (AnonHugePages 837632 KB, Rss 960772 KB)
+[2026-11-22 13:40:00] c33 move+co6 bml hp round 3
+  6.598 s; huge pages 87.2% of 940 MB resident (AnonHugePages 839680 KB, Rss 962644 KB)
+[2026-11-22 13:40:08] c33 move+co6 fb hp round 3
+  6.484 s; huge pages 87.2% of 940 MB resident (AnonHugePages 839680 KB, Rss 962668 KB)
+[2026-11-22 13:40:16] c33 move+co6 bml off round 3
+  9.146 s; huge pages 0.0% of 939 MB resident (AnonHugePages 0 KB, Rss 961884 KB)
+[2026-11-22 13:40:26] c33 move+co6 fb off round 3
+  8.880 s; huge pages 0.0% of 939 MB resident (AnonHugePages 0 KB, Rss 961936 KB)
+[2026-11-22 13:40:36] c33 move+co8 bml off round 3
+  9.390 s; huge pages 0.0% of 941 MB resident (AnonHugePages 0 KB, Rss 964008 KB)
+[2026-11-22 13:40:46] c33 move+co8 fb off round 3
+  9.147 s; huge pages 0.0% of 941 MB resident (AnonHugePages 0 KB, Rss 963964 KB)
+[2026-11-22 13:40:56] c33 move+co8 bml hp round 3
+  6.311 s; huge pages 87.0% of 942 MB resident (AnonHugePages 839680 KB, Rss 964800 KB)
+[2026-11-22 13:41:04] c33 move+co8 fb hp round 3
+  6.259 s; huge pages 87.0% of 942 MB resident (AnonHugePages 839680 KB, Rss 964776 KB)
+[2026-11-22 13:41:12] c33 move+co16 bml hp round 3
+  7.319 s; huge pages 86.3% of 950 MB resident (AnonHugePages 839680 KB, Rss 972816 KB)
+[2026-11-22 13:41:20] c33 move+co16 fb hp round 3
+  7.151 s; huge pages 86.3% of 950 MB resident (AnonHugePages 839680 KB, Rss 972864 KB)
+[2026-11-22 13:41:28] c33 move+co16 bml off round 3
+  10.967 s; huge pages 0.0% of 949 MB resident (AnonHugePages 0 KB, Rss 972260 KB)
+[2026-11-22 13:41:40] c33 move+co16 fb off round 3
+  10.808 s; huge pages 0.0% of 949 MB resident (AnonHugePages 0 KB, Rss 972260 KB)
+[2026-11-22 13:41:53] c33 move+co32 bml off round 3
+  11.949 s; huge pages 0.0% of 966 MB resident (AnonHugePages 0 KB, Rss 988876 KB)
+[2026-11-22 13:42:07] c33 move+co32 fb off round 3
+  11.417 s; huge pages 0.0% of 965 MB resident (AnonHugePages 0 KB, Rss 988564 KB)
+[2026-11-22 13:42:19] c33 move+co32 bml hp round 3
+  8.460 s; huge pages 84.9% of 966 MB resident (AnonHugePages 839680 KB, Rss 989520 KB)
+[2026-11-22 13:42:29] c33 move+co32 fb hp round 3
+  8.247 s; huge pages 84.7% of 966 MB resident (AnonHugePages 837632 KB, Rss 989480 KB)
+[2026-11-22 13:42:39] c33 heavy08 bml hp round 3
+  2.864 s; huge pages 86.8% of 1535 MB resident (AnonHugePages 1363968 KB, Rss 1572120 KB)
+[2026-11-22 13:42:43] c33 heavy08 fb hp round 3
+  2.818 s; huge pages 86.4% of 1535 MB resident (AnonHugePages 1357824 KB, Rss 1572208 KB)
+[2026-11-22 13:42:47] c33 heavy08 bml off round 3
+  3.210 s; huge pages 0.0% of 1534 MB resident (AnonHugePages 0 KB, Rss 1570444 KB)
+[2026-11-22 13:42:53] c33 heavy08 fb off round 3
+  3.155 s; huge pages 0.0% of 1534 MB resident (AnonHugePages 0 KB, Rss 1570520 KB)
+[2026-11-22 13:42:57] c33 heavy08+table bml off round 3
+  3.111 s; huge pages 0.0% of 1648 MB resident (AnonHugePages 0 KB, Rss 1687816 KB)
+[2026-11-22 13:43:03] c33 heavy08+table fb off round 3
+  3.098 s; huge pages 0.0% of 1648 MB resident (AnonHugePages 0 KB, Rss 1687832 KB)
+[2026-11-22 13:43:09] c33 heavy08+table bml hp round 3
+  2.758 s; huge pages 86.9% of 1610 MB resident (AnonHugePages 1433600 KB, Rss 1648896 KB)
+[2026-11-22 13:43:13] c33 heavy08+table fb hp round 3
+  2.732 s; huge pages 86.7% of 1611 MB resident (AnonHugePages 1429504 KB, Rss 1649256 KB)
+[2026-11-22 13:43:18] c33 move bml off round 4
+  19.200 s; huge pages 0.0% of 865 MB resident (AnonHugePages 0 KB, Rss 885272 KB)
+[2026-11-22 13:43:38] c33 move bml off round 5
+  19.196 s; huge pages 0.0% of 864 MB resident (AnonHugePages 0 KB, Rss 885168 KB)
+[2026-11-22 13:43:58] c33 move fb off round 4
+  18.813 s; huge pages 0.0% of 865 MB resident (AnonHugePages 0 KB, Rss 885256 KB)
+[2026-11-22 13:44:18] c33 move fb off round 5
+  18.773 s; huge pages 0.0% of 864 MB resident (AnonHugePages 0 KB, Rss 885240 KB)
+[2026-11-22 13:44:38] c33 move+co8 bml off round 4
+  9.411 s; huge pages 0.0% of 941 MB resident (AnonHugePages 0 KB, Rss 963980 KB)
+[2026-11-22 13:44:48] c33 move+co8 bml off round 5
+  9.372 s; huge pages 0.0% of 941 MB resident (AnonHugePages 0 KB, Rss 964056 KB)
+[2026-11-22 13:44:58] c33 move+co16 fb off round 4
+  10.814 s; huge pages 0.0% of 949 MB resident (AnonHugePages 0 KB, Rss 972208 KB)
+[2026-11-22 13:45:11] c33 move+co16 fb off round 5
+  10.840 s; huge pages 0.0% of 949 MB resident (AnonHugePages 0 KB, Rss 972272 KB)
+-- c33 done 2026-11-22 13:45:23
+[2026-11-22 13:45:23] c65 move bml off round 1
+  21.373 s; huge pages 0.0% of 910 MB resident (AnonHugePages 0 KB, Rss 931848 KB)
+[2026-11-22 13:45:45] c65 move fb off round 1
+  21.058 s; huge pages 0.0% of 910 MB resident (AnonHugePages 0 KB, Rss 932120 KB)
+[2026-11-22 13:46:07] c65 move bml hp round 1
+  17.688 s; huge pages 91.0% of 912 MB resident (AnonHugePages 849920 KB, Rss 933624 KB)
+[2026-11-22 13:46:25] c65 move fb hp round 1
+  17.452 s; huge pages 91.2% of 913 MB resident (AnonHugePages 851968 KB, Rss 934652 KB)
+[2026-11-22 13:46:43] c65 move+chop bml hp round 1
+  17.819 s; huge pages 88.0% of 980 MB resident (AnonHugePages 882688 KB, Rss 1003356 KB)
+[2026-11-22 13:47:01] c65 move+chop fb hp round 1
+  17.567 s; huge pages 88.2% of 980 MB resident (AnonHugePages 884736 KB, Rss 1003404 KB)
+[2026-11-22 13:47:19] c65 move+chop bml off round 1
+  21.611 s; huge pages 0.0% of 979 MB resident (AnonHugePages 0 KB, Rss 1002804 KB)
+[2026-11-22 13:47:42] c65 move+chop fb off round 1
+  21.287 s; huge pages 0.0% of 979 MB resident (AnonHugePages 0 KB, Rss 1002736 KB)
+[2026-11-22 13:48:04] c65 move+co4 bml off round 1
+  9.785 s; huge pages 0.0% of 983 MB resident (AnonHugePages 0 KB, Rss 1006900 KB)
+[2026-11-22 13:48:16] c65 move+co4 fb off round 1
+  9.629 s; huge pages 0.0% of 983 MB resident (AnonHugePages 0 KB, Rss 1006808 KB)
+[2026-11-22 13:48:28] c65 move+co4 bml hp round 1
+  7.872 s; huge pages 87.8% of 984 MB resident (AnonHugePages 884736 KB, Rss 1007760 KB)
+[2026-11-22 13:48:38] c65 move+co4 fb hp round 1
+  7.746 s; huge pages 88.0% of 984 MB resident (AnonHugePages 886784 KB, Rss 1007616 KB)
+[2026-11-22 13:48:46] c65 move+co6 bml hp round 1
+  7.078 s; huge pages 87.8% of 986 MB resident (AnonHugePages 886784 KB, Rss 1009588 KB)
+[2026-11-22 13:48:54] c65 move+co6 fb hp round 1
+  6.989 s; huge pages 87.8% of 986 MB resident (AnonHugePages 886784 KB, Rss 1009592 KB)
+[2026-11-22 13:49:02] c65 move+co6 bml off round 1
+  10.177 s; huge pages 0.0% of 985 MB resident (AnonHugePages 0 KB, Rss 1008848 KB)
+[2026-11-22 13:49:14] c65 move+co6 fb off round 1
+  9.866 s; huge pages 0.0% of 985 MB resident (AnonHugePages 0 KB, Rss 1008960 KB)
+[2026-11-22 13:49:27] c65 move+co8 bml off round 1
+  10.394 s; huge pages 0.0% of 987 MB resident (AnonHugePages 0 KB, Rss 1010896 KB)
+[2026-11-22 13:49:39] c65 move+co8 fb off round 1
+  10.356 s; huge pages 0.0% of 987 MB resident (AnonHugePages 0 KB, Rss 1010944 KB)
+[2026-11-22 13:49:51] c65 move+co8 bml hp round 1
+  7.051 s; huge pages 87.5% of 988 MB resident (AnonHugePages 884736 KB, Rss 1011568 KB)
+[2026-11-22 13:49:59] c65 move+co8 fb hp round 1
+  6.929 s; huge pages 87.5% of 988 MB resident (AnonHugePages 884736 KB, Rss 1011436 KB)
+[2026-11-22 13:50:07] c65 move+co16 bml hp round 1
+  7.866 s; huge pages 86.7% of 996 MB resident (AnonHugePages 884736 KB, Rss 1020016 KB)
+[2026-11-22 13:50:17] c65 move+co16 fb hp round 1
+  7.863 s; huge pages 86.7% of 996 MB resident (AnonHugePages 884736 KB, Rss 1019944 KB)
+[2026-11-22 13:50:27] c65 move+co16 bml off round 1
+  12.812 s; huge pages 0.0% of 995 MB resident (AnonHugePages 0 KB, Rss 1019140 KB)
+[2026-11-22 13:50:41] c65 move+co16 fb off round 1
+  12.183 s; huge pages 0.0% of 995 MB resident (AnonHugePages 0 KB, Rss 1019144 KB)
+[2026-11-22 13:50:55] c65 move+co32 bml off round 1
+  13.082 s; huge pages 0.0% of 1011 MB resident (AnonHugePages 0 KB, Rss 1035576 KB)
+[2026-11-22 13:51:09] c65 move+co32 fb off round 1
+  12.885 s; huge pages 0.0% of 1011 MB resident (AnonHugePages 0 KB, Rss 1035552 KB)
+[2026-11-22 13:51:24] c65 move+co32 bml hp round 1
+  9.528 s; huge pages 85.6% of 1012 MB resident (AnonHugePages 886784 KB, Rss 1036204 KB)
+[2026-11-22 13:51:34] c65 move+co32 fb hp round 1
+  9.129 s; huge pages 85.8% of 1012 MB resident (AnonHugePages 888832 KB, Rss 1036220 KB)
+[2026-11-22 13:51:44] c65 heavy08 bml hp round 1
+  2.796 s; huge pages 86.1% of 1672 MB resident (AnonHugePages 1474560 KB, Rss 1712312 KB)
+[2026-11-22 13:51:48] c65 heavy08 fb hp round 1
+  2.709 s; huge pages 87.6% of 1672 MB resident (AnonHugePages 1499136 KB, Rss 1711772 KB)
+[2026-11-22 13:51:52] c65 heavy08 bml off round 1
+  3.113 s; huge pages 0.0% of 1669 MB resident (AnonHugePages 0 KB, Rss 1708712 KB)
+[2026-11-22 13:51:58] c65 heavy08 fb off round 1
+  3.031 s; huge pages 0.0% of 1669 MB resident (AnonHugePages 0 KB, Rss 1708692 KB)
+[2026-11-22 13:52:02] c65 heavy08+table bml off round 1
+  3.026 s; huge pages 0.0% of 1795 MB resident (AnonHugePages 0 KB, Rss 1838060 KB)
+[2026-11-22 13:52:08] c65 heavy08+table fb off round 1
+  2.953 s; huge pages 0.0% of 1795 MB resident (AnonHugePages 0 KB, Rss 1838072 KB)
+[2026-11-22 13:52:14] c65 heavy08+table bml hp round 1
+  2.672 s; huge pages 88.1% of 1758 MB resident (AnonHugePages 1585152 KB, Rss 1799756 KB)
+[2026-11-22 13:52:18] c65 heavy08+table fb hp round 1
+  2.616 s; huge pages 88.3% of 1758 MB resident (AnonHugePages 1589248 KB, Rss 1800672 KB)
+[2026-11-22 13:52:22] c65 move bml hp round 2
+  17.671 s; huge pages 90.9% of 911 MB resident (AnonHugePages 847872 KB, Rss 932668 KB)
+[2026-11-22 13:52:40] c65 move fb hp round 2
+  17.451 s; huge pages 90.9% of 911 MB resident (AnonHugePages 847872 KB, Rss 932872 KB)
+[2026-11-22 13:52:58] c65 move bml off round 2
+  21.350 s; huge pages 0.0% of 910 MB resident (AnonHugePages 0 KB, Rss 931844 KB)
+[2026-11-22 13:53:21] c65 move fb off round 2
+  21.064 s; huge pages 0.0% of 910 MB resident (AnonHugePages 0 KB, Rss 932144 KB)
+[2026-11-22 13:53:43] c65 move+chop bml off round 2
+  21.566 s; huge pages 0.0% of 979 MB resident (AnonHugePages 0 KB, Rss 1002716 KB)
+[2026-11-22 13:54:05] c65 move+chop fb off round 2
+  21.263 s; huge pages 0.0% of 979 MB resident (AnonHugePages 0 KB, Rss 1002736 KB)
+[2026-11-22 13:54:27] c65 move+chop bml hp round 2
+  17.813 s; huge pages 88.1% of 980 MB resident (AnonHugePages 884736 KB, Rss 1003796 KB)
+[2026-11-22 13:54:45] c65 move+chop fb hp round 2
+  17.565 s; huge pages 88.0% of 980 MB resident (AnonHugePages 882688 KB, Rss 1003416 KB)
+[2026-11-22 13:55:03] c65 move+co4 bml hp round 2
+  7.863 s; huge pages 88.0% of 984 MB resident (AnonHugePages 886784 KB, Rss 1007776 KB)
+[2026-11-22 13:55:13] c65 move+co4 fb hp round 2
+  7.744 s; huge pages 88.0% of 984 MB resident (AnonHugePages 886784 KB, Rss 1007624 KB)
+[2026-11-22 13:55:21] c65 move+co4 bml off round 2
+  9.789 s; huge pages 0.0% of 983 MB resident (AnonHugePages 0 KB, Rss 1006896 KB)
+[2026-11-22 13:55:33] c65 move+co4 fb off round 2
+  9.623 s; huge pages 0.0% of 983 MB resident (AnonHugePages 0 KB, Rss 1006872 KB)
+[2026-11-22 13:55:46] c65 move+co6 bml off round 2
+  10.054 s; huge pages 0.0% of 985 MB resident (AnonHugePages 0 KB, Rss 1008876 KB)
+[2026-11-22 13:55:58] c65 move+co6 fb off round 2
+  9.923 s; huge pages 0.0% of 985 MB resident (AnonHugePages 0 KB, Rss 1008896 KB)
+[2026-11-22 13:56:10] c65 move+co6 bml hp round 2
+  7.069 s; huge pages 87.8% of 986 MB resident (AnonHugePages 886784 KB, Rss 1009596 KB)
+[2026-11-22 13:56:18] c65 move+co6 fb hp round 2
+  6.989 s; huge pages 87.9% of 988 MB resident (AnonHugePages 888832 KB, Rss 1011524 KB)
+[2026-11-22 13:56:26] c65 move+co8 bml hp round 2
+  6.992 s; huge pages 87.7% of 988 MB resident (AnonHugePages 886784 KB, Rss 1011584 KB)
+[2026-11-22 13:56:34] c65 move+co8 fb hp round 2
+  7.220 s; huge pages 87.8% of 989 MB resident (AnonHugePages 888832 KB, Rss 1012576 KB)
+[2026-11-22 13:56:42] c65 move+co8 bml off round 2
+  10.440 s; huge pages 0.0% of 987 MB resident (AnonHugePages 0 KB, Rss 1010928 KB)
+[2026-11-22 13:56:54] c65 move+co8 fb off round 2
+  10.220 s; huge pages 0.0% of 987 MB resident (AnonHugePages 0 KB, Rss 1010824 KB)
+[2026-11-22 13:57:06] c65 move+co16 bml off round 2
+  12.136 s; huge pages 0.0% of 995 MB resident (AnonHugePages 0 KB, Rss 1019192 KB)
+[2026-11-22 13:57:20] c65 move+co16 fb off round 2
+  11.885 s; huge pages 0.0% of 995 MB resident (AnonHugePages 0 KB, Rss 1019268 KB)
+[2026-11-22 13:57:35] c65 move+co16 bml hp round 2
+  8.178 s; huge pages 87.1% of 996 MB resident (AnonHugePages 888832 KB, Rss 1020184 KB)
+[2026-11-22 13:57:45] c65 move+co16 fb hp round 2
+  7.954 s; huge pages 87.1% of 997 MB resident (AnonHugePages 888832 KB, Rss 1020936 KB)
+[2026-11-22 13:57:55] c65 move+co32 bml hp round 2
+  9.473 s; huge pages 85.6% of 1012 MB resident (AnonHugePages 886784 KB, Rss 1036220 KB)
+[2026-11-22 13:58:05] c65 move+co32 fb hp round 2
+  9.275 s; huge pages 85.4% of 1012 MB resident (AnonHugePages 884736 KB, Rss 1036108 KB)
+[2026-11-22 13:58:15] c65 move+co32 bml off round 2
+  13.460 s; huge pages 0.0% of 1011 MB resident (AnonHugePages 0 KB, Rss 1035624 KB)
+[2026-11-22 13:58:29] c65 move+co32 fb off round 2
+  12.869 s; huge pages 0.0% of 1011 MB resident (AnonHugePages 0 KB, Rss 1035584 KB)
+[2026-11-22 13:58:43] c65 heavy08 bml off round 2
+  3.124 s; huge pages 0.0% of 1669 MB resident (AnonHugePages 0 KB, Rss 1708680 KB)
+[2026-11-22 13:58:49] c65 heavy08 fb off round 2
+  3.029 s; huge pages 0.0% of 1669 MB resident (AnonHugePages 0 KB, Rss 1708648 KB)
+[2026-11-22 13:58:53] c65 heavy08 bml hp round 2
+  2.770 s; huge pages 87.8% of 1672 MB resident (AnonHugePages 1503232 KB, Rss 1712236 KB)
+[2026-11-22 13:58:57] c65 heavy08 fb hp round 2
+  2.685 s; huge pages 87.4% of 1671 MB resident (AnonHugePages 1495040 KB, Rss 1711236 KB)
+[2026-11-22 13:59:01] c65 heavy08+table bml hp round 2
+  2.667 s; huge pages 88.4% of 1758 MB resident (AnonHugePages 1591296 KB, Rss 1800628 KB)
+[2026-11-22 13:59:05] c65 heavy08+table fb hp round 2
+  2.623 s; huge pages 88.1% of 1759 MB resident (AnonHugePages 1587200 KB, Rss 1800748 KB)
+[2026-11-22 13:59:09] c65 heavy08+table bml off round 2
+  3.008 s; huge pages 0.0% of 1795 MB resident (AnonHugePages 0 KB, Rss 1838068 KB)
+[2026-11-22 13:59:16] c65 heavy08+table fb off round 2
+  2.945 s; huge pages 0.0% of 1795 MB resident (AnonHugePages 0 KB, Rss 1838052 KB)
+[2026-11-22 13:59:22] c65 move bml off round 3
+  21.357 s; huge pages 0.0% of 910 MB resident (AnonHugePages 0 KB, Rss 931800 KB)
+[2026-11-22 13:59:44] c65 move fb off round 3
+  21.059 s; huge pages 0.0% of 910 MB resident (AnonHugePages 0 KB, Rss 932156 KB)
+[2026-11-22 14:00:06] c65 move bml hp round 3
+  17.694 s; huge pages 90.9% of 911 MB resident (AnonHugePages 847872 KB, Rss 932592 KB)
+[2026-11-22 14:00:24] c65 move fb hp round 3
+  17.449 s; huge pages 90.8% of 912 MB resident (AnonHugePages 847872 KB, Rss 933696 KB)
+[2026-11-22 14:00:42] c65 move+chop bml hp round 3
+  17.824 s; huge pages 88.0% of 980 MB resident (AnonHugePages 882688 KB, Rss 1003392 KB)
+[2026-11-22 14:01:00] c65 move+chop fb hp round 3
+  17.581 s; huge pages 88.0% of 980 MB resident (AnonHugePages 882688 KB, Rss 1003420 KB)
+[2026-11-22 14:01:18] c65 move+chop bml off round 3
+  21.583 s; huge pages 0.0% of 979 MB resident (AnonHugePages 0 KB, Rss 1002716 KB)
+[2026-11-22 14:01:40] c65 move+chop fb off round 3
+  21.235 s; huge pages 0.0% of 979 MB resident (AnonHugePages 0 KB, Rss 1002692 KB)
+[2026-11-22 14:02:03] c65 move+co4 bml off round 3
+  9.775 s; huge pages 0.0% of 983 MB resident (AnonHugePages 0 KB, Rss 1006880 KB)
+[2026-11-22 14:02:15] c65 move+co4 fb off round 3
+  9.613 s; huge pages 0.0% of 983 MB resident (AnonHugePages 0 KB, Rss 1006792 KB)
+[2026-11-22 14:02:27] c65 move+co4 bml hp round 3
+  7.994 s; huge pages 88.0% of 984 MB resident (AnonHugePages 886784 KB, Rss 1007816 KB)
+[2026-11-22 14:02:37] c65 move+co4 fb hp round 3
+  7.751 s; huge pages 87.8% of 984 MB resident (AnonHugePages 884736 KB, Rss 1007572 KB)
+[2026-11-22 14:02:45] c65 move+co6 bml hp round 3
+  7.067 s; huge pages 87.8% of 986 MB resident (AnonHugePages 886784 KB, Rss 1009544 KB)
+[2026-11-22 14:02:53] c65 move+co6 fb hp round 3
+  7.023 s; huge pages 87.8% of 986 MB resident (AnonHugePages 886784 KB, Rss 1009552 KB)
+[2026-11-22 14:03:01] c65 move+co6 bml off round 3
+  10.088 s; huge pages 0.0% of 985 MB resident (AnonHugePages 0 KB, Rss 1008844 KB)
+[2026-11-22 14:03:13] c65 move+co6 fb off round 3
+  9.912 s; huge pages 0.0% of 985 MB resident (AnonHugePages 0 KB, Rss 1009064 KB)
+[2026-11-22 14:03:25] c65 move+co8 bml off round 3
+  10.440 s; huge pages 0.0% of 987 MB resident (AnonHugePages 0 KB, Rss 1010960 KB)
+[2026-11-22 14:03:37] c65 move+co8 fb off round 3
+  10.268 s; huge pages 0.0% of 987 MB resident (AnonHugePages 0 KB, Rss 1010964 KB)
+[2026-11-22 14:03:50] c65 move+co8 bml hp round 3
+  6.994 s; huge pages 87.5% of 988 MB resident (AnonHugePages 884736 KB, Rss 1011580 KB)
+[2026-11-22 14:03:58] c65 move+co8 fb hp round 3
+  6.938 s; huge pages 87.7% of 988 MB resident (AnonHugePages 886784 KB, Rss 1011644 KB)
+[2026-11-22 14:04:06] c65 move+co16 bml hp round 3
+  7.817 s; huge pages 86.8% of 996 MB resident (AnonHugePages 884736 KB, Rss 1019632 KB)
+[2026-11-22 14:04:14] c65 move+co16 fb hp round 3
+  7.727 s; huge pages 86.8% of 998 MB resident (AnonHugePages 886784 KB, Rss 1021752 KB)
+[2026-11-22 14:04:22] c65 move+co16 bml off round 3
+  12.381 s; huge pages 0.0% of 995 MB resident (AnonHugePages 0 KB, Rss 1019168 KB)
+[2026-11-22 14:04:36] c65 move+co16 fb off round 3
+  11.938 s; huge pages 0.0% of 995 MB resident (AnonHugePages 0 KB, Rss 1019216 KB)
+[2026-11-22 14:04:50] c65 move+co32 bml off round 3
+  13.206 s; huge pages 0.0% of 1011 MB resident (AnonHugePages 0 KB, Rss 1035576 KB)
+[2026-11-22 14:05:04] c65 move+co32 fb off round 3
+  12.955 s; huge pages 0.0% of 1011 MB resident (AnonHugePages 0 KB, Rss 1035584 KB)
+[2026-11-22 14:05:18] c65 move+co32 bml hp round 3
+  9.284 s; huge pages 85.6% of 1012 MB resident (AnonHugePages 886784 KB, Rss 1036232 KB)
+[2026-11-22 14:05:28] c65 move+co32 fb hp round 3
+  9.032 s; huge pages 85.4% of 1012 MB resident (AnonHugePages 884736 KB, Rss 1036284 KB)
+[2026-11-22 14:05:38] c65 heavy08 bml hp round 3
+  2.770 s; huge pages 87.5% of 1672 MB resident (AnonHugePages 1499136 KB, Rss 1712492 KB)
+[2026-11-22 14:05:43] c65 heavy08 fb hp round 3
+  2.688 s; huge pages 87.6% of 1672 MB resident (AnonHugePages 1499136 KB, Rss 1712076 KB)
+[2026-11-22 14:05:47] c65 heavy08 bml off round 3
+  3.117 s; huge pages 0.0% of 1669 MB resident (AnonHugePages 0 KB, Rss 1708748 KB)
+[2026-11-22 14:05:53] c65 heavy08 fb off round 3
+  3.050 s; huge pages 0.0% of 1669 MB resident (AnonHugePages 0 KB, Rss 1708720 KB)
+[2026-11-22 14:05:57] c65 heavy08+table bml off round 3
+  3.010 s; huge pages 0.0% of 1795 MB resident (AnonHugePages 0 KB, Rss 1838072 KB)
+[2026-11-22 14:06:03] c65 heavy08+table fb off round 3
+  2.954 s; huge pages 0.0% of 1795 MB resident (AnonHugePages 0 KB, Rss 1838052 KB)
+[2026-11-22 14:06:09] c65 heavy08+table bml hp round 3
+  2.670 s; huge pages 88.1% of 1759 MB resident (AnonHugePages 1587200 KB, Rss 1800720 KB)
+[2026-11-22 14:06:13] c65 heavy08+table fb hp round 3
+  2.605 s; huge pages 88.1% of 1757 MB resident (AnonHugePages 1585152 KB, Rss 1799672 KB)
+[2026-11-22 14:06:17] c65 move+co16 bml off round 4
+  12.351 s; huge pages 0.0% of 995 MB resident (AnonHugePages 0 KB, Rss 1019168 KB)
+[2026-11-22 14:06:31] c65 move+co16 bml off round 5
+  12.197 s; huge pages 0.0% of 995 MB resident (AnonHugePages 0 KB, Rss 1019176 KB)
+-- c65 done 2026-11-22 14:06:45
+[2026-11-22 14:06:45] c129 move bml off round 1
+  23.013 s; huge pages 0.0% of 982 MB resident (AnonHugePages 0 KB, Rss 1005380 KB)
+[2026-11-22 14:07:10] c129 move fb off round 1
+  22.740 s; huge pages 0.0% of 982 MB resident (AnonHugePages 0 KB, Rss 1005360 KB)
+[2026-11-22 14:07:34] c129 move bml hp round 1
+  18.971 s; huge pages 91.5% of 986 MB resident (AnonHugePages 923648 KB, Rss 1009216 KB)
+[2026-11-22 14:07:54] c129 move fb hp round 1
+  18.799 s; huge pages 91.5% of 984 MB resident (AnonHugePages 921600 KB, Rss 1007252 KB)
+[2026-11-22 14:08:14] c129 move+chop bml hp round 1
+  19.116 s; huge pages 88.8% of 1052 MB resident (AnonHugePages 956416 KB, Rss 1077136 KB)
+[2026-11-22 14:08:34] c129 move+chop fb hp round 1
+  18.938 s; huge pages 88.6% of 1052 MB resident (AnonHugePages 954368 KB, Rss 1077108 KB)
+[2026-11-22 14:08:54] c129 move+chop bml off round 1
+  23.282 s; huge pages 0.0% of 1051 MB resident (AnonHugePages 0 KB, Rss 1076404 KB)
+[2026-11-22 14:09:18] c129 move+chop fb off round 1
+  22.969 s; huge pages 0.0% of 1051 MB resident (AnonHugePages 0 KB, Rss 1076384 KB)
+[2026-11-22 14:09:43] c129 move+co4 bml off round 1
+  10.682 s; huge pages 0.0% of 1055 MB resident (AnonHugePages 0 KB, Rss 1080480 KB)
+[2026-11-22 14:09:55] c129 move+co4 fb off round 1
+  10.439 s; huge pages 0.0% of 1055 MB resident (AnonHugePages 0 KB, Rss 1080488 KB)
+[2026-11-22 14:10:07] c129 move+co4 bml hp round 1
+  8.528 s; huge pages 88.8% of 1056 MB resident (AnonHugePages 960512 KB, Rss 1081408 KB)
+[2026-11-22 14:10:17] c129 move+co4 fb hp round 1
+  8.424 s; huge pages 88.6% of 1056 MB resident (AnonHugePages 958464 KB, Rss 1081396 KB)
+[2026-11-22 14:10:27] c129 move+co6 bml hp round 1
+  7.688 s; huge pages 88.9% of 1058 MB resident (AnonHugePages 962560 KB, Rss 1083276 KB)
+[2026-11-22 14:10:35] c129 move+co6 fb hp round 1
+  7.602 s; huge pages 88.5% of 1060 MB resident (AnonHugePages 960512 KB, Rss 1085208 KB)
+[2026-11-22 14:10:43] c129 move+co6 bml off round 1
+  10.871 s; huge pages 0.0% of 1057 MB resident (AnonHugePages 0 KB, Rss 1082496 KB)
+[2026-11-22 14:10:55] c129 move+co6 fb off round 1
+  10.775 s; huge pages 0.0% of 1057 MB resident (AnonHugePages 0 KB, Rss 1082520 KB)
+[2026-11-22 14:11:07] c129 move+co8 bml off round 1
+  11.233 s; huge pages 0.0% of 1059 MB resident (AnonHugePages 0 KB, Rss 1084588 KB)
+[2026-11-22 14:11:19] c129 move+co8 fb off round 1
+  11.109 s; huge pages 0.0% of 1059 MB resident (AnonHugePages 0 KB, Rss 1084584 KB)
+[2026-11-22 14:11:32] c129 move+co8 bml hp round 1
+  7.585 s; huge pages 88.3% of 1062 MB resident (AnonHugePages 960512 KB, Rss 1087208 KB)
+[2026-11-22 14:11:40] c129 move+co8 fb hp round 1
+  7.539 s; huge pages 88.3% of 1062 MB resident (AnonHugePages 960512 KB, Rss 1087232 KB)
+[2026-11-22 14:11:48] c129 move+co16 bml hp round 1
+  8.620 s; huge pages 87.8% of 1068 MB resident (AnonHugePages 960512 KB, Rss 1093564 KB)
+[2026-11-22 14:11:58] c129 move+co16 fb hp round 1
+  8.822 s; huge pages 87.8% of 1068 MB resident (AnonHugePages 960512 KB, Rss 1093496 KB)
+[2026-11-22 14:12:08] c129 move+co16 bml off round 1
+  13.166 s; huge pages 0.0% of 1067 MB resident (AnonHugePages 0 KB, Rss 1092768 KB)
+[2026-11-22 14:12:22] c129 move+co16 fb off round 1
+  12.860 s; huge pages 0.0% of 1067 MB resident (AnonHugePages 0 KB, Rss 1092732 KB)
+[2026-11-22 14:12:36] c129 move+co32 bml off round 1
+  14.179 s; huge pages 0.0% of 1083 MB resident (AnonHugePages 0 KB, Rss 1109324 KB)
+[2026-11-22 14:12:52] c129 move+co32 fb off round 1
+  13.879 s; huge pages 0.0% of 1083 MB resident (AnonHugePages 0 KB, Rss 1109416 KB)
+[2026-11-22 14:13:08] c129 move+co32 bml hp round 1
+  9.975 s; huge pages 86.3% of 1084 MB resident (AnonHugePages 958464 KB, Rss 1110084 KB)
+[2026-11-22 14:13:20] c129 move+co32 fb hp round 1
+  9.838 s; huge pages 86.3% of 1084 MB resident (AnonHugePages 958464 KB, Rss 1110068 KB)
+[2026-11-22 14:13:33] c129 heavy08 bml hp round 1
+  2.843 s; huge pages 87.4% of 1884 MB resident (AnonHugePages 1685504 KB, Rss 1928764 KB)
+[2026-11-22 14:13:37] c129 heavy08 fb hp round 1
+  2.717 s; huge pages 88.2% of 1885 MB resident (AnonHugePages 1701888 KB, Rss 1929768 KB)
+[2026-11-22 14:13:41] c129 heavy08 bml off round 1
+  3.165 s; huge pages 0.0% of 1921 MB resident (AnonHugePages 0 KB, Rss 1967016 KB)
+[2026-11-22 14:13:47] c129 heavy08 fb off round 1
+  3.063 s; huge pages 0.0% of 1881 MB resident (AnonHugePages 0 KB, Rss 1926076 KB)
+[2026-11-22 14:13:53] c129 heavy08+table bml off round 1
+  3.067 s; huge pages 0.0% of 2025 MB resident (AnonHugePages 0 KB, Rss 2073132 KB)
+[2026-11-22 14:13:59] c129 heavy08+table fb off round 1
+  3.004 s; huge pages 0.0% of 2024 MB resident (AnonHugePages 0 KB, Rss 2073024 KB)
+[2026-11-22 14:14:05] c129 heavy08+table bml hp round 1
+  2.770 s; huge pages 88.3% of 1987 MB resident (AnonHugePages 1796096 KB, Rss 2034520 KB)
+[2026-11-22 14:14:09] c129 heavy08+table fb hp round 1
+  2.643 s; huge pages 88.9% of 1988 MB resident (AnonHugePages 1810432 KB, Rss 2036188 KB)
+[2026-11-22 14:14:13] c129 move bml hp round 2
+  18.964 s; huge pages 91.9% of 984 MB resident (AnonHugePages 925696 KB, Rss 1007284 KB)
+[2026-11-22 14:14:33] c129 move fb hp round 2
+  18.774 s; huge pages 91.6% of 983 MB resident (AnonHugePages 921600 KB, Rss 1006268 KB)
+[2026-11-22 14:14:53] c129 move bml off round 2
+  23.010 s; huge pages 0.0% of 982 MB resident (AnonHugePages 0 KB, Rss 1005336 KB)
+[2026-11-22 14:15:18] c129 move fb off round 2
+  22.747 s; huge pages 0.0% of 982 MB resident (AnonHugePages 0 KB, Rss 1005432 KB)
+[2026-11-22 14:15:42] c129 move+chop bml off round 2
+  23.185 s; huge pages 0.0% of 1051 MB resident (AnonHugePages 0 KB, Rss 1076344 KB)
+[2026-11-22 14:16:06] c129 move+chop fb off round 2
+  22.942 s; huge pages 0.0% of 1051 MB resident (AnonHugePages 0 KB, Rss 1076392 KB)
+[2026-11-22 14:16:30] c129 move+chop bml hp round 2
+  19.127 s; huge pages 89.0% of 1052 MB resident (AnonHugePages 958464 KB, Rss 1077104 KB)
+[2026-11-22 14:16:50] c129 move+chop fb hp round 2
+  18.917 s; huge pages 89.0% of 1052 MB resident (AnonHugePages 958464 KB, Rss 1077032 KB)
+[2026-11-22 14:17:10] c129 move+co4 bml hp round 2
+  8.498 s; huge pages 88.8% of 1056 MB resident (AnonHugePages 960512 KB, Rss 1081364 KB)
+[2026-11-22 14:17:20] c129 move+co4 fb hp round 2
+  8.399 s; huge pages 88.6% of 1056 MB resident (AnonHugePages 958464 KB, Rss 1081356 KB)
+[2026-11-22 14:17:30] c129 move+co4 bml off round 2
+  10.563 s; huge pages 0.0% of 1055 MB resident (AnonHugePages 0 KB, Rss 1080384 KB)
+[2026-11-22 14:17:43] c129 move+co4 fb off round 2
+  10.432 s; huge pages 0.0% of 1055 MB resident (AnonHugePages 0 KB, Rss 1080448 KB)
+[2026-11-22 14:17:55] c129 move+co6 bml off round 2
+  10.828 s; huge pages 0.0% of 1057 MB resident (AnonHugePages 0 KB, Rss 1082536 KB)
+[2026-11-22 14:18:07] c129 move+co6 fb off round 2
+  10.762 s; huge pages 0.0% of 1057 MB resident (AnonHugePages 0 KB, Rss 1082568 KB)
+[2026-11-22 14:18:19] c129 move+co6 bml hp round 2
+  7.675 s; huge pages 88.3% of 1058 MB resident (AnonHugePages 956416 KB, Rss 1083172 KB)
+[2026-11-22 14:18:27] c129 move+co6 fb hp round 2
+  7.606 s; huge pages 88.7% of 1060 MB resident (AnonHugePages 962560 KB, Rss 1085152 KB)
+[2026-11-22 14:18:35] c129 move+co8 bml hp round 2
+  7.566 s; huge pages 88.5% of 1060 MB resident (AnonHugePages 960512 KB, Rss 1085180 KB)
+[2026-11-22 14:18:43] c129 move+co8 fb hp round 2
+  7.541 s; huge pages 88.3% of 1060 MB resident (AnonHugePages 958464 KB, Rss 1085172 KB)
+[2026-11-22 14:18:51] c129 move+co8 bml off round 2
+  11.236 s; huge pages 0.0% of 1059 MB resident (AnonHugePages 0 KB, Rss 1084520 KB)
+[2026-11-22 14:19:03] c129 move+co8 fb off round 2
+  11.134 s; huge pages 0.0% of 1059 MB resident (AnonHugePages 0 KB, Rss 1084428 KB)
+[2026-11-22 14:19:15] c129 move+co16 bml off round 2
+  13.151 s; huge pages 0.0% of 1067 MB resident (AnonHugePages 0 KB, Rss 1092736 KB)
+[2026-11-22 14:19:30] c129 move+co16 fb off round 2
+  12.951 s; huge pages 0.0% of 1067 MB resident (AnonHugePages 0 KB, Rss 1092764 KB)
+[2026-11-22 14:19:44] c129 move+co16 bml hp round 2
+  8.838 s; huge pages 87.6% of 1068 MB resident (AnonHugePages 958464 KB, Rss 1093580 KB)
+[2026-11-22 14:19:54] c129 move+co16 fb hp round 2
+  8.902 s; huge pages 87.5% of 1068 MB resident (AnonHugePages 956416 KB, Rss 1093480 KB)
+[2026-11-22 14:20:04] c129 move+co32 bml hp round 2
+  10.053 s; huge pages 86.4% of 1086 MB resident (AnonHugePages 960512 KB, Rss 1112036 KB)
+[2026-11-22 14:20:16] c129 move+co32 fb hp round 2
+  9.962 s; huge pages 86.7% of 1084 MB resident (AnonHugePages 962560 KB, Rss 1110336 KB)
+[2026-11-22 14:20:28] c129 move+co32 bml off round 2
+  14.190 s; huge pages 0.0% of 1083 MB resident (AnonHugePages 0 KB, Rss 1109328 KB)
+[2026-11-22 14:20:44] c129 move+co32 fb off round 2
+  14.312 s; huge pages 0.0% of 1083 MB resident (AnonHugePages 0 KB, Rss 1109296 KB)
+[2026-11-22 14:21:00] c129 heavy08 bml off round 2
+  3.169 s; huge pages 0.0% of 1921 MB resident (AnonHugePages 0 KB, Rss 1966988 KB)
+[2026-11-22 14:21:06] c129 heavy08 fb off round 2
+  3.078 s; huge pages 0.0% of 1921 MB resident (AnonHugePages 0 KB, Rss 1967352 KB)
+[2026-11-22 14:21:12] c129 heavy08 bml hp round 2
+  2.835 s; huge pages 88.3% of 1883 MB resident (AnonHugePages 1703936 KB, Rss 1928668 KB)
+[2026-11-22 14:21:17] c129 heavy08 fb hp round 2
+  2.703 s; huge pages 88.6% of 1884 MB resident (AnonHugePages 1708032 KB, Rss 1928784 KB)
+[2026-11-22 14:21:21] c129 heavy08+table bml hp round 2
+  2.703 s; huge pages 89.3% of 1988 MB resident (AnonHugePages 1818624 KB, Rss 2036212 KB)
+[2026-11-22 14:21:25] c129 heavy08+table fb hp round 2
+  2.619 s; huge pages 89.1% of 1988 MB resident (AnonHugePages 1812480 KB, Rss 2035212 KB)
+[2026-11-22 14:21:29] c129 heavy08+table bml off round 2
+  3.091 s; huge pages 0.0% of 2025 MB resident (AnonHugePages 0 KB, Rss 2073136 KB)
+[2026-11-22 14:21:35] c129 heavy08+table fb off round 2
+  2.977 s; huge pages 0.0% of 2025 MB resident (AnonHugePages 0 KB, Rss 2073140 KB)
+[2026-11-22 14:21:41] c129 move bml off round 3
+  23.169 s; huge pages 0.0% of 982 MB resident (AnonHugePages 0 KB, Rss 1005412 KB)
+[2026-11-22 14:22:05] c129 move fb off round 3
+  22.766 s; huge pages 0.0% of 982 MB resident (AnonHugePages 0 KB, Rss 1005424 KB)
+[2026-11-22 14:22:29] c129 move bml hp round 3
+  18.962 s; huge pages 91.7% of 984 MB resident (AnonHugePages 923648 KB, Rss 1007244 KB)
+[2026-11-22 14:22:49] c129 move fb hp round 3
+  18.795 s; huge pages 91.5% of 984 MB resident (AnonHugePages 921600 KB, Rss 1007248 KB)
+[2026-11-22 14:23:09] c129 move+chop bml hp round 3
+  19.126 s; huge pages 89.0% of 1052 MB resident (AnonHugePages 958464 KB, Rss 1077060 KB)
+[2026-11-22 14:23:30] c129 move+chop fb hp round 3
+  18.923 s; huge pages 88.6% of 1052 MB resident (AnonHugePages 954368 KB, Rss 1077092 KB)
+[2026-11-22 14:23:50] c129 move+chop bml off round 3
+  23.166 s; huge pages 0.0% of 1051 MB resident (AnonHugePages 0 KB, Rss 1076392 KB)
+[2026-11-22 14:24:14] c129 move+chop fb off round 3
+  22.928 s; huge pages 0.0% of 1051 MB resident (AnonHugePages 0 KB, Rss 1076472 KB)
+[2026-11-22 14:24:38] c129 move+co4 bml off round 3
+  10.562 s; huge pages 0.0% of 1055 MB resident (AnonHugePages 0 KB, Rss 1080456 KB)
+[2026-11-22 14:24:50] c129 move+co4 fb off round 3
+  10.453 s; huge pages 0.0% of 1055 MB resident (AnonHugePages 0 KB, Rss 1080452 KB)
+[2026-11-22 14:25:02] c129 move+co4 bml hp round 3
+  8.533 s; huge pages 88.8% of 1056 MB resident (AnonHugePages 960512 KB, Rss 1081620 KB)
+[2026-11-22 14:25:12] c129 move+co4 fb hp round 3
+  8.419 s; huge pages 88.6% of 1056 MB resident (AnonHugePages 958464 KB, Rss 1081384 KB)
+[2026-11-22 14:25:22] c129 move+co6 bml hp round 3
+  7.691 s; huge pages 88.6% of 1059 MB resident (AnonHugePages 960512 KB, Rss 1084120 KB)
+[2026-11-22 14:25:30] c129 move+co6 fb hp round 3
+  7.606 s; huge pages 88.7% of 1058 MB resident (AnonHugePages 960512 KB, Rss 1083132 KB)
+[2026-11-22 14:25:39] c129 move+co6 bml off round 3
+  10.841 s; huge pages 0.0% of 1057 MB resident (AnonHugePages 0 KB, Rss 1082496 KB)
+[2026-11-22 14:25:51] c129 move+co6 fb off round 3
+  10.734 s; huge pages 0.0% of 1057 MB resident (AnonHugePages 0 KB, Rss 1082456 KB)
+[2026-11-22 14:26:03] c129 move+co8 bml off round 3
+  11.273 s; huge pages 0.0% of 1059 MB resident (AnonHugePages 0 KB, Rss 1084588 KB)
+[2026-11-22 14:26:15] c129 move+co8 fb off round 3
+  11.122 s; huge pages 0.0% of 1059 MB resident (AnonHugePages 0 KB, Rss 1084520 KB)
+[2026-11-22 14:26:27] c129 move+co8 bml hp round 3
+  7.759 s; huge pages 88.1% of 1060 MB resident (AnonHugePages 956416 KB, Rss 1085160 KB)
+[2026-11-22 14:26:35] c129 move+co8 fb hp round 3
+  7.533 s; huge pages 88.3% of 1062 MB resident (AnonHugePages 960512 KB, Rss 1087236 KB)
+[2026-11-22 14:26:43] c129 move+co16 bml hp round 3
+  8.613 s; huge pages 87.6% of 1068 MB resident (AnonHugePages 958464 KB, Rss 1093540 KB)
+[2026-11-22 14:26:53] c129 move+co16 fb hp round 3
+  8.762 s; huge pages 87.8% of 1068 MB resident (AnonHugePages 960512 KB, Rss 1093472 KB)
+[2026-11-22 14:27:03] c129 move+co16 bml off round 3
+  13.029 s; huge pages 0.0% of 1067 MB resident (AnonHugePages 0 KB, Rss 1092836 KB)
+[2026-11-22 14:27:17] c129 move+co16 fb off round 3
+  12.839 s; huge pages 0.0% of 1067 MB resident (AnonHugePages 0 KB, Rss 1092820 KB)
+[2026-11-22 14:27:32] c129 move+co32 bml off round 3
+  14.158 s; huge pages 0.0% of 1083 MB resident (AnonHugePages 0 KB, Rss 1109300 KB)
+[2026-11-22 14:27:48] c129 move+co32 fb off round 3
+  14.079 s; huge pages 0.0% of 1083 MB resident (AnonHugePages 0 KB, Rss 1109296 KB)
+[2026-11-22 14:28:04] c129 move+co32 bml hp round 3
+  10.225 s; huge pages 86.2% of 1084 MB resident (AnonHugePages 956416 KB, Rss 1109960 KB)
+[2026-11-22 14:28:16] c129 move+co32 fb hp round 3
+  10.052 s; huge pages 86.7% of 1084 MB resident (AnonHugePages 962560 KB, Rss 1110148 KB)
+[2026-11-22 14:28:28] c129 heavy08 bml hp round 3
+  2.808 s; huge pages 88.5% of 1884 MB resident (AnonHugePages 1708032 KB, Rss 1929588 KB)
+[2026-11-22 14:28:32] c129 heavy08 fb hp round 3
+  2.717 s; huge pages 88.6% of 1884 MB resident (AnonHugePages 1710080 KB, Rss 1929660 KB)
+[2026-11-22 14:28:36] c129 heavy08 bml off round 3
+  3.155 s; huge pages 0.0% of 1921 MB resident (AnonHugePages 0 KB, Rss 1967044 KB)
+[2026-11-22 14:28:42] c129 heavy08 fb off round 3
+  3.060 s; huge pages 0.0% of 1881 MB resident (AnonHugePages 0 KB, Rss 1926072 KB)
+[2026-11-22 14:28:48] c129 heavy08+table bml off round 3
+  3.074 s; huge pages 0.0% of 2025 MB resident (AnonHugePages 0 KB, Rss 2073168 KB)
+[2026-11-22 14:28:54] c129 heavy08+table fb off round 3
+  2.986 s; huge pages 0.0% of 2025 MB resident (AnonHugePages 0 KB, Rss 2073144 KB)
+[2026-11-22 14:29:00] c129 heavy08+table bml hp round 3
+  2.749 s; huge pages 88.8% of 1988 MB resident (AnonHugePages 1808384 KB, Rss 2036088 KB)
+[2026-11-22 14:29:04] c129 heavy08+table fb hp round 3
+  2.657 s; huge pages 89.4% of 1988 MB resident (AnonHugePages 1818624 KB, Rss 2035208 KB)
+[2026-11-22 14:29:09] c129 move+co32 fb off round 4
+  13.959 s; huge pages 0.0% of 1083 MB resident (AnonHugePages 0 KB, Rss 1109280 KB)
+[2026-11-22 14:29:25] c129 move+co32 fb off round 5
+  13.930 s; huge pages 0.0% of 1083 MB resident (AnonHugePages 0 KB, Rss 1109332 KB)
+-- c129 done 2026-11-22 14:29:41
+== final done 2026-11-22 14:29:41

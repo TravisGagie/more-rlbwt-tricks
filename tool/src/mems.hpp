@@ -92,6 +92,7 @@ struct segment_search {
     u64 n = 0;
     std::string rc;
     pattern_parse pi, qi;
+    const std::vector<mem> *replay = nullptr;   // if set, find_mems reports these instead of searching (chopped search)
 
     void prepare(const char *r, u64 len) {
         R = r; n = len;
@@ -159,6 +160,7 @@ struct segment_search {
             }
             bool ok = true;
             const text_shortcuts *TS = S->tsc;
+            const bool Y = g_co != nullptr;               // interleaved pieces (find_all's chopped search): yield in each step
             while (j > lo) {
                 if (TS && end - j >= TS->ell && TS->maybe(c.rs)) {
                     const u64 j0 = j;
@@ -174,7 +176,7 @@ struct segment_search {
                 }
                 ++cnt.char_steps;
                 const unsigned char ch = (unsigned char)X[j - 1];
-                if (!M.step(c, ch)) { ok = false; break; }
+                if (!(Y ? M.step<true>(c, ch) : M.step(c, ch))) { ok = false; break; }
                 if (S->mv_check && S->csa) {
                     u64 a = I.sp, b = I.ep, sp, ep; S->csa->extend(a, b, ch); M.rows(c, sp, ep); I = {a, b};
                     if (a != sp || b != ep) die("internal error: the move structure's step differs from the RLCSA's");
@@ -582,6 +584,53 @@ void fb_segment(segment_search &Q, u64 r0, const mem_options &opt, read_state &s
     }
 }
 
+// Chopped search (latency hiding on the move structure, part 2): one piece of a prepared segment, R[lo..hi) of
+// Q.R[0..n), with plain options (L fixed).  The piece runs the usual search with lo as the left end of the pattern
+// and no right boundary: backward steps never go left of lo, forward searches and BML's windows read past hi as far as
+// the match goes, it records every MEM of length >= L that starts before hi, and it stops when its left bound (the
+// position before which no further MEM can start) reaches hi.  Concatenated in order, the pieces' MEMs are the
+// segment's, except that a piece other than the first may record, at lo, the tail of the last MEM kept before it, with
+// the same right end; chop_filter drops it.
+inline void bml_piece(segment_search &Q, u64 r0, u64 lo, u64 hi, u64 L, std::vector<mem> &out) {
+    const u64 n = Q.n;
+    u64 x = lo, lb = lo;                                   // lb: no further MEM starts before lb
+    while (lb < hi && x + L <= n) {
+        interval I;
+        u64 j = Q.back(0, x, x + L, I, true);
+        if (j > x) { x = lb = j; continue; }               // R[j-1..x+L) does not occur
+        u64 a = Q.extend_left(0, lo, x, x + L, I);
+        interval J;
+        u64 e = Q.forward(a, J);
+        Q.rc_interval(a, e, J);
+        if (a < hi) out.push_back(mem{r0 + a, r0 + e, J});
+        lb = a + 1;                                        // MEMs are not nested: the next one starts after a
+        x = e + 1 - L;
+    }
+}
+inline void fb_piece(segment_search &Q, u64 r0, u64 lo, u64 hi, u64 L, std::vector<mem> &out) {
+    const u64 m = Q.n;
+    u64 s0 = lo;
+    while (s0 < hi) {
+        interval J, I;
+        u64 e = Q.forward(s0, J);
+        if (e <= s0) { ++s0; continue; }
+        if (e - s0 >= L) { Q.rc_interval(s0, e, J); out.push_back(mem{r0 + s0, r0 + e, J}); }
+        if (e >= m) break;
+        u64 s2 = Q.back(0, lo, e + 1, I);
+        s0 = s2 > e ? e + 1 : s2;
+    }
+}
+// appends to out the MEMs of a segment's pieces (piece k starts at r0 + cut[k]), in order, dropping a MEM that starts
+// exactly at a piece's start if the last one kept has the same right end (the tail of that MEM)
+inline void chop_filter(const std::vector<std::vector<mem>> &pieces, const std::vector<u64> &cut, u64 r0, std::vector<mem> &out, u64 *dropped = nullptr) {
+    bool have = false; u64 last_e = 0;
+    for (size_t k = 0; k < pieces.size(); ++k)
+        for (const mem &M : pieces[k]) {
+            if (k > 0 && have && M.a == r0 + cut[k] && M.e == last_e) { if (dropped) ++*dropped; continue; }
+            out.push_back(M); have = true; last_e = M.e;
+        }
+}
+
 // BML over minimizer digests (App. B "Minimizer digests", App. A "BML with digests"), on one A/C/G/T run
 // R[0..n) of a read, n >= max(L, w), with L in bases.  Window y covers bases y..y+w-1 and selects digest
 // symbols lo[y]..hi[y]; a DNA match R[x..x+L) contains exactly the windows x..x+L-w, so its digest is
@@ -636,6 +685,7 @@ void bml_digest_run(segment_search &Q, const digest_map &M, const char *R, u64 n
 // top t, the t longest at the end, sorted by position).
 template <class F>
 void find_mems(segment_search &Q, const std::string &read, const mem_options &opt, F report) {
+    if (Q.replay) { for (const mem &M : *Q.replay) report(M); return; }
     static thread_local std::vector<std::pair<u64, u64>> segs;
     if (opt.digest) {
         segments(read, nullptr, segs);
@@ -669,14 +719,14 @@ void find_mems(segment_search &Q, const std::string &read, const mem_options &op
             const u64 T = opt.check_T;
             for (u64 i = 0; i < ns && i < T; ++i) search_pseudo(i);
             Q.cnt.kb_batches += 1;
+            // accept iff t MEMs found are >= lambda, the (T+1)st pseudo-MEM's length, or 0 if there are at most T:
+            // then every pseudo-MEM was searched with floor st.L, and any MEM not found is shorter than st.L (inside
+            // a pseudo-MEM, below the floor; outside, in a run of k-mers shorter than L, or shorter than k)
+            const u64 lambda = ns > T ? segs[T].second : 0;
+            u64 c = 0;
+            for (auto &M : st.best) c += opt.check_strict ? M.e - M.a > lambda : M.e - M.a >= lambda;
             int why = 0;                                 // 0: accepted; 1: at most T pseudo-MEMs; 2: too few long MEMs
-            if (ns < T + 1) why = 1;
-            else {
-                const u64 lambda = segs[T].second;
-                u64 c = 0;
-                for (auto &M : st.best) c += opt.check_strict ? M.e - M.a > lambda : M.e - M.a >= lambda;
-                if (c < t) why = 2;
-            }
+            if (c < t) why = ns > T ? 2 : 1;
             if (why) {
                 ++Q.cnt.kb_fallbacks;
                 (why == 1 ? Q.cnt.kb_fb_few : Q.cnt.kb_fb_short) += 1;

@@ -1,0 +1,40 @@
+samples 7606, of which load 181; shares below are of the 7425 others
+   49.43%  text index (move structure)
+   23.97%  parse's index: pbwt
+   12.79%  parse's index: bbwt
+   11.14%  pattern parsing
+    1.10%  outside katka: libc.so.6
+    0.62%  other in katka (read_parser::next(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&))
+    0.58%  other in katka (find_all(finder const&, read_parser&, _IO_FILE*, int, _IO_FILE*, _IO_FILE*, read_parser*, bem_store*)::{lambda()#1}::operator()() const)
+    0.30%  other in katka (katka::segments(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, katka::kmer_filter const*, std::vector<std::pair<unsigned long, unsigned long>, std::allocator<std::pair<unsigned long, unsigned long> > >&, unsigned long*))
+    0.04%  outside katka: ld-linux-x86-64.so.2
+    0.01%  other in katka (void katka::find_mems<finder::run(katka::segment_search&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*) const::{lambda(katka::mem const&)#1}>(katka::segment_search&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, katka::mem_options const&, finder::run(katka::segment_search&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*) const::{lambda(katka::mem const&)#1}))
+    0.01%  other in katka (katka::rlbwt::~rlbwt())
+parse's index by class:
+    7.76%  parse's index: bbwt (a) finding c's first run
+    0.81%  parse's index: bbwt (c1) predecessor searches for c n + sp, c n + ep
+    4.23%  parse's index: bbwt (c2) KS.access(j), FP.access2(j), arithmetic
+   17.43%  parse's index: pbwt (a) finding c's first run
+    0.57%  parse's index: pbwt (c1) predecessor searches for c n + sp, c n + ep
+    5.98%  parse's index: pbwt (c2) KS.access(j), FP.access2(j), arithmetic
+parse's index, top source lines (innermost):
+    7.07%  pbwt bits.hpp:104  uint64_t b = j * l, w = b >> 6, o = b & 63, x = low[w] >> o;
+    4.98%  pbwt bits.hpp:112  uint64_t i = k / SAMPLE1, p = f1[i], rem = k - i * SAMPLE1, w = p >> 6
+    4.65%  bbwt bits.hpp:104  uint64_t b = j * l, w = b >> 6, o = b & 63, x = low[w] >> o;
+    4.40%  pbwt bits.hpp:113  uint64_t word = high[w] & (~0ull << (p & 63));
+    3.11%  pbwt bits.hpp:131  uint64_t word = ONE ? high[w] : ~high[w];
+    2.44%  bbwt bits.hpp:113  uint64_t word = high[w] & (~0ull << (p & 63));
+    1.93%  pbwt bits.hpp:122  uint64_t lo = smp[i] >> 9;
+    1.86%  bbwt bits.hpp:112  uint64_t i = k / SAMPLE1, p = f1[i], rem = k - i * SAMPLE1, w = p >> 6
+    1.25%  bbwt bits.hpp:131  uint64_t word = ONE ? high[w] : ~high[w];
+    1.24%  bbwt bits.hpp:240  uint64_t b = i * w, k = b >> 6, o = b & 63, x = d[k] >> o;
+    0.86%  pbwt bits.hpp:124  auto before = [&](uint64_t blk) { return ONE ? ones[blk] : (blk << 9) 
+    0.59%  pbwt bits.hpp:129  uint64_t rem = k - before(lo);
+    0.51%  bbwt bits.hpp:122  uint64_t lo = smp[i] >> 9;
+    0.44%  pbwt bits.hpp:117  rem -= c; word = high[++w];
+    0.30%  pbwt bits.hpp:105  if (o + l > 64) x |= low[w + 1] << (64 - o);
+    0.28%  pbwt bits.hpp:123  uint64_t hi = (i + 1 < smp.size()) ? (smp[i + 1] >> 9) + 1 : ones.size
+    0.26%  bbwt bits.hpp:124  auto before = [&](uint64_t blk) { return ONE ? ones[blk] : (blk << 9) 
+    0.19%  bbwt bits.hpp:117  rem -= c; word = high[++w];
+    0.16%  bbwt bits.hpp:129  uint64_t rem = k - before(lo);
+    0.16%  bbwt bits.hpp:105  if (o + l > 64) x |= low[w + 1] << (64 - o);

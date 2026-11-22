@@ -1,0 +1,31 @@
+== q33.heavy09.t: search wall 3.10 s (stat run); cycles 1.324e+10 / 1.327e+10; IPC 1.56
+   stalled on an L3 miss 21.5% of cycles; on any memory access 32.2%; for any reason 38.4%; page walks 15.3%; L3-miss loads 1.326e+07; branch misses per 1000 instructions 3.81
+   class: cycle samples % / L3-miss loads %
+      26.49 /  55.09  text index (move structure)
+      28.93 /  17.78  pattern parsing
+      15.79 /  22.19  parse's index: pbwt
+      13.20 /   0.00  outside katka: [unknown]
+      10.86 /   1.93  outside katka: libc.so.6
+       2.93 /   2.18  other in katka (find_all(finder const&, read_parser&, _IO_FILE*, int, _IO_FILE*, _IO_FILE*, read_parser*, bem_store*)::{lambda()#1}::operator()() const)
+       0.81 /   0.25  other in katka (katka::segments(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, katka::kmer_filter const*, std::vector<std::pair<unsigned long, unsigned long>, std::allocator<std::pair<unsigned long, unsigned long> > >&, unsigned long*))
+       0.83 /   0.00  other in katka (read_parser::next(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&))
+       0.00 /   0.50  other in katka (libc.so.6)
+   X = 21.5% x 22.19% = 4.77% of cycles
+     X part  3.36% of cycles (L3-miss loads 15.62%; cycle samples  7.00%)  parse's index: pbwt (a) finding c's first run
+     X part  0.01% of cycles (L3-miss loads  0.06%; cycle samples  2.79%)  parse's index: pbwt (c1) predecessor searches for c n + sp, c n + ep
+     X part  1.40% of cycles (L3-miss loads  6.51%; cycle samples  5.84%)  parse's index: pbwt (c2) KS.access(j), FP.access2(j), arithmetic
+== q129.heavy09.t: search wall 3.11 s (stat run); cycles 1.325e+10 / 1.321e+10; IPC 1.56
+   stalled on an L3 miss 20.7% of cycles; on any memory access 31.7%; for any reason 38.2%; page walks 16.3%; L3-miss loads 1.296e+07; branch misses per 1000 instructions 4.04
+   class: cycle samples % / L3-miss loads %
+      22.28 /  53.43  text index (move structure)
+      29.68 /  18.17  pattern parsing
+      17.03 /  23.74  parse's index: pbwt
+      14.45 /   0.00  outside katka: [unknown]
+      12.07 /   1.75  outside katka: libc.so.6
+       3.16 /   2.27  other in katka (find_all(finder const&, read_parser&, _IO_FILE*, int, _IO_FILE*, _IO_FILE*, read_parser*, bem_store*)::{lambda()#1}::operator()() const)
+       0.79 /   0.00  other in katka (libc.so.6)
+       0.28 /   0.47  other in katka (read_parser::next(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&))
+   X = 20.7% x 23.74% = 4.92% of cycles
+     X part  3.32% of cycles (L3-miss loads 16.03%; cycle samples  7.73%)  parse's index: pbwt (a) finding c's first run
+     X part  0.05% of cycles (L3-miss loads  0.25%; cycle samples  3.18%)  parse's index: pbwt (c1) predecessor searches for c n + sp, c n + ep
+     X part  1.55% of cycles (L3-miss loads  7.46%; cycle samples  5.93%)  parse's index: pbwt (c2) KS.access(j), FP.access2(j), arithmetic

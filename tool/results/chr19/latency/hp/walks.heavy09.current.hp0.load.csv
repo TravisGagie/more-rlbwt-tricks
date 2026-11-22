@@ -1,0 +1,7 @@
+# started on Sun Nov 22 00:49:29 2026
+
+1226506926,,cycles:u,828718777,100.00,,
+1272319028,,instructions:u,828718777,100.00,,
+17101498,,dtlb_load_misses.walk_active:u,828718777,100.00,,
+381598,,dtlb_load_misses.miss_causes_a_walk:u,828718777,100.00,,
+46219394,,cycle_activity.stalls_l3_miss:u,828718777,100.00,,

@@ -1,0 +1,15 @@
+== hp1 start 2026-11-21 23:56:53: NS '33 65 129', ROWS 'nojumps unique', VARIANTS 'current=bin/katka-base table=bin/katka-table la2=bin/katka-la:KATKA_LA_D=2 current-hp=bin/katka-base:GLIBC_TUNABLES=glibc.malloc.hugetlb=1 table-hp=bin/katka-table:GLIBC_TUNABLES=glibc.malloc.hugetlb=1 la2-hp=bin/katka-la:KATKA_LA_D=2:GLIBC_TUNABLES=glibc.malloc.hugetlb=1', REP 3
+-- c33 done 00:02:53
+-- c65 done 00:09:04
+-- c129 done 00:15:56
+== hp1 done 2026-11-22 00:15:56
+== hp2 start 2026-11-22 00:15:56: NS '33 65 129', ROWS 'heavy09', VARIANTS 'current=bin/katka-base table=bin/katka-table current-hp=bin/katka-base:GLIBC_TUNABLES=glibc.malloc.hugetlb=1 table-hp=bin/katka-table:GLIBC_TUNABLES=glibc.malloc.hugetlb=1', REP 3
+-- c33 done 00:17:27
+-- c65 done 00:18:59
+-- c129 done 00:20:39
+== hp2 done 2026-11-22 00:20:39
+== hp3 start 2026-11-22 00:20:39: NS '33 65 129', ROWS 'move', VARIANTS 'current=bin/katka-base current-hp=bin/katka-base:GLIBC_TUNABLES=glibc.malloc.hugetlb=1', REP 3
+-- c33 done 00:26:21
+-- c65 done 00:30:18
+-- c129 done 00:34:32
+== hp3 done 2026-11-22 00:34:32

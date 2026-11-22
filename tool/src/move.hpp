@@ -12,6 +12,7 @@
 // Exactly the interval of backward search (checked against the RLCSA by `find --move-check`).
 #pragma once
 #include "rlbwt.hpp"
+#include "coro.hpp"
 #include <functional>
 namespace katka {
 struct move_index {
@@ -115,7 +116,10 @@ struct move_index {
         };
         rec_(0, 0, full());
     }
-    // backward step with byte c; false (c unchanged) if the interval becomes empty
+    // backward step with byte c; false (c unchanged) if the interval becomes empty.  Y (plain search, chopped and
+    // interleaved; g_co set): once both ends' destination runs are known, prefetch their records and yield to the next
+    // piece before fast-forwarding (the destination records carry about 97% of plain search's L3 misses).
+    template <bool Y = false>
     inline bool step(cursor &c, unsigned char ch) const {
         const uint32_t s = sym_of[ch];
         if (s == 255) return false;
@@ -138,7 +142,15 @@ struct move_index {
             if (sym(b) != s) b = runs_of[s].access(runs_of[s].count_less(b) - 1);
             e = b; oe = len(b) - 1;
         }
-        lf(a, oa); lf(e, oe);
+        if constexpr (Y) {
+            oa += off(a); a = dest(a); oe += off(e); e = dest(e);
+            __builtin_prefetch(&rec[a]); __builtin_prefetch(&rec[e]);
+            g_co->yield();
+            while (oa >= len(a)) { oa -= len(a); ++a; }
+            while (oe >= len(e)) { oe -= len(e); ++e; }
+        } else {
+            lf(a, oa); lf(e, oe);
+        }
         c = {a, oa, e, oe};
         return true;
     }

@@ -1,0 +1,7 @@
+# started on Sun Nov 22 00:49:15 2026
+
+16602456719,,cycles:u,4347953248,100.00,,
+25401218309,,instructions:u,4347953248,100.00,,
+2208810469,,dtlb_load_misses.walk_active:u,4347953248,100.00,,
+49261604,,dtlb_load_misses.miss_causes_a_walk:u,4347953248,100.00,,
+2623598272,,cycle_activity.stalls_l3_miss:u,4347953248,100.00,,

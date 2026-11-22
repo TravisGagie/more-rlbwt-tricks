@@ -1,0 +1,7 @@
+# started on Sun Nov 22 12:51:21 2026
+
+85596594452,,cycles:u,19007085214,100.00,,
+38587957075,,instructions:u,19007085214,100.00,,
+162130698,,mem_load_retired.l3_miss:u,19007085214,100.00,,
+52340064,,dtlb_load_misses.walk_active:u,19007085214,100.00,,
+215695690,,branch-misses:u,19007085214,100.00,,

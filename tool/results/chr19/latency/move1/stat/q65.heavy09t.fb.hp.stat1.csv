@@ -1,0 +1,7 @@
+# started on Sun Nov 22 12:48:39 2026
+
+14037919359,,cycles:u,3415310081,100.00,,
+23333828807,,instructions:u,3415310081,100.00,,
+4672461236,,cycle_activity.stalls_total:u,3415310081,100.00,,
+3322532259,,cycle_activity.stalls_mem_any:u,3415310081,100.00,,
+2138955166,,cycle_activity.stalls_l3_miss:u,3415310081,100.00,,

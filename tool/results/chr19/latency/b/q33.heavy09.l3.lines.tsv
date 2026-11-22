@@ -1,0 +1,10 @@
+parse's index: pbwt	bits.hpp:104	7.9582	uint64_t b = j * l, w = b >> 6, o = b & 63, x = low[w] >> o;
+parse's index: pbwt	bits.hpp:112	5.0868	uint64_t i = k / SAMPLE1, p = f1[i], rem = k - i * SAMPLE1, w = p >> 6
+parse's index: pbwt	bits.hpp:113	4.1829	uint64_t word = high[w] & (~0ull << (p & 63));
+parse's index: pbwt	bits.hpp:131	2.9245	uint64_t word = ONE ? high[w] : ~high[w];
+parse's index: pbwt	bits.hpp:122	0.9748	uint64_t lo = smp[i] >> 9;
+parse's index: pbwt	bits.hpp:124	0.6735	auto before = [&](uint64_t blk) { return ONE ? ones[blk] : (blk << 9) 
+parse's index: pbwt	bits.hpp:117	0.4608	rem -= c; word = high[++w];
+parse's index: pbwt	bits.hpp:129	0.3899	uint64_t rem = k - before(lo);
+parse's index: pbwt	bits.hpp:105	0.2481	if (o + l > 64) x |= low[w + 1] << (64 - o);
+parse's index: pbwt	bits.hpp:123	0.1772	uint64_t hi = (i + 1 < smp.size()) ? (smp[i + 1] >> 9) + 1 : ones.size

@@ -1,0 +1,63 @@
+parse's index: pbwt	bits.hpp:105	12.7279	if (o + l > 64) x |= low[w + 1] << (64 - o);
+parse's index: pbwt	bits.hpp:115	9.3606	uint64_t c = __builtin_popcountll(word);
+parse's index: pbwt	bits.hpp:112	6.4714	uint64_t i = k / SAMPLE1, p = f1[i], rem = k - i * SAMPLE1, w = p >> 6
+parse's index: pbwt	bits.hpp:132	4.2183	uint64_t c = __builtin_popcountll(word);
+parse's index: pbwt	bits.hpp:123	3.5781	uint64_t hi = (i + 1 < smp.size()) ? (smp[i + 1] >> 9) + 1 : ones.size
+parse's index: pbwt	bits.hpp:127	2.9297	if (before(mid) <= k) lo = mid; else hi = mid;
+parse's index: pbwt	bits.hpp:133	2.4516	if (rem < c) return (w << 6) + select_in_word(word, rem);
+parse's index: pbwt	bits.hpp:22	2.3867	return __builtin_ctzll(_pdep_u64(1ull << k, w));
+parse's index: pbwt	bits.hpp:104	1.3940	uint64_t b = j * l, w = b >> 6, o = b & 63, x = low[w] >> o;
+parse's index: pbwt	bits.hpp:152	1.2440	while (!word) word = ~high[++w];
+parse's index: pbwt	bits.hpp:131	1.1144	uint64_t word = ONE ? high[w] : ~high[w];
+parse's index: pbwt	bits.hpp:116	1.0738	if (rem < c) return (w << 6) + select_in_word(word, rem);
+parse's index: pbwt	bits.hpp:177	1.0698	}
+parse's index: pbwt	bits.hpp:117	0.9442	rem -= c; word = high[++w];
+parse's index: pbwt	bits.hpp:169	0.8955	while (lo < hi && get_low(lo) < xl) ++lo;
+parse's index: pbwt	bits.hpp:142	0.8753	while (!hbit(q)) ++q;
+parse's index: pbwt	bits.hpp:143	0.8429	b = ((q - j - 1) << l) | get_low(j + 1);
+parse's index: pbwt	bits.hpp:167	0.7740	if (get_low(mid) < xl) lo = mid + 1; else hi = mid;
+parse's index: pbwt	bits.hpp:137	0.7497	inline uint64_t access(uint64_t j) const { return ((select_<true>(j) -
+parse's index: pbwt	bits.hpp:151	0.7051	uint64_t w = q >> 6, word = ~high[w] & (~0ull << (q & 63));
+parse's index: pbwt	bits.hpp:113	0.5106	uint64_t word = high[w] & (~0ull << (p & 63));
+parse's index: pbwt	bits.hpp:108	0.4863	inline bool hbit(uint64_t p) const { return (high[p >> 6] >> (p & 63))
+parse's index: pbwt	bits.hpp:173	0.4619	inline uint64_t count_less(uint64_t x) const {
+parse's index: pbwt	bits.hpp:124	0.4457	auto before = [&](uint64_t blk) { return ONE ? ones[blk] : (blk << 9) 
+parse's index: pbwt	bits.hpp:450	0.4133	if (j + 1 < nruns) FP.access2(j, f, fn); else { f = FP.access(j); fn =
+parse's index: pbwt	bits.hpp:160	0.3971	lo = p - (h - 1);
+parse's index: pbwt	bits.hpp:458	0.3931	if (b == nruns || KS.access(b) >= base + n) { o1 = o2 = n; return; }  
+parse's index: pbwt	bits.hpp:130	0.3728	for (uint64_t w = lo * 8;; ++w) {
+parse's index: pbwt	bits.hpp:449	0.3728	uint64_t j = a - 1, start = KS.access(j) - base, f, fn;
+parse's index: pbwt	bits.hpp:139	0.3525	inline void access2(uint64_t j, uint64_t &a, uint64_t &b) const {
+parse's index: pbwt	bits.hpp:125	0.3323	while (hi - lo > 1) {
+parse's index: pbwt	bits.hpp:153	0.3282	return (w << 6) + __builtin_ctzll(word);
+parse's index: pbwt	bits.hpp:447	0.3161	uint64_t a = i ? KS.count_less(base + (i > n ? n : i)) : b;
+parse's index: pbwt	bits.hpp:451	0.3039	uint64_t len = fn - f, d = i - start;
+parse's index: pbwt	bits.hpp:110	0.2999	template <bool ONE> inline uint64_t select_(uint64_t k) const {
+parse's index: pbwt	bmi2intrin.h:71	0.2999	
+parse's index: pbwt	stl_vector.h:1283	0.2755	
+parse's index: pbwt	bits.hpp:136	0.2715	}
+parse's index: pbwt	bits.hpp:106	0.2634	return x & ((1ull << l) - 1);
+parse's index: pbwt	bits.hpp:122	0.2391	uint64_t lo = smp[i] >> 9;
+parse's index: pbwt	bits.hpp:134	0.2310	rem -= c;
+parse's index: pbwt	bits.hpp:452	0.2310	return f + (d < len ? d : len);
+parse's index: pbwt	bits.hpp:126	0.2310	uint64_t mid = (lo + hi) >> 1;
+parse's index: pbwt	bits.hpp:144	0.2188	}
+parse's index: pbwt	bits.hpp:165	0.2188	while (hi - lo > 8) {
+parse's index: pbwt	bits.hpp:103	0.2148	if (!l) return 0;
+parse's index: pbwt	bits.hpp:141	0.1986	a = ((p - j) << l) | get_low(j);
+parse's index: pbwt	stl_vector.h:1119	0.1337	
+parse's index: pbwt	bits.hpp:176	0.1337	return in_bucket(lo, hi, x & ((1ull << l) - 1));
+parse's index: pbwt	bits.hpp:129	0.1256	uint64_t rem = k - before(lo);
+parse's index: pbwt	bits.hpp:166	0.1175	uint64_t mid = (lo + hi) >> 1;
+parse's index: pbwt	bits.hpp:161	0.1175	hi = next_zero(p + 1) - h;
+parse's index: pbwt	bits.hpp:175	0.1054	uint64_t lo, hi; bucket(x >> l, lo, hi);
+parse's index: pbwt	bits.hpp:448	0.1013	if (a == b) return b < nruns ? FP.access(b) : n;
+parse's index: pbwt	bits.hpp:457	0.0810	uint64_t base = (uint64_t)c * n, b = KS.count_less(base);
+parse's index: pbwt	bits.hpp:140	0.0770	uint64_t p = select_<true>(j), q = p + 1;
+parse's index: pbwt	twolevel.hpp:626	0.0770	j = S[i];
+parse's index: pbwt	bits.hpp:121	0.0648	uint64_t i = k / SAMPLE;
+parse's index: pbwt	bits.hpp:111	0.0405	if (ONE && !f1.empty()) {
+parse's index: pbwt	bits.hpp:174	0.0405	if (x >= u) return n;
+parse's index: pbwt	bits.hpp:157	0.0243	if (h == 0) { lo = 0; hi = select_<false>(0); }
+parse's index: pbwt	bits.hpp:159	0.0243	uint64_t p = select_<false>(h - 1);
+parse's index: pbwt	stl_iterator.h:1059	0.0122	

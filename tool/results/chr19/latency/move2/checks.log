@@ -1,0 +1,92 @@
+== A. 64 pieces, one by one and interleaved
+  A.q33.bml.chop: identical; (total 20.545 s); chopped search: 64 pieces in 4 segments (first chunk), one by one; 56 tails dropped
+  A.q33.bml.k8: identical; (total 10.022 s); chopped search: 64 pieces in 4 segments (first chunk), interleaved, K = 8; 56 tails dropped
+  A.q33.bml.k16: identical; (total 11.602 s); chopped search: 64 pieces in 4 segments (first chunk), interleaved, K = 16; 56 tails dropped
+  A.q33.bml.k32: identical; (total 12.219 s); chopped search: 64 pieces in 4 segments (first chunk), interleaved, K = 32; 56 tails dropped
+  A.q33.fb.chop: identical; (total 18.950 s); chopped search: 64 pieces in 4 segments (first chunk), one by one; 56 tails dropped
+  A.q33.fb.k8: identical; (total 9.149 s); chopped search: 64 pieces in 4 segments (first chunk), interleaved, K = 8; 56 tails dropped
+  A.q33.fb.k16: identical; (total 10.830 s); chopped search: 64 pieces in 4 segments (first chunk), interleaved, K = 16; 56 tails dropped
+  A.q33.fb.k32: identical; (total 11.463 s); chopped search: 64 pieces in 4 segments (first chunk), interleaved, K = 32; 56 tails dropped
+  A.q65.bml.chop: identical; (total 21.604 s); chopped search: 64 pieces in 4 segments (first chunk), one by one; 58 tails dropped
+  A.q65.bml.k8: identical; (total 10.409 s); chopped search: 64 pieces in 4 segments (first chunk), interleaved, K = 8; 58 tails dropped
+  A.q65.bml.k16: identical; (total 12.469 s); chopped search: 64 pieces in 4 segments (first chunk), interleaved, K = 16; 58 tails dropped
+  A.q65.bml.k32: identical; (total 13.176 s); chopped search: 64 pieces in 4 segments (first chunk), interleaved, K = 32; 58 tails dropped
+  A.q65.fb.chop: identical; (total 21.297 s); chopped search: 64 pieces in 4 segments (first chunk), one by one; 58 tails dropped
+  A.q65.fb.k8: identical; (total 10.240 s); chopped search: 64 pieces in 4 segments (first chunk), interleaved, K = 8; 58 tails dropped
+  A.q65.fb.k16: identical; (total 12.082 s); chopped search: 64 pieces in 4 segments (first chunk), interleaved, K = 16; 58 tails dropped
+  A.q65.fb.k32: identical; (total 13.117 s); chopped search: 64 pieces in 4 segments (first chunk), interleaved, K = 32; 58 tails dropped
+  A.q129.bml.chop: identical; (total 23.270 s); chopped search: 64 pieces in 4 segments (first chunk), one by one; 58 tails dropped
+  A.q129.bml.k8: identical; (total 11.258 s); chopped search: 64 pieces in 4 segments (first chunk), interleaved, K = 8; 58 tails dropped
+  A.q129.bml.k16: identical; (total 13.169 s); chopped search: 64 pieces in 4 segments (first chunk), interleaved, K = 16; 58 tails dropped
+  A.q129.bml.k32: identical; (total 14.361 s); chopped search: 64 pieces in 4 segments (first chunk), interleaved, K = 32; 58 tails dropped
+  A.q129.fb.chop: identical; (total 22.985 s); chopped search: 64 pieces in 4 segments (first chunk), one by one; 58 tails dropped
+  A.q129.fb.k8: identical; (total 11.096 s); chopped search: 64 pieces in 4 segments (first chunk), interleaved, K = 8; 58 tails dropped
+  A.q129.fb.k16: identical; (total 12.724 s); chopped search: 64 pieces in 4 segments (first chunk), interleaved, K = 16; 58 tails dropped
+  A.q129.fb.k32: identical; (total 13.929 s); chopped search: 64 pieces in 4 segments (first chunk), interleaved, K = 32; 58 tails dropped
+== B. short pieces, on the first 2 Mbp of the first pattern
+  B.q33.bml.len1000: identical; (total 1.215 s); chopped search: 2000 pieces in 1 segments (first chunk), one by one; 1745 tails dropped
+  B.q33.bml.len1000.k8: identical; (total 0.605 s); chopped search: 2000 pieces in 1 segments (first chunk), interleaved, K = 8; 1745 tails dropped
+  B.q33.bml.len100: identical; (total 8.177 s); chopped search: 20000 pieces in 1 segments (first chunk), one by one; 17505 tails dropped
+  B.q33.bml.len100.k8: identical; (total 4.698 s); chopped search: 20000 pieces in 1 segments (first chunk), interleaved, K = 8; 17505 tails dropped
+  B.q33.bml.len999: identical; (total 1.212 s); chopped search: 2003 pieces in 1 segments (first chunk), one by one; 1753 tails dropped
+  B.q33.bml.len999.k8: identical; (total 0.612 s); chopped search: 2003 pieces in 1 segments (first chunk), interleaved, K = 8; 1753 tails dropped
+  B.q33.fb.len1000: identical; (total 0.903 s); chopped search: 2000 pieces in 1 segments (first chunk), one by one; 1745 tails dropped
+  B.q33.fb.len1000.k8: identical; (total 0.464 s); chopped search: 2000 pieces in 1 segments (first chunk), interleaved, K = 8; 1745 tails dropped
+  B.q33.fb.len100: identical; (total 5.732 s); chopped search: 20000 pieces in 1 segments (first chunk), one by one; 17505 tails dropped
+  B.q33.fb.len100.k8: identical; (total 3.270 s); chopped search: 20000 pieces in 1 segments (first chunk), interleaved, K = 8; 17505 tails dropped
+  B.q33.fb.len999: identical; (total 0.909 s); chopped search: 2003 pieces in 1 segments (first chunk), one by one; 1753 tails dropped
+  B.q33.fb.len999.k8: identical; (total 0.460 s); chopped search: 2003 pieces in 1 segments (first chunk), interleaved, K = 8; 1753 tails dropped
+  B.q65.bml.len1000: identical; (total 1.560 s); chopped search: 2000 pieces in 1 segments (first chunk), one by one; 1854 tails dropped
+  B.q65.bml.len1000.k8: identical; (total 0.806 s); chopped search: 2000 pieces in 1 segments (first chunk), interleaved, K = 8; 1854 tails dropped
+  B.q65.bml.len100: identical; (total 11.288 s); chopped search: 20000 pieces in 1 segments (first chunk), one by one; 18516 tails dropped
+  B.q65.bml.len100.k8: identical; (total 6.427 s); chopped search: 20000 pieces in 1 segments (first chunk), interleaved, K = 8; 18516 tails dropped
+  B.q65.bml.len999: identical; (total 1.566 s); chopped search: 2003 pieces in 1 segments (first chunk), one by one; 1852 tails dropped
+  B.q65.bml.len999.k8: identical; (total 0.821 s); chopped search: 2003 pieces in 1 segments (first chunk), interleaved, K = 8; 1852 tails dropped
+  B.q65.fb.len1000: identical; (total 1.159 s); chopped search: 2000 pieces in 1 segments (first chunk), one by one; 1854 tails dropped
+  B.q65.fb.len1000.k8: identical; (total 0.600 s); chopped search: 2000 pieces in 1 segments (first chunk), interleaved, K = 8; 1854 tails dropped
+  B.q65.fb.len100: identical; (total 7.776 s); chopped search: 20000 pieces in 1 segments (first chunk), one by one; 18516 tails dropped
+  B.q65.fb.len100.k8: identical; (total 4.441 s); chopped search: 20000 pieces in 1 segments (first chunk), interleaved, K = 8; 18516 tails dropped
+  B.q65.fb.len999: identical; (total 1.169 s); chopped search: 2003 pieces in 1 segments (first chunk), one by one; 1852 tails dropped
+  B.q65.fb.len999.k8: identical; (total 0.597 s); chopped search: 2003 pieces in 1 segments (first chunk), interleaved, K = 8; 1852 tails dropped
+  B.q129.bml.len1000: identical; (total 1.766 s); chopped search: 2000 pieces in 1 segments (first chunk), one by one; 1878 tails dropped
+  B.q129.bml.len1000.k8: identical; (total 0.934 s); chopped search: 2000 pieces in 1 segments (first chunk), interleaved, K = 8; 1878 tails dropped
+  B.q129.bml.len100: identical; (total 13.186 s); chopped search: 20000 pieces in 1 segments (first chunk), one by one; 18766 tails dropped
+  B.q129.bml.len100.k8: identical; (total 7.667 s); chopped search: 20000 pieces in 1 segments (first chunk), interleaved, K = 8; 18766 tails dropped
+  B.q129.bml.len999: identical; (total 1.779 s); chopped search: 2003 pieces in 1 segments (first chunk), one by one; 1876 tails dropped
+  B.q129.bml.len999.k8: identical; (total 0.927 s); chopped search: 2003 pieces in 1 segments (first chunk), interleaved, K = 8; 1876 tails dropped
+  B.q129.fb.len1000: identical; (total 1.303 s); chopped search: 2000 pieces in 1 segments (first chunk), one by one; 1878 tails dropped
+  B.q129.fb.len1000.k8: identical; (total 0.685 s); chopped search: 2000 pieces in 1 segments (first chunk), interleaved, K = 8; 1878 tails dropped
+  B.q129.fb.len100: identical; (total 8.982 s); chopped search: 20000 pieces in 1 segments (first chunk), one by one; 18766 tails dropped
+  B.q129.fb.len100.k8: identical; (total 5.126 s); chopped search: 20000 pieces in 1 segments (first chunk), interleaved, K = 8; 18766 tails dropped
+  B.q129.fb.len999: identical; (total 1.301 s); chopped search: 2003 pieces in 1 segments (first chunk), one by one; 1876 tails dropped
+  B.q129.fb.len999.k8: identical; (total 0.689 s); chopped search: 2003 pieces in 1 segments (first chunk), interleaved, K = 8; 1876 tails dropped
+== C. cuts at MEM starts, one before, one after
+  114 MEM starts
+  C.bml.d0: identical; (total 19.528 s); chopped search: 329 pieces in 4 segments (first chunk), one by one; 191 tails dropped
+  C.bml.d0.k8: identical; (total 10.306 s); chopped search: 329 pieces in 4 segments (first chunk), interleaved, K = 8; 191 tails dropped
+  C.bml.d-1: identical; (total 19.535 s); chopped search: 329 pieces in 4 segments (first chunk), one by one; 241 tails dropped
+  C.bml.d-1.k8: identical; (total 10.232 s); chopped search: 329 pieces in 4 segments (first chunk), interleaved, K = 8; 241 tails dropped
+  C.bml.d1: identical; (total 19.565 s); chopped search: 329 pieces in 4 segments (first chunk), one by one; 305 tails dropped
+  C.bml.d1.k8: identical; (total 10.172 s); chopped search: 329 pieces in 4 segments (first chunk), interleaved, K = 8; 305 tails dropped
+  C.fb.d0: identical; (total 19.064 s); chopped search: 329 pieces in 4 segments (first chunk), one by one; 191 tails dropped
+  C.fb.d0.k8: identical; (total 9.879 s); chopped search: 329 pieces in 4 segments (first chunk), interleaved, K = 8; 191 tails dropped
+  C.fb.d-1: identical; (total 19.097 s); chopped search: 329 pieces in 4 segments (first chunk), one by one; 241 tails dropped
+  C.fb.d-1.k8: identical; (total 9.955 s); chopped search: 329 pieces in 4 segments (first chunk), interleaved, K = 8; 241 tails dropped
+  C.fb.d1: identical; (total 19.116 s); chopped search: 329 pieces in 4 segments (first chunk), one by one; 305 tails dropped
+  C.fb.d1.k8: identical; (total 10.146 s); chopped search: 329 pieces in 4 segments (first chunk), interleaved, K = 8; 305 tails dropped
+== D. brute force on a small synthetic collection
+brute force: 80 MEMs of length >= 40; katka: 80; only brute force 0, only katka 0
+  D.bml.len7: identical; (total 0.149 s); chopped search: 8498 pieces in 6 segments (first chunk), one by one; 8281 tails dropped
+brute force: 80 MEMs of length >= 40; katka: 80; only brute force 0, only katka 0
+  D.bml.len50: identical; (total 0.023 s); chopped search: 1192 pieces in 6 segments (first chunk), one by one; 1158 tails dropped
+brute force: 80 MEMs of length >= 40; katka: 80; only brute force 0, only katka 0
+  D.bml.len7.k4: identical; (total 0.186 s); chopped search: 8498 pieces in 6 segments (first chunk), interleaved, K = 4; 8281 tails dropped
+brute force: 80 MEMs of length >= 40; katka: 80; only brute force 0, only katka 0
+brute force: 80 MEMs of length >= 40; katka: 80; only brute force 0, only katka 0
+  D.fb.len7: identical; (total 0.104 s); chopped search: 8498 pieces in 6 segments (first chunk), one by one; 8281 tails dropped
+brute force: 80 MEMs of length >= 40; katka: 80; only brute force 0, only katka 0
+  D.fb.len50: identical; (total 0.016 s); chopped search: 1192 pieces in 6 segments (first chunk), one by one; 1158 tails dropped
+brute force: 80 MEMs of length >= 40; katka: 80; only brute force 0, only katka 0
+  D.fb.len7.k4: identical; (total 0.132 s); chopped search: 8498 pieces in 6 segments (first chunk), interleaved, K = 4; 8281 tails dropped
+brute force: 80 MEMs of length >= 40; katka: 80; only brute force 0, only katka 0
+== all checks passed 2026-11-22 13:22:27

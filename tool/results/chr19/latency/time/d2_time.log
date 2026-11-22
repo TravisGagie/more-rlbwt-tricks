@@ -1,0 +1,10 @@
+== d2 start 2026-11-21 23:26:15: NS '33 65 129', ROWS 'nojumps unique', VARIANTS 'current=bin/katka-base la2=bin/katka-la:KATKA_LA_D=2 la4=bin/katka-la:KATKA_LA_D=4', REP 3
+-- c33 done 23:29:20
+-- c65 done 23:32:35
+-- c129 done 23:36:09
+== d2 done 2026-11-21 23:36:09
+== alone start 2026-11-21 23:36:09: NS '33 65 129', ROWS 'nojumps', VARIANTS 'current=bin/katka-base alone4=bin/katka-la:KATKA_NO_FIRST_RUN=1:KATKA_LA_D=4 alone8=bin/katka-la:KATKA_NO_FIRST_RUN=1:KATKA_LA_D=8', REP 3
+-- c33 done 23:38:07
+-- c65 done 23:40:12
+-- c129 done 23:42:31
+== alone done 2026-11-21 23:42:31
