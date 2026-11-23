@@ -1,0 +1,62 @@
+samples 21711, of which load 1749; shares below are of the 19962 others
+   62.22%  parse's index: pbwt
+   12.97%  pattern parsing
+    8.79%  text index (move structure)
+    5.39%  outside katka: [unknown]
+    5.22%  outside katka: libc.so.6
+    1.77%  other in katka (find_all::{lambda[]#1}::operator const)
+    1.45%  search2, other
+    1.43%  entering and leaving the parse (B)
+    0.39%  other in katka (katka::segments)
+    0.28%  other in katka (read_parser::next)
+    0.05%  other in katka (void katka::bml_segment)
+    0.02%  outside katka: ld-linux-x86-64.so.2
+    0.01%  outside katka: libstdc++.so.6.0.35
+    0.01%  other in katka (_start)
+    0.01%  other in katka (std::vector::_M_fill_assign)
+parse's index by class:
+   31.63%  parse's index: pbwt (a) finding c's first run
+    9.62%  parse's index: pbwt (c1) predecessor searches for c n + sp, c n + ep
+   20.97%  parse's index: pbwt (c2) KS.access(j), FP.access2(j), arithmetic
+parse's index, top source lines (innermost):
+   13.22%  pbwt bits.hpp:105  if (o + l > 64) x |= low[w + 1] << (64 - o);
+    8.21%  pbwt bits.hpp:115  uint64_t c = __builtin_popcountll(word);
+    5.32%  pbwt bits.hpp:112  uint64_t i = k / SAMPLE1, p = f1[i], rem = k - i * SAMPLE1, w = p >> 6
+    3.64%  pbwt bits.hpp:132  uint64_t c = __builtin_popcountll(word);
+    3.20%  pbwt bits.hpp:123  uint64_t hi = (i + 1 < smp.size()) ? (smp[i + 1] >> 9) + 1 : ones.size
+    2.59%  pbwt bits.hpp:127  if (before(mid) <= k) lo = mid; else hi = mid;
+    2.53%  pbwt bits.hpp:133  if (rem < c) return (w << 6) + select_in_word(word, rem);
+    2.21%  pbwt bits.hpp:22  return __builtin_ctzll(_pdep_u64(1ull << k, w));
+    1.45%  pbwt bits.hpp:131  uint64_t word = ONE ? high[w] : ~high[w];
+    1.28%  pbwt bits.hpp:104  uint64_t b = j * l, w = b >> 6, o = b & 63, x = low[w] >> o;
+    1.19%  pbwt bits.hpp:177  }
+    0.99%  pbwt bits.hpp:116  if (rem < c) return (w << 6) + select_in_word(word, rem);
+    0.85%  pbwt bits.hpp:169  while (lo < hi && get_low(lo) < xl) ++lo;
+    0.84%  pbwt bits.hpp:137  inline uint64_t access(uint64_t j) const { return ((select_<true>(j) -
+    0.80%  pbwt bits.hpp:142  while (!hbit(q)) ++q;
+    0.79%  pbwt bits.hpp:117  rem -= c; word = high[++w];
+    0.78%  pbwt bits.hpp:151  uint64_t w = q >> 6, word = ~high[w] & (~0ull << (q & 63));
+    0.77%  pbwt bits.hpp:152  while (!word) word = ~high[++w];
+    0.68%  pbwt bits.hpp:143  b = ((q - j - 1) << l) | get_low(j + 1);
+    0.61%  pbwt bits.hpp:167  if (get_low(mid) < xl) lo = mid + 1; else hi = mid;
+call sites by class:
+    0.93%  entering and leaving the parse (B) | search2 twolevel.hpp:533  L.B.rank1_pair(I.sp, I.ep, plo, phi); ++plo;
+    0.50%  entering and leaving the parse (B) | search2 twolevel.hpp:624  I.sp = L.B.select1(plo - 1); I.ep = L.B.select1(phi - 1) + 1;
+    1.77%  other in katka (find_all::{lambda[]#1}::operator const) | outside search2: find_all
+    0.39%  other in katka (katka::segments) | outside search2: katka::segments
+    0.28%  other in katka (read_parser::next) | outside search2: read_parser::next
+   62.22%  parse's index: pbwt | search2 twolevel.hpp:605  L.pbwt.lf2(pi.pid[i - 1], plo, phi + 1, o1, o2);
+    6.90%  pattern parsing | outside search2: katka::parse_pattern
+    4.73%  pattern parsing | outside search2: void katka::for_each_syncmer<katka::parse_pattern
+    1.34%  pattern parsing | outside search2: katka::pattern_parse::finish
+    0.45%  search2, other | search2 twolevel.hpp:544  while (i > 0 && S[i - 1] >= begin && pi.pid[i - 1]) {
+    0.33%  search2, other | search2 twolevel.hpp:533  L.B.rank1_pair(I.sp, I.ep, plo, phi); ++plo;
+    0.20%  search2, other | search2 twolevel.hpp:526  int64_t idx = (int64_t)(std::upper_bound(S.begin(), S.end(), end - K) - S.begin(
+    0.09%  search2, other | search2 twolevel.hpp:617  plo = o1; phi = o2 - 1; --i;
+    0.09%  search2, other | search2 twolevel.hpp:616  if (TLc) u = twolevel_locate::rank_step(L.pbwt, TLc->prow, TLc->psamp, pi.pid[i 
+    0.07%  search2, other | search2 twolevel.hpp:545  if (jumps && i <= noblock_above && !pi.cont[i]) {
+    0.06%  search2, other | search2 twolevel.hpp:615  if (o1 >= o2) break;
+    0.06%  search2, other | search2 twolevel.hpp:548  uint64_t blo = L.BS.count_less(plo), bhi = L.BS.count_less(phi + 1);
+    6.59%  text index (move structure) | search2 twolevel.hpp:528  if (idx >= 0 && S[idx] >= begin && char_steps_to(S[idx])) {
+    2.03%  text index (move structure) | search2 twolevel.hpp:628  char_steps_to(begin);
+    0.17%  text index (move structure) | outside search2: _start

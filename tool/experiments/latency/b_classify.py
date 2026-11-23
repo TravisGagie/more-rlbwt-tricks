@@ -1,6 +1,15 @@
 #!/usr/bin/env python3
 # Classify perf record samples of katka by inline chain (B of the latency study).
 #   python3 b_classify.py BINARY PERF.DATA SRCDIR [LINES.tsv]
+# With B_SITES=1, also the samples of each class by their call site in search2 (the line of the outermost search2
+# frame, not its lambdas), or the outermost function when the chain has no search2 frame.
+# With B_STRICT=1, the regular expressions below see each frame's function name without its parameter lists and
+# template arguments.  Without it (as in the class files first published, b/*.class.txt), a frame in search2 matches
+# "stepper" through search2's own parameter list (katka::stepper const&), so every sample in search2 outside
+# EFRank::lf2 counts as "text index (move structure)": the pair symbols, B rank and select, BS and the rest.
+# The character steps are then the frames of move_index, rlcsa and stepper, and search2's char_steps_to lambda
+# ({lambda(long)#1}: lambdas are numbered per signature).  The lookahead's prefetches (EFRank::pf_first, pf_runs)
+# get a class of their own, so the parse's index and X are as without B_STRICT.
 # Each sample in BINARY is mapped to its address in the file and expanded by `addr2line -i -f -C` into its inline chain
 # (innermost first).  SRCDIR holds the sources BINARY was built from (a copy taken at build time), so that a frame's
 # source line can be read: the class of a load in the parse's index is decided by the text of the lines in EFRank::lf2
@@ -58,8 +67,16 @@ def text(f, n):
     p = os.path.join(SRC, os.path.basename(f))
     if p not in _src: _src[p] = open(p).read().splitlines() if os.path.exists(p) else []
     s = _src[p]; return s[n - 1] if 0 < n <= len(s) else ""
+def strip(f):                                       # a function name without parameter lists and template arguments
+    out, d = [], 0
+    for x in re.sub(r"\{lambda\(([^)]*)\)#(\d+)\}", r"{lambda[\1]#\2}", f):
+        if x in "(<": d += 1
+        elif x in ")>": d = max(0, d - 1)
+        elif d == 0: out.append(x)
+    return "".join(out)
+STRICT = bool(os.environ.get("B_STRICT"))
 def classify(ch):
-    names = [f for f, _, _ in ch]
+    names = [strip(f) if STRICT else f for f, _, _ in ch]
     J = " | ".join(names)
     if re.search(r"::load\b|::load\(|build_fine|\brvec\b|\bload_|::prepare|open_or_die", J): return "load (excluded)", None
     for idx, (f, fl, ln) in enumerate(ch):
@@ -85,6 +102,9 @@ def classify(ch):
                     else: sub = "(b) other, depends on c only"
                     break
             return "parse's index: " + which, sub
+    if STRICT and re.search(r"EFRank::pf_", J): return "the lookahead's prefetches (parse's index)", None
+    if STRICT and re.search(r"search2::\{lambda\[long\]#1\}", J): return "text index (move structure)", None
+    if STRICT and re.search(r"two_level::sym\b", J): return "block bookkeeping (BS, symbols)", None
     if re.search(r"move_index|rlcsa|stepper|RLCSA", J): return "text index (move structure)", None
     if re.search(r"parse_pattern|for_each_syncmer|pattern_parse|PhraseDict|phrase_hash", J): return "pattern parsing", None
     if re.search(r"parse_shortcuts", J): return "shortcuts over phrases", None
@@ -93,7 +113,7 @@ def classify(ch):
     if re.search(r"read_fasta|fasta|revcomp|complement", J, re.I): return "reading queries, reverse complement", None
     if "search2" in J: return "search2, other", None
     return "other in katka (" + (names[-1] if names else "?") + ")", None
-cls = collections.Counter(); subc = collections.Counter(); lines = collections.Counter()
+cls = collections.Counter(); subc = collections.Counter(); lines = collections.Counter(); sites = collections.Counter()
 for sm, c in samples.items():
     if sm[0][1] is not None:                       # the leaf is outside katka
         cls["outside katka: " + sm[0][1]] += c; continue
@@ -101,6 +121,11 @@ for sm, c in samples.items():
     k1, k2 = classify(ch)
     cls[k1] += c
     if k2: subc[(k1, k2)] += c
+    if os.environ.get("B_SITES"):
+        fr = [x for x in ch if "search2" in x[0] and "lambda" not in x[0]]
+        site = (f"search2 {os.path.basename(fr[-1][1])}:{fr[-1][2]}  {text(fr[-1][1], fr[-1][2]).strip()[:80]}" if fr
+                else "outside search2: " + (re.sub(r"\(.*", "", ch[-1][0])[:80] if ch else "?"))
+        sites[(k1, site)] += c
     if k1.startswith("parse's index") and ch: lines[(k1, os.path.basename(ch[0][1]) + ":" + str(ch[0][2]), text(ch[0][1], ch[0][2]).strip()[:70])] += c
 load = cls.get("load (excluded)", 0); T = total - load
 print(f"samples {total}, of which load {load}; shares below are of the {T} others")
@@ -113,3 +138,7 @@ for (k1, ln, t), c in sorted(lines.items(), key=lambda x: -x[1])[:20]: print(f" 
 if len(sys.argv) > 4:                                # every innermost line in the parse's index, as TSV
     with open(sys.argv[4], "w") as o:
         for (k1, ln, t), c in sorted(lines.items(), key=lambda x: -x[1]): o.write(f"{k1}\t{ln}\t{100.0 * c / T:.4f}\t{t}\n")
+if os.environ.get("B_SITES"):
+    print("call sites by class:")
+    for (k1, st), c in sorted(sites.items(), key=lambda x: (x[0][0], -x[1])):
+        if k1 != "load (excluded)" and 100.0 * c / T >= 0.05: print(f"  {100.0 * c / T:6.2f}%  {k1} | {st}")

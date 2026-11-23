@@ -1,0 +1,78 @@
+samples 15744, of which load 2520; shares below are of the 13224 others
+   26.52%  pattern parsing
+   23.52%  parse's index: bbwt
+   10.62%  outside katka: [unknown]
+   10.31%  text index (move structure)
+    8.95%  outside katka: libc.so.6
+    8.01%  block bookkeeping (BS, symbols)
+    2.85%  search2, other
+    2.46%  entering and leaving the parse (B)
+    2.01%  parse's index: pbwt
+    1.79%  other in katka (find_all::{lambda[]#1}::operator const)
+    1.04%  other in katka (katka::segments)
+    0.99%  the lookahead's prefetches (parse's index)
+    0.80%  other in katka (read_parser::next)
+    0.06%  other in katka (void katka::bml_segment)
+    0.03%  outside katka: ld-linux-x86-64.so.2
+    0.01%  other in katka (libc.so.6)
+    0.01%  outside katka: libstdc++.so.6.0.35
+    0.01%  other in katka (katka::find_mems::{lambda[unsigned long, unsigned long]#1}::operator const)
+parse's index by class:
+    9.86%  parse's index: bbwt (a) finding c's first run
+    0.20%  parse's index: bbwt (b) other, depends on c only
+    0.06%  parse's index: bbwt (c) lf_one
+    4.20%  parse's index: bbwt (c1) predecessor searches for c n + sp, c n + ep
+    9.20%  parse's index: bbwt (c2) KS.access(j), FP.access2(j), arithmetic
+    0.48%  parse's index: pbwt (a) finding c's first run
+    0.05%  parse's index: pbwt (b) other, depends on c only
+    0.39%  parse's index: pbwt (c1) predecessor searches for c n + sp, c n + ep
+    1.10%  parse's index: pbwt (c2) KS.access(j), FP.access2(j), arithmetic
+parse's index, top source lines (innermost):
+    5.41%  bbwt bits.hpp:105  if (o + l > 64) x |= low[w + 1] << (64 - o);
+    2.09%  bbwt bits.hpp:115  uint64_t c = __builtin_popcountll(word);
+    1.48%  bbwt bits.hpp:152  while (!word) word = ~high[++w];
+    0.95%  bbwt bits.hpp:104  uint64_t b = j * l, w = b >> 6, o = b & 63, x = low[w] >> o;
+    0.84%  bbwt bits.hpp:132  uint64_t c = __builtin_popcountll(word);
+    0.78%  bbwt bits.hpp:142  while (!hbit(q)) ++q;
+    0.75%  bbwt bits.hpp:513  if (ft[c + 1].b == e.b) { o1 = o2 = n; return; }                     /
+    0.69%  bbwt bits.hpp:22  return __builtin_ctzll(_pdep_u64(1ull << k, w));
+    0.64%  bbwt bits.hpp:112  uint64_t i = k / SAMPLE1, p = f1[i], rem = k - i * SAMPLE1, w = p >> 6
+    0.63%  bbwt bits.hpp:133  if (rem < c) return (w << 6) + select_in_word(word, rem);
+    0.63%  bbwt bits.hpp:143  b = ((q - j - 1) << l) | get_low(j + 1);
+    0.63%  bbwt bits.hpp:169  while (lo < hi && get_low(lo) < xl) ++lo;
+    0.59%  bbwt bits.hpp:127  if (before(mid) <= k) lo = mid; else hi = mid;
+    0.42%  bbwt bits.hpp:177  }
+    0.42%  bbwt bits.hpp:108  inline bool hbit(uint64_t p) const { return (high[p >> 6] >> (p & 63))
+    0.41%  bbwt bits.hpp:167  if (get_low(mid) < xl) lo = mid + 1; else hi = mid;
+    0.41%  bbwt bits.hpp:117  rem -= c; word = high[++w];
+    0.37%  bbwt bits.hpp:116  if (rem < c) return (w << 6) + select_in_word(word, rem);
+    0.36%  bbwt bits.hpp:503  if (j + 1 < nruns) FP.access2(j, f, fn); else { f = FP.access(j); fn =
+    0.35%  bbwt bits.hpp:131  uint64_t word = ONE ? high[w] : ~high[w];
+call sites by class:
+    5.59%  block bookkeeping (BS, symbols) | search2 twolevel.hpp:579  uint32_t y = L.sym(pi.pid[t0], capped ? (uint64_t)L.maxblock : (uint64_t)(cur - 
+    2.40%  block bookkeeping (BS, symbols) | search2 twolevel.hpp:578  const bool plus = capped || pi.pid[cur] > L.succ(pi.pid[cur - 1]);
+    1.04%  entering and leaving the parse (B) | search2 twolevel.hpp:539  L.B.rank1_pair(I.sp, I.ep, plo, phi); ++plo;
+    0.68%  entering and leaving the parse (B) | search2 twolevel.hpp:564  uint64_t blo = L.BS.count_less(plo), bhi = L.BS.count_less(phi + 1);
+    0.44%  entering and leaving the parse (B) | search2 twolevel.hpp:640  I.sp = L.B.select1(plo - 1); I.ep = L.B.select1(phi - 1) + 1;
+    0.17%  entering and leaving the parse (B) | search2 twolevel.hpp:591  plo = L.BS.access(blo); phi = L.BS.access(bhi - 1);
+    0.12%  entering and leaving the parse (B) | search2 twolevel.hpp:599  plo = L.BS.access(sblo); phi = L.BS.access(sbhi - 1);
+    1.79%  other in katka (find_all::{lambda[]#1}::operator const) | outside search2: find_all
+    1.04%  other in katka (katka::segments) | outside search2: katka::segments
+    0.80%  other in katka (read_parser::next) | outside search2: read_parser::next
+    0.06%  other in katka (void katka::bml_segment) | outside search2: void katka::bml_segment<finder::run
+   23.52%  parse's index: bbwt | search2 twolevel.hpp:582  L.bbwt.lf2(y, blo, bhi, o1, o2);
+    2.01%  parse's index: pbwt | search2 twolevel.hpp:621  L.pbwt.lf2(pi.pid[i - 1], plo, phi + 1, o1, o2);
+   13.37%  pattern parsing | outside search2: void katka::for_each_syncmer<katka::parse_pattern
+   11.44%  pattern parsing | outside search2: katka::parse_pattern
+    1.71%  pattern parsing | outside search2: katka::pattern_parse::finish
+    1.35%  search2, other | search2 twolevel.hpp:574  if (S[t0] < begin || !pi.pid[t0]) break;
+    0.46%  search2, other | search2 twolevel.hpp:560  if (g_la_d) lookahead();
+    0.27%  search2, other | search2 twolevel.hpp:586  if (cur != i && pi.real[cur]) { sblo = blo; sbhi = bhi; scur = cur; sbt = bt; }
+    0.19%  search2, other | search2 twolevel.hpp:530  int64_t idx = (int64_t)(std::upper_bound(S.begin(), S.end(), end - K) - S.begin(
+    0.14%  search2, other | search2 twolevel.hpp:590  if (taken >= 1 && !L.can_continue(pi.pid[cur])) {     // exact (Lemma "backup", 
+    0.11%  search2, other | search2 twolevel.hpp:585  if (o1 >= o2) { ++cnt.b_fail; break; }
+    7.65%  text index (move structure) | search2 twolevel.hpp:534  if (idx >= 0 && S[idx] >= begin && char_steps_to(S[idx])) {
+    2.37%  text index (move structure) | search2 twolevel.hpp:644  char_steps_to(begin);
+    0.29%  text index (move structure) | outside search2: _start
+    0.89%  the lookahead's prefetches (parse's index) | search2 twolevel.hpp:560  if (g_la_d) lookahead();
+    0.10%  the lookahead's prefetches (parse's index) | search2 twolevel.hpp:533  for (int64_t q = idx - 1, lo = std::max<int64_t>(0, idx - 1 - 2 * g_la_d); q >= 

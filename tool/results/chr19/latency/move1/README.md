@@ -77,15 +77,26 @@ These come from B's classified PEBS samples of L3-miss loads and B's counters, a
 
 | row | individuals | stalled on an L3 miss | in the text's move structure | in the parse's index | in the pattern's parse | other |
 |---|---:|---:|---:|---:|---:|---:|
-| two-level, no jumps, after C and D (`b_summary.cd.txt`) | 16 | 11.9% | 7.6% | 2.9% | 1.1% | 0.3% |
-| | 64 | 10.3% | 5.3% | 3.9% | 0.9% | 0.2% |
-| heavy paths θ = 90%, unchanged (`b_summary.txt`) | 16 | 21.7% | 13.0% | 5.0% | 2.9% | 0.7% |
-| heavy paths θ = 90%, with the table (`b_summary.t.txt`) | 16 | 21.5% | 11.8% | 4.8% | 3.8% | 1.1% |
-| | 64 | 20.7% | 11.1% | 4.9% | 3.8% | 1.0% |
+| two-level, no jumps, after C and D (`b_summary.cd.txt`) | 16 | 11.9% | 6.7% † | 2.9% | 1.1% | 1.2% † |
+| | 64 | 10.3% | 4.6% † | 3.9% | 0.9% | 0.9% † |
+| heavy paths θ = 90%, unchanged (`b_summary.txt`) | 16 | 21.7% | 6.3% † | 5.0% | 3.3% † | 7.1% † |
+| heavy paths θ = 90%, with the table (`b_summary.t.txt`) | 16 | 21.5% | 5.8% † | 4.8% | 4.2% † | 6.8% † |
+| | 64 | 20.7% | 5.0% † | 4.9% | 4.1% † | 6.7% † |
 
 The shares are of all cycles.
-- **Plain two-level:** about 8% is confirmed at 16 individuals (7.6%); at 64 it is 5.3%.
-- **Heavy paths:** about 17% is corrected to 11–13%.
+- **Plain two-level:** about 8% becomes 6.7% at 16 individuals and 4.6% at 64.
+- **Heavy paths:** about 17% becomes 5–6%.
+- **† Corrected (2026-11-23).**
+  - **What the table first read:**
+    - the text's column: 7.6 / 5.3%, 13.0%, 11.8 / 11.1%;
+    - the pattern's parse on heavy paths: 2.9%, 3.8 / 3.8%;
+    - "other": 0.3 / 0.2%, 0.7%, 1.1 / 1.0%;
+    - the bullets: "about 8% is confirmed (7.6%)" and "about 17% is corrected to 11–13%".
+  - **The cause:** B's classifier counted every sample in `search2` outside the parse's index as the text index (see
+    `../README.md`, B).
+  - **The fix:** the shares now come from `../b/*.class.strict.txt`. "Other" now holds what left the text index: on heavy
+    paths, the shortcuts and `search2`'s shortcut test; elsewhere, B's rank and select and `search2` itself. The
+    parse's index column is unchanged.
 
 ## 5. Plain search's L3-miss loads by site (`pebs/`)
 

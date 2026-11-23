@@ -131,10 +131,10 @@ slow mode. With huge pages, the same runs agree within 0.02 s. So these comparis
 | page walks | 12.8 / 13.4% | 13.2 / 14.2% | 14.6% | 17.8% |
 | instructions per cycle | 1.22 / 1.12 | 1.44 / 1.40 | 1.52 | 0.38 |
 | cycle samples in the parse's index | 62.2 / 65.8% | 29.0 / 31.6% (pbwt 12.1 / 5.7, bbwt 17.0 / 25.9) | 18.5% | 0 |
-| cycle samples in the text index | 11.7 / 7.7% | 23.5 / 21.1% | 25.6% | 93.7% |
-| cycle samples in pattern parsing | 13.0 / 14.4% | 27.0 / 25.9% | 29.9% | 0 |
+| cycle samples in the text index † | 8.8 / 5.8% | 12.7 / 9.1% | 14.4% | 93.7% |
+| cycle samples in pattern parsing | 13.0 / 14.4% | 27.0 / 25.9% | 30.1% † | 0 |
 | L3-miss loads in the parse's index | 72.2 / 80.6% | 36.8 / 39.7% (pbwt 24.0 / 14.4, bbwt 12.8 / 25.3) | 23.1% | 0 |
-| L3-miss loads in the text index | 21.1 / 14.2% | 49.4 / 47.2% | 60.0% | 99.6% |
+| L3-miss loads in the text index † | 18.6 / 12.5% | 28.6 / 23.3% | 28.9% | 99.6% |
 | **X** | **17.0 / 20.1%** | **8.0 / 8.7%** | **5.0%** | **0** |
 | X (a) | 10.2 / 10.9% | 5.5 / 5.2% | 3.2% | |
 | X (b) | 0 | 0 | 0 | |
@@ -142,6 +142,19 @@ slow mode. With huge pages, the same runs agree within 0.02 s. So these comparis
 | X (c2) | 6.8 / 8.9% | 2.2 / 2.9% | 1.6% | |
 
 - **X** is the share of cycles stalled on an L3 miss times the share of L3-miss loads in the parse's index.
+- **† Corrected (2026-11-23).** In the two-level columns, the text index rows first read 11.7 / 7.7%, 23.5 / 21.1% and
+  25.6% (cycle samples) and 21.1 / 14.2%, 49.4 / 47.2% and 60.0% (L3-miss loads); heavy paths' pattern parsing first
+  read 29.9%.
+  - **The bug:** `b_classify.py` matched `stepper` anywhere in a frame's demangled name, and `search2`'s own name
+    contains it (`katka::search2(katka::stepper const&, ...)`). So every sample in `search2` outside `EFRank::lf2` was
+    counted as the text index: the pair symbols, B's rank and select, `BlockStarts`, the parse shortcuts and the loop
+    itself.
+  - **The fix:** `B_STRICT=1` matches function names only (`b/*.class.strict.txt`, from the same perf data and binaries,
+    whose build-ids match the ones the data record). It counts `search2`'s `char_steps_to` lambda (`{lambda(long)#1}`,
+    the first of that signature in each source copy) as character steps, and gives the lookahead's prefetches a class
+    of their own.
+  - **What is unaffected:** the parse's index rows, X and its parts, and the plain move structure. The default mode
+    still reproduces `b/*.class.txt`.
 - **(c1) is small** because (a)'s search has just brought c's lines into cache.
 - **The computational share:** 63–64% of the parse's index cycle samples in the plain row (51–67% in the ▷ row, 63% in
   heavy paths) are on source lines with under 1% of the index's L3-miss loads: scanning high bits, select, decoding.
@@ -150,7 +163,7 @@ slow mode. With huge pages, the same runs agree within 0.02 s. So these comparis
 - **One line per row:**
   - plain two-level: mixed, with the parse's index the largest waiter;
   - ▷: mixed, spread over the text index, pattern parsing and both parse indexes;
-  - heavy paths: mixed, mostly computation and the text index;
+  - heavy paths: mixed, mostly computation, spread over pattern parsing, the parse's index and the text index;
   - plain move structure: mostly waiting on memory.
 
 **After C and D (d = 2)**, the two target rows (`b/b_summary.cd.txt`):
@@ -429,7 +442,8 @@ construction does not fit in 16 GB.
 - `repro/`: the reproduced rows.
 - `a/`: A's histograms (`a_hist.txt`), MEM lengths (`a3_mems.txt`) and the counting runs' logs.
 - `b/`: B's counters (`*.csv`), class shares (`*.class.txt`), per-line shares (`*.lines.tsv`) and summaries
-  (`b_summary.txt`; `b_summary.cd.txt` with C and D); the classifier's source copies and the perf data are in
+  (`b_summary.txt`; `b_summary.cd.txt` with C and D); the class shares with `B_STRICT=1` (`*.class.strict.txt`, which
+  correct the text index's share in two-level rows); the classifier's source copies and the perf data are in
   `~/data/latency/b/`.
 - `time/`: every timed run's log (`<set>/q<N>.<row>.<variant>.<alg>.<round>.log`) and each set's table
   (`<set>.table.md`):
