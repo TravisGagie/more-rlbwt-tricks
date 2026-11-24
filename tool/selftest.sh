@@ -76,6 +76,12 @@ for f in c.*; do ln -sf "$f" "cf${f#c}"; done
 rm cf.lvl; quiet $K index --csa --efcsa --twolevel --continuation frequent cf
 step "  with the most frequent successor"
 $KT mems cf "$D/chr/queries.fa" --twolevel --random 20
+for mode in unique unitig; do
+  for f in c.*; do ln -sf "$f" "c$mode${f#c}"; done
+  rm c$mode.lvl; quiet $K index --csa --efcsa --twolevel --continuation $mode c$mode
+  step "  with the $mode continuation"
+  $KT mems c$mode "$D/chr/queries.fa" --twolevel --random 20
+done
 step "  with shortcuts over phrases (heavy paths and the reference's parse): the same MEMs and intervals as plain search"
 for spec in heavy:0.8 ref:4; do
   quiet $K index --pshortcuts $spec --pshortcuts-out c.psc c

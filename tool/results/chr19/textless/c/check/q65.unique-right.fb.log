@@ -1,0 +1,15 @@
+move structure: 72587408 runs (split at 65535), 724.924 MB (records 580.699, run starts 92.949, runs per symbol 49.179, 8-mer table 2.097)
+textless, minimal widths (.tl2) (MB): parse BWT 140.664, dictionary 116.700, phrases 109.804, ranges 29.161, parse BWT by row 52.328 (12954298 runs); B 15.377, pairs 74.264; checking every search against two-level search (KATKA_TEXTLESS_CHECK)
+first-run tables: parse 76.176 MB, blocks 14.796 MB (built at load)
+index loaded in 1.2 s
+reads=4 MEMs=18479 without MEMs=0 | threads=1 wall 5.58 s, 1396054.2 us/read
+timing: 4 reads, 1 threads; mean per-read time 1357875.89 us; total time / reads 1396054.23 us (total 5.584 s)
+searches=278249 char_steps=0 parse_steps=405540 block_steps=3059905 kmer_tests=0 kmer_restarts=0 stpd_jumps=0 stpd_compares=0
+parse steps: entry=1332 inside=47450 end=356758; block attempts=121955, symbol absent=16955, failed block steps=96829, back-ups=29069, exact exits=29033
+textless: searches=278249 (window 274462, exact 3787), no boundary 0
+textless right end: K-mer range from alpha 159727, from alpha cut by the window's start 0, by search (alpha has no identifier) 118522, by search (no alpha in the pattern) 0, alpha is the phrase before $ 0, K-mer absent 0; tail = the K-mer 9977; string comparisons 858612, range sizes 22454906; tail absent 96531 (in exact searches 0); alpha's step fails 2170
+textless left end: 63196 (at the window's start 2); distinct preceding phrases sum 369990, max 2578; runs 4544334; characters compared 3542935; full agreements (bugs) 0; distinct: 0 0, 1 49741, 2 5098, 3-4 2940, 5-8 1720, 9-64 2819, 65-1024 845, more 33
+textless: K-mer range needed in exact searches 0; alpha without identifier, its left boundary reported (window tests) 118522; unresolved (stopped) 0
+textless right-end jump: alpha has no successor 56697, its successor starts with the tail 5563, does not 712, d has no rows 224, alpha's pair cut by the window 0
+textless forward-backward: forward searches 137232 (bounds 103812), backward searches 137230 (bounds 111241), left-maximality checks 3787 (not left-maximal 0), stopped with less than L left 2, restarts by one 91822
+textless check: 278249 searches checked; j differs 0, occurrences differ 0; window searches with a shorter skip 213521 (characters 6672338), with the exact j but no count 1532

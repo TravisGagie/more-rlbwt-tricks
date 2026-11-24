@@ -1,0 +1,13 @@
+textless, minimal widths (.tl2) (MB): parse BWT 140.664, dictionary 116.700, phrases 109.804, ranges 29.161, parse BWT by row 52.328 (12954298 runs); B 0.000, pairs 0.000
+first-run tables: parse 76.176 MB, blocks 0.000 MB (built at load)
+shortcuts over phrases (heavy:0.95): 7295446, 147.300 MB
+index loaded in 0.6 s
+reads=4 MEMs=18479 without MEMs=0 | threads=1 wall 2.58 s, 645099.6 us/read
+timing: 4 reads, 1 threads; mean per-read time 607279.41 us; total time / reads 645099.60 us (total 2.580 s)
+searches=72511 char_steps=0 parse_steps=2149489 block_steps=0 kmer_tests=0 kmer_restarts=0 stpd_jumps=0 stpd_compares=0
+parse steps: entry=2149489 inside=0 end=0; block attempts=0, symbol absent=0, failed block steps=0, back-ups=0, exact exits=0
+textless: searches=72511 (window 35553, exact 36958), no boundary 0
+textless right end: K-mer range from alpha 72048, from alpha cut by the window's start 0, by search (alpha has no identifier) 463, by search (no alpha in the pattern) 0, alpha is the phrase before $ 0, K-mer absent 0; tail = the K-mer 9995; string comparisons 455309, range sizes 12396087; tail absent 3428 (in exact searches 0); alpha's step fails 260
+textless left end: 68620 (at the window's start 18484); distinct preceding phrases sum 104059, max 1563; runs 485598; characters compared 1283462; full agreements (bugs) 0; distinct: 0 0, 1 59280, 2 4596, 3-4 1568, 5-8 602, 9-64 451, 65-1024 63, more 5
+textless: K-mer range needed in exact searches 0; alpha without identifier, its left boundary reported (window tests) 463; unresolved (stopped) 0
+shortcuts: entrances met=1145992, pattern not alpha=304294, taken=820763 (phrases crossed 14217784), failed midway=20935

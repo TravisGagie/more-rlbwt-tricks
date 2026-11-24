@@ -1,0 +1,4 @@
+q33: MEMs equal, occurrences equal the interval sizes; textless check: 93190 searches checked; j differs 0, occurrences differ 0; window searches with a shorter skip 6074 (characters 233732), with the exact j but no count 52; psi avg10=0.00
+q65: MEMs equal, occurrences equal the interval sizes; textless check: 72494 searches checked; j differs 0, occurrences differ 0; window searches with a shorter skip 3803 (characters 148479), with the exact j but no count 27; psi avg10=0.00
+q129: MEMs equal, occurrences equal the interval sizes; textless check: 64369 searches checked; j differs 0, occurrences differ 0; window searches with a shorter skip 2915 (characters 115770), with the exact j but no count 18; psi avg10=0.00
+exit 0

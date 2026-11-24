@@ -13,7 +13,13 @@
 #   katka-base, as the paper's scripts: rlcsa, move (plain search on the RLCSA, on the move structure alone);
 #     nojumps.csa, nojumps.move (two-level); stpd (our STPD of the parse, RLCSA); tsc25t0, tsc100t0, tsc25t6
 #     (almost-funnels on the text); ref4, ref16, ref64, heavy08, heavy09, heavy095, unique (two-level on the move
-#     structure: almost-funnels from CHM13's parse and along heavy paths, the ▷ encoding);
+#     structure: almost-funnels from CHM13's parse and along heavy paths, the ▷ encoding); unitig (the ◇ encoding,
+#     not in the default ROWS; its indexes in $DW, default ~/diamond, built by index --twolevel --continuation unitig --blocks-from c<N>.lvl);
+#   textless, textless+table+la2 (bin/katka-tl, BML only; MEMs in columns 1-3, occurrences instead of the interval):
+#     two-level search without the index of the text (src/textless.hpp), plain and with the table and lookahead d = 2;
+#   tl, tlu, tlur, tlw, tlh08, tlh09, tlh095, tlr4, tlr16, tlr64 (+table, +table+la2; bin/katka-tl2, BML and FB): stage 2,
+#     part C, without the index of the text, minimal widths: plain, ▷, ▷ with the right-end jump, ◇, heavy paths, almost-
+#     funnels from CHM13's parse (c<N>tl, c<N>utl, c<N>wtl in $DW);
 #   new: nojumps.move+table (bin/katka-table), nojumps.move+table+la2 (bin/katka-la, d = 2), nojumps.move+la4
 #     (bin/katka-la without the table, d = 4); unique+table, unique+table+la2; heavy08/09/095+table;
 #   move-structure latency, part 2 (bin/katka-chop): move+chop (plain search chopped into 64 pieces, one by one),
@@ -38,7 +44,7 @@ ROWS=${ROWS:-"rlcsa move nojumps.csa nojumps.move nojumps.move+table nojumps.mov
   tsc25t0 tsc100t0 tsc25t6 ref4 ref16 ref64 heavy08 heavy08+table heavy09 heavy09+table heavy095 heavy095+table
   unique unique+table unique+table+la2 ropebwt3 movi2 stpdindex"}
 ind() { echo $(( ($1 - 1) / 2 )); }
-algs() { [ -n "${ALGS:-}" ] && { echo $ALGS; return; }; case $1 in movi2) echo "bml all" ;; *) echo "bml fb" ;; esac; }
+algs() { [ -n "${ALGS:-}" ] && { echo $ALGS; return; }; case $1 in movi2) echo "bml all" ;; textless*) echo "bml" ;; *) echo "bml fb" ;; esac; }
 kargs() {  # katka find's options for a base row at size $2
   case $1 in
     rlcsa) echo "--csa $D/c$2" ;; move) echo "--move $D/c$2" ;;
@@ -47,9 +53,18 @@ kargs() {  # katka find's options for a base row at size $2
     tsc*) echo "--move --text-shortcuts $D/tsc/c$2.ell${1#tsc}.tsc $D/c$2" ;;
     ref*|heavy*) echo "--move --twolevel --pshortcuts $D/psc/c$2.$1.psc $D/c$2" ;;
     unique) echo "--move --twolevel $D/unique/c${2}u" ;;
+    unitig) echo "--move --twolevel ${DW:-$HOME/diamond}/c${2}w" ;;   # ◇ (index --continuation unitig)
+    textless) echo "--twolevel --no-jumps --textless ${DW:-$HOME/diamond}/c$2" ;;   # without the index of the text (experiments/textless/check.sh builds .tlx)
+    tl) echo "--twolevel --no-jumps --textless ${DW:-$HOME/diamond}/c${2}tl" ;;     # stage 2, part C: c<N>tl.lvl + .tl2 (minimal widths)
+    tlu|tlur) echo "--twolevel --textless ${DW:-$HOME/diamond}/c${2}utl" ;;          #   ▷ (tlur: the right-end jump)
+    tlw) echo "--twolevel --textless ${DW:-$HOME/diamond}/c${2}wtl" ;;               #   ◇
+    tlh08|tlh09|tlh095|tlr4|tlr16|tlr64) local p=${1#tl}; p=${p/h/heavy}; p=${p/r/ref}; echo "--twolevel --pshortcuts $D/psc/c$2.$p.psc --textless ${DW:-$HOME/diamond}/c${2}tl" ;;
     *) echo "unknown row $1" >&2; exit 1 ;;
   esac; }
 kbin() {  # binary and environment of a row's variant
+  case $1 in textless) echo "bin/katka-tl KATKA_NO_FIRST_RUN=1"; return ;; textless+table+la2) echo "bin/katka-tl KATKA_LA_D=2"; return ;; esac
+  case $1 in tl*) local r=""; [ ${1%%+*} = tlur ] && r=" KATKA_TL_RIGHT=1"
+    case ${1#*+} in $1) echo "bin/katka-tl2 KATKA_TL_FB=1 KATKA_NO_FIRST_RUN=1$r" ;; table) echo "bin/katka-tl2 KATKA_TL_FB=1$r" ;; table+la2) echo "bin/katka-tl2 KATKA_TL_FB=1 KATKA_LA_D=2$r" ;; esac; return ;; esac
   case ${1#*+} in
     $1) echo "bin/katka-base" ;; table) echo "bin/katka-table" ;; table+la2) echo "bin/katka-la KATKA_LA_D=2" ;;
     la4) echo "bin/katka-la KATKA_NO_FIRST_RUN=1 KATKA_LA_D=4" ;;
@@ -82,7 +97,7 @@ run1() {  # size, row, algorithm, mode, round
     stpdindex) comm=stpd-index-mems; F=""; [ $a = fb ] && F="--fb"; cols=1-3
       cmd="$PWD/bin/stpd-index-mems $D/stpd$n/st.RLZ-r-index.stpdi $Q 1000 $F" ;;
     *) local b=$(kbin $row); local bin=${b%% *}; comm=$(basename $bin); [ "$b" != "$bin" ] && E="$E ${b#* }"
-      F=""; [ $a = fb ] && F="--fb"; [ ${row%%+*} = stpd ] && cols=1-3
+      F=""; [ $a = fb ] && F="--fb"; [ ${row%%+*} = stpd ] && cols=1-3; case ${row%%+*} in textless|tl*) cols=1-3 ;; esac   # (no intervals: occurrences)
       cmd="$bin find -L 1000 --format mems --stats -j 1 $F $(kargs ${row%%+*} $n) $Q $out" ;;
   esac
   echo "[$(date '+%F %T')] c$n $row $a $m round $r" >&2

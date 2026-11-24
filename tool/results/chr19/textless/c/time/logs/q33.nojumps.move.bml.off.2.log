@@ -1,0 +1,6 @@
+move structure: 68446512 runs (split at 65535), 676.697 MB (records 547.572, run starts 80.657, runs per symbol 46.370, 8-mer table 2.097)
+index loaded in 0.7 s
+reads=4 MEMs=22711 without MEMs=0 | threads=1 wall 5.99 s, 1498340.1 us/read
+timing: 4 reads, 1 threads; mean per-read time 1461302.13 us; total time / reads 1498340.10 us (total 5.993 s)
+searches=92957 char_steps=6802862 parse_steps=15123381 block_steps=0 kmer_tests=0 kmer_restarts=0 stpd_jumps=0 stpd_compares=0
+parse steps: entry=15123381 inside=0 end=0; block attempts=0, symbol absent=0, failed block steps=0, back-ups=0, exact exits=0

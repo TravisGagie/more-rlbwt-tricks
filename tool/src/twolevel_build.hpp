@@ -13,7 +13,9 @@ struct twolevel_options {
     int k = 51, s = 12;
     bool blocks = true;
     bool frequent = false;          // continuation: the most frequent successor instead of the smallest
-    bool unique = false;            // continuation: only phrases with exactly one distinct successor continue (unitigs)
+    bool unique = false;            // continuation: only phrases with exactly one distinct successor continue
+    bool unitig = false;            // continuation (with unique): succ(x) = y only if, besides, x is y's only distinct
+                                    // predecessor, so a phrase continues at every occurrence or at none (unitigs)
     uint32_t max_block = 0;         // a block also ends after this many phrases (0: no cap)
     std::string tmp;                // where the parse is spilled (default: the text's name + .parse.tmp)
 };
@@ -72,6 +74,16 @@ inline void blocks_from_parse(const std::vector<uint32_t> &pz, uint64_t m, uint3
             std::vector<uint64_t> multi(sigma / 64 + 1, 0);
             for (uint64_t i = 0; i + 1 < m; ++i) if (pz[i + 1] != succ[pz[i]]) multi[pz[i] >> 6] |= 1ull << (pz[i] & 63);
             for (uint32_t x = 0; x <= sigma; ++x) if ((multi[x >> 6] >> (x & 63)) & 1) succ[x] = 0;
+            if (o.unitig) {                 // y with two or more distinct predecessors is no one's successor
+                std::vector<uint32_t> pred(sigma + 1, 0);
+                std::fill(multi.begin(), multi.end(), 0);
+                for (uint64_t i = 0; i + 1 < m; ++i) {
+                    uint32_t &q = pred[pz[i + 1]];
+                    if (!q) q = pz[i];
+                    else if (q != pz[i]) multi[pz[i + 1] >> 6] |= 1ull << (pz[i + 1] & 63);
+                }
+                for (uint32_t x = 0; x <= sigma; ++x) { uint32_t y = succ[x]; if (y && ((multi[y >> 6] >> (y & 63)) & 1)) succ[x] = 0; }
+            }
         }
     } else {                                // the most frequent successor, the smallest among ties
         std::unordered_map<uint64_t, uint32_t> cnt;

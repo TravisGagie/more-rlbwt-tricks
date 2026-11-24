@@ -9,7 +9,10 @@
 # EFRank::lf2 counts as "text index (move structure)": the pair symbols, B rank and select, BS and the rest.
 # The character steps are then the frames of move_index, rlcsa and stepper, and search2's char_steps_to lambda
 # ({lambda(long)#1}: lambdas are numbered per signature).  The lookahead's prefetches (EFRank::pf_first, pf_runs)
-# get a class of their own, so the parse's index and X are as without B_STRICT.
+# get a class of their own, so the parse's index and X are as without B_STRICT.  Samples in search_textless
+# (textless.hpp) outside the parse's BWT go by the line of its outermost frame: the right end (lookup), the parse steps
+# or the left end (comparisons), split at the comments starting "// parse steps" and "// the left end"; the shortcuts
+# over phrases (parse_shortcuts) inside it are their own class.
 # Each sample in BINARY is mapped to its address in the file and expanded by `addr2line -i -f -C` into its inline chain
 # (innermost first).  SRCDIR holds the sources BINARY was built from (a copy taken at build time), so that a frame's
 # source line can be read: the class of a load in the parse's index is decided by the text of the lines in EFRank::lf2
@@ -75,6 +78,13 @@ def strip(f):                                       # a function name without pa
         elif d == 0: out.append(x)
     return "".join(out)
 STRICT = bool(os.environ.get("B_STRICT"))
+_tlm = {}
+def _textless_marks(f):                             # the lines of "// parse steps" and "// the left end" in textless.hpp
+    if f not in _tlm:
+        p = os.path.join(SRC, os.path.basename(f)); lines = open(p).read().splitlines() if os.path.exists(p) else []
+        a = [i + 1 for i, l in enumerate(lines) if l.strip().startswith("// parse steps")]; b = [i + 1 for i, l in enumerate(lines) if l.strip().startswith("// the left end")]
+        _tlm[f] = (a[0], b[0]) if a and b else None
+    return _tlm[f]
 def classify(ch):
     names = [strip(f) if STRICT else f for f, _, _ in ch]
     J = " | ".join(names)
@@ -103,6 +113,15 @@ def classify(ch):
                     break
             return "parse's index: " + which, sub
     if STRICT and re.search(r"EFRank::pf_", J): return "the lookahead's prefetches (parse's index)", None
+    if STRICT and "search_textless" in J and "parse_shortcuts" in J: return "shortcuts over phrases", None
+    if STRICT and "search_textless" in J:           # two-level search without the index of the text (textless.hpp), by the
+        fr = [x for x in ch if "search_textless" in x[0] and "lambda" not in x[0]]   # line of its outermost frame
+        if fr:
+            src = _textless_marks(fr[-1][1])
+            ln = fr[-1][2]
+            if src and ln >= src[1]: return "textless: the left end (comparisons)", None
+            if src and ln >= src[0]: return "textless: parse steps, other", None
+            return "textless: the right end (lookup)", None
     if STRICT and re.search(r"search2::\{lambda\[long\]#1\}", J): return "text index (move structure)", None
     if STRICT and re.search(r"two_level::sym\b", J): return "block bookkeeping (BS, symbols)", None
     if re.search(r"move_index|rlcsa|stepper|RLCSA", J): return "text index (move structure)", None

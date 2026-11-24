@@ -52,6 +52,7 @@
 #include "stpd.hpp"
 #include "pstpd.hpp"
 #include "twolevel.hpp"
+#include "textless.hpp"
 #include <algorithm>
 
 namespace katka {
@@ -65,6 +66,8 @@ struct segment_search {
     const lookup_table *T = nullptr;      // plain search only
     const two_level *TL = nullptr;        // if set, two-level search
     const twolevel_locate *TLC = nullptr; // with TL and locate (no STPD): the toehold samples and phi^-1
+    const textless_index *TX = nullptr;   // with TL: two-level search without the index of the text (textless.hpp); I = {0, occurrences}
+    const textless_index2 *TX2 = nullptr; //   or its minimal-width version
     bool jumps = true;
     const unsigned char *comp = nullptr;  // complement of each symbol (digest symbols), if not DNA
     const stpd_index *SP = nullptr;       // if set, STPD search (stpd.hpp)
@@ -121,6 +124,24 @@ struct segment_search {
         g_ns.dir = dir;
 #endif
         PROF(g_prof.dir = dir);
+        if (TX || TX2) {
+            u64 occ = 0;
+            const u64 j = TX ? search_textless(*TL, *TX, dir ? qi : pi, X, (int64_t)lo, (int64_t)end, window, occ, cnt, jumps)
+                             : search_textless(*TL, *TX2, dir ? qi : pi, X, (int64_t)lo, (int64_t)end, window, occ, cnt, jumps);
+            if (j == UINT64_MAX - 1) die("textless: alpha has no identifier in an exact search (dir " + std::to_string(dir) + ", lo " + std::to_string(lo) + ", end " + std::to_string(end) + "): no verified answer without the K-mer search");
+            if (j == UINT64_MAX) die("textless: X[lo..end) has no phrase boundary (dir " + std::to_string(dir) + ", lo " + std::to_string(lo) + ", end " + std::to_string(end) + ")");
+            if (S && S->mv) {                          // KATKA_TEXTLESS_CHECK: against two-level search with the index of the text
+                interval I2; search_counters c2;
+                const u64 j2 = search2(*S, *TL, dir ? qi : pi, X, (int64_t)lo, (int64_t)end, jumps, I2, c2);
+                ++g_tlx.chk;
+                if (j != j2) { if (window && occ == 0 && j < j2) { ++g_tlx.chk_window_short; g_tlx.chk_window_lost += j2 - j; } else {
+                    ++g_tlx.chk_bad_j;
+                    if (getenv("KATKA_TEXTLESS_CHECK_DIE")) die("textless check: dir " + std::to_string(dir) + " lo " + std::to_string(lo) + " end " + std::to_string(end) + ": j " + std::to_string(j) + ", two-level " + std::to_string(j2) + ", window " + std::to_string(window)); } }
+                else if (occ != I2.ep - I2.sp) ++(window && occ == 0 ? g_tlx.chk_window_noocc : g_tlx.chk_bad_occ);   // a window test that stopped at the tail counts nothing
+            }
+            I = {0, occ};
+            return j;
+        }
         if (TL) return search2(*S, *TL, dir ? qi : pi, X, (int64_t)lo, (int64_t)end, jumps, I, cnt);
         return plain_back(dir, lo, end, I, window);
     }
@@ -568,9 +589,61 @@ void bml_segment(segment_search &Q, u64 r0, const mem_options &opt, read_state &
     }
 }
 
+// forward-backward search without the index of the text (stage 2, part C4): a search may return only a bound when the
+// occurring suffix holds no whole phrase boundary.  A forward search from s0 that returns a bound says that R[s0..u)
+// does not occur (u = m - j + 1): the MEMs starting before the start s2 of the longest occurring suffix of R[0..u) end
+// before u, so they are shorter than u - s0 (a tail, shorter than L: checked), and the search restarts at
+// max(s0 + 1, s2), with s2 possibly a bound itself (smaller, so safe).  A start that may not be left-maximal (it came
+// from a bound) is reported only if R[s0 - 1..e) does not occur: an exact search, since R[s0..e) is at least L long.
+template <class F>
+void fb_segment_textless(segment_search &Q, u64 r0, const mem_options &opt, read_state &st, F report) {
+    const u64 m = Q.n;
+    textless_counters &tc = g_tlx;
+    u64 s0 = 0; bool s0_exact = true;
+    while (s0 < m) {
+        if (m - s0 < st.L) { ++tc.fb_stop_short; break; }        // no MEM of length >= L starts at s0 or later
+        interval J, I;
+        ++tc.fb_forward;
+        const u64 j = Q.back(1, 0, m - s0, J, true);
+        if (j >= UINT64_MAX - 1) die("textless forward-backward: a forward search with no answer at " + std::to_string(s0));
+        if (g_tl_exact) {
+            const u64 e = m - j;
+            if (e <= s0) { ++s0; s0_exact = false; continue; }
+            if (e - s0 >= st.L) {
+                bool lm = s0_exact;
+                if (!lm) {
+                    ++tc.fb_lm_checks;
+                    const u64 j2 = Q.back(0, 0, e, I);
+                    if (!g_tl_exact || j2 > s0) die("textless forward-backward: the left-maximality check is not exact at " + std::to_string(s0));
+                    lm = j2 == s0; if (!lm) ++tc.fb_not_lm;
+                }
+                if (lm) found(Q.R, r0, s0, e, J, opt, st, report);
+            }
+            if (e >= m) break;
+            ++tc.fb_back;
+            const u64 s2 = Q.back(0, 0, e + 1, I, true);
+            if (s2 >= UINT64_MAX - 1) die("textless forward-backward: a backward search with no answer at " + std::to_string(e));
+            if (!g_tl_exact) ++tc.fb_back_bound;
+            s0_exact = g_tl_exact && s2 <= e;
+            const u64 ns = s2 > e ? e + 1 : s2;               // (a bound may not pass s0: then one step)
+            if (ns > s0) s0 = ns; else { ++s0; s0_exact = false; ++tc.fb_step1; }
+        } else {
+            ++tc.fb_forward_bound;
+            const u64 u = m - j + 1;                               // R[s0..u) does not occur
+            if (u - s0 >= st.L) die("textless forward-backward: a tail of at least L at " + std::to_string(s0));
+            ++tc.fb_back;
+            const u64 s2 = Q.back(0, 0, u, I, true);
+            if (s2 >= UINT64_MAX - 1) die("textless forward-backward: a backward search with no answer at " + std::to_string(u));
+            if (!g_tl_exact) ++tc.fb_back_bound;
+            if (s2 > s0) { s0 = s2; s0_exact = g_tl_exact; } else { ++s0; s0_exact = false; ++tc.fb_step1; }
+        }
+    }
+}
+
 // forward-backward search on the prepared segment
 template <class F>
 void fb_segment(segment_search &Q, u64 r0, const mem_options &opt, read_state &st, F report) {
+    if (Q.TX || Q.TX2) { fb_segment_textless(Q, r0, opt, st, report); return; }
     const u64 m = Q.n;
     u64 s0 = 0;
     while (s0 < m) {

@@ -1,0 +1,43 @@
+samples 140401, of which load 5777; shares below are of the 134624 others
+   73.35%  parse's index: pbwt
+   17.97%  pattern parsing
+    1.58%  outside katka: libc.so.6
+    1.31%  outside katka: [unknown]
+    1.20%  other in katka (find_all::{lambda[]#1}::operator const)
+    1.12%  textless: the right end (lookup)
+    1.12%  textless: parse steps, other
+    1.00%  textless: the left end (comparisons)
+    0.73%  other in katka (katka::segments)
+    0.56%  other in katka (read_parser::next)
+    0.05%  other in katka (void katka::bml_segment)
+    0.01%  outside katka: libstdc++.so.6.0.35
+    0.01%  outside katka: ld-linux-x86-64.so.2
+    0.00%  other in katka (std::vector::_M_fill_assign)
+    0.00%  other in katka (katka::find_mems::{lambda[unsigned long, unsigned long]#1}::operator const)
+parse's index by class:
+   35.48%  parse's index: pbwt (a) finding c's first run
+    0.51%  parse's index: pbwt (b) other, depends on c only
+    0.12%  parse's index: pbwt (c) lf_one
+   11.41%  parse's index: pbwt (c1) predecessor searches for c n + sp, c n + ep
+   25.82%  parse's index: pbwt (c2) KS.access(j), FP.access2(j), arithmetic
+parse's index, top source lines (innermost):
+   16.08%  pbwt bits.hpp:105  if (o + l > 64) x |= low[w + 1] << (64 - o);
+    9.66%  pbwt bits.hpp:115  uint64_t c = __builtin_popcountll(word);
+    5.94%  pbwt bits.hpp:112  uint64_t i = k / SAMPLE1, p = f1[i], rem = k - i * SAMPLE1, w = p >> 6
+    4.06%  pbwt bits.hpp:132  uint64_t c = __builtin_popcountll(word);
+    3.62%  pbwt bits.hpp:123  uint64_t hi = (i + 1 < smp.size()) ? (smp[i + 1] >> 9) + 1 : ones.size
+    3.18%  pbwt bits.hpp:127  if (before(mid) <= k) lo = mid; else hi = mid;
+    2.78%  pbwt bits.hpp:22  return __builtin_ctzll(_pdep_u64(1ull << k, w));
+    2.12%  pbwt bits.hpp:116  if (rem < c) return (w << 6) + select_in_word(word, rem);
+    1.82%  pbwt bits.hpp:133  if (rem < c) return (w << 6) + select_in_word(word, rem);
+    1.56%  pbwt bits.hpp:104  uint64_t b = j * l, w = b >> 6, o = b & 63, x = low[w] >> o;
+    1.52%  pbwt bits.hpp:131  uint64_t word = ONE ? high[w] : ~high[w];
+    1.36%  pbwt bits.hpp:177  }
+    1.11%  pbwt bits.hpp:152  while (!word) word = ~high[++w];
+    1.06%  pbwt bits.hpp:169  while (lo < hi && get_low(lo) < xl) ++lo;
+    0.97%  pbwt bits.hpp:117  rem -= c; word = high[++w];
+    0.90%  pbwt bits.hpp:151  uint64_t w = q >> 6, word = ~high[w] & (~0ull << (q & 63));
+    0.85%  pbwt bits.hpp:503  if (j + 1 < nruns) FP.access2(j, f, fn); else { f = FP.access(j); fn =
+    0.78%  pbwt bits.hpp:143  b = ((q - j - 1) << l) | get_low(j + 1);
+    0.77%  pbwt bits.hpp:142  while (!hbit(q)) ++q;
+    0.68%  pbwt bits.hpp:167  if (get_low(mid) < xl) lo = mid + 1; else hi = mid;

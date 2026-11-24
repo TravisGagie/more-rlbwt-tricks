@@ -227,8 +227,9 @@ static const char *INDEX_USAGE =
     "  --twolevel          two-level index with blocks (PREFIX.lvl; needs one terminator)\n"
     "    --syncmer k,s     closed syncmers (default 51,12)\n"
     "    --no-blocks       parse only\n"
-    "    --continuation smallest|frequent|unique   successor that continues a block (default smallest; unique:\n"
-    "                      only a phrase with exactly one distinct successor continues, unitig-like blocks)\n"
+    "    --continuation smallest|frequent|unique|unitig   successor that continues a block (default smallest;\n"
+    "                      unique: only a phrase with exactly one distinct successor continues, unitig-like blocks;\n"
+    "                      unitig: besides, only a phrase with exactly one distinct predecessor is continued)\n"
     "  --move              the move structure of the BWT (PREFIX.mv), from PREFIX.rlbwt alone: one 64-bit record per\n"
     "                      run (runs split at 65,535), for find --move\n"
     "  --text-shortcuts ELL,TAU   almost-funnels on the text (Reportable Shortcuts' shortcuts, theta = 0) along the\n"
@@ -352,7 +353,7 @@ static int cmd_index(int argc, char **argv) {
                 rlzap = true;
                 if (optarg && sscanf(optarg, "%lu,%ld,%lu", &rz_J, &rz_D, &rz_M) != 3) die("--rlzap[=J,D,M]");
                 break;
-            case 'C': { string v = optarg; if (v == "frequent") to.frequent = true; else if (v == "unique") to.unique = true; else if (v != "smallest") die("--continuation smallest|frequent|unique"); break; }
+            case 'C': { string v = optarg; if (v == "frequent") to.frequent = true; else if (v == "unique") to.unique = true; else if (v == "unitig") to.unique = to.unitig = true; else if (v != "smallest") die("--continuation smallest|frequent|unique|unitig"); break; }
             case 1005: blocks_from = optarg; break;
             case 1006: psc_spec = optarg; break;
             case 1008: move_only = true; break;
@@ -655,6 +656,8 @@ struct finder {
     const stpd_index *SP = nullptr;
     const parse_stpd *PS = nullptr;
     const twolevel_locate *TLC = nullptr;
+    const textless_index *TX = nullptr;
+    const textless_index2 *TX2 = nullptr;
     const std::vector<u64> *gstarts = nullptr;
     bool intervals = true, locate = false;
 
@@ -1004,7 +1007,7 @@ static run_stats find_all(const finder &K, read_parser &P, FILE *out, int nthrea
         string name, seq, name2, seq2;
         segment_search Q;
         Q.S = &K.S; Q.T = K.table; Q.TL = K.TL; Q.jumps = K.jumps; Q.comp = K.comp; Q.SP = K.SP; Q.intervals = K.intervals; Q.locate = K.locate;
-        Q.PS = K.PS; Q.gstarts = K.gstarts; Q.TLC = K.TLC;
+        Q.PS = K.PS; Q.gstarts = K.gstarts; Q.TLC = K.TLC; Q.TX = K.TX; Q.TX2 = K.TX2;
         for (;;) {
             u64 my;
             {
@@ -1068,6 +1071,7 @@ static int cmd_find(int argc, char **argv) {
     int nthreads = 1, ft = 0, hpc = -1, csa = 0;
     uint32_t kebab_k = 0;
     string pscfile;
+    bool textless = false;              // two-level search without the index of the text (PREFIX.tlx; src/textless.hpp)
     bool twolevel = false, stats = false, use_stpd = false, poracle = false, kebab_rule_set = false, use_pstpd = false, rlzap_oracle = false;
     string readstats, locate_out;
     bool fixed_L = false;
@@ -1081,7 +1085,7 @@ static int cmd_find(int argc, char **argv) {
         {"read-stats", 1, 0, 21}, {"kebab-check", 1, 0, 23}, {"strict", 0, 0, 24}, {"check-seed", 0, 0, 26}, {"fixed-L", 0, 0, 25}, {"fb", 0, 0, 2}, {"no-hpc", 0, 0, 3}, {"inline-kebab", 1, 0, 4}, {"kbf", 1, 0, 5},
         {"csa", 0, 0, 6}, {"efcsa", 0, 0, 7}, {"twolevel", 0, 0, 8}, {"no-jumps", 0, 0, 9}, {"pshortcuts", 1, 0, 1201}, {"count", 0, 0, 'c'}, {"list", 0, 0, 'l'},
         {"range", 0, 0, 10}, {"format", 1, 0, 11}, {"stats", 0, 0, 12}, {"no-tags", 0, 0, 13}, {"stpd", 0, 0, 14},
-        {"no-intervals", 0, 0, 15}, {"locate", 0, 0, 16}, {"parse-oracle", 0, 0, 17}, {"stpd-parse", 0, 0, 22}, {"rlzap-oracle", 0, 0, 27}, {"locate-out", 1, 0, 28}, {"classify", 1, 0, 29}, {"nseq", 1, 0, 30}, {"epsilon", 1, 0, 31}, {"mate2", 1, 0, 32}, {"exclude-docs", 1, 0, 33}, {"narrow", 0, 0, 34}, {"absent", 0, 0, 35}, {"compact", 0, 0, 36}, {"em-iters", 1, 0, 37}, {"move", 0, 0, 38}, {"text-shortcuts", 1, 0, 39}, {"help", 0, 0, 'h'}, {0, 0, 0, 0}};
+        {"no-intervals", 0, 0, 15}, {"locate", 0, 0, 16}, {"parse-oracle", 0, 0, 17}, {"stpd-parse", 0, 0, 22}, {"rlzap-oracle", 0, 0, 27}, {"locate-out", 1, 0, 28}, {"classify", 1, 0, 29}, {"nseq", 1, 0, 30}, {"epsilon", 1, 0, 31}, {"mate2", 1, 0, 32}, {"exclude-docs", 1, 0, 33}, {"narrow", 0, 0, 34}, {"absent", 0, 0, 35}, {"compact", 0, 0, 36}, {"em-iters", 1, 0, 37}, {"move", 0, 0, 38}, {"text-shortcuts", 1, 0, 39}, {"textless", 0, 0, 1210}, {"help", 0, 0, 'h'}, {0, 0, 0, 0}};
     int c;
     optind = 1;
     while ((c = getopt_long(A.argc(), A.argv(), "L:XD:UK:F:clT:j:h", longopts, nullptr)) != -1) {
@@ -1135,6 +1139,7 @@ static int cmd_find(int argc, char **argv) {
             case 36: compact = true; break;
             case 37: K.bem_iters = std::stoi(optarg); break;
             case 38: use_move = true; break;
+            case 1210: textless = true; break;
             case 39: tscfile = optarg; break;
             case 13: mode = NONE; break;
             case 14: use_stpd = true; break;
@@ -1184,6 +1189,10 @@ static int cmd_find(int argc, char **argv) {
     double t0 = now();
     // the RLBWT: for backward steps without an RLCSA, and for two-level search, STPD and locating
     rlbwt B;
+    const bool tl_check = textless && getenv("KATKA_TEXTLESS_CHECK");
+    if (textless && (!twolevel || csa || use_stpd || K.locate || (K.opt.fb && !getenv("KATKA_TL_FB")) || !K.mems_format || (use_move && !tl_check)))
+        die("--textless: with --twolevel and --format mems, BML only, without --csa, --stpd, --locate (and --move only with KATKA_TEXTLESS_CHECK)");
+    if (!textless || tl_check)
     if ((!csa && !use_move) || twolevel || use_stpd || K.locate) load_rlbwt(B, prefix + ".rlbwt");   // (--move alone: only PREFIX.mv)
     rlcsa X;
     if (csa) X.load(prefix + (csa == 1 ? ".csa" : ".efcsa"));
@@ -1270,6 +1279,16 @@ static int cmd_find(int argc, char **argv) {
     if (twolevel) {
         L2.load(prefix + ".lvl", use_pstpd);
         K.TL = &L2;
+        if (textless) {
+            auto show = [&](const char *v, const auto &T) {
+                if (T.sigma != L2.sigma || T.N != L2.pbwt.n || (int32_t)T.K != L2.K) die(prefix + ": the textless index does not match " + prefix + ".lvl");
+                fprintf(stderr, "textless, %s (MB): parse BWT %.3f, dictionary %.3f, phrases %.3f, ranges %.3f, parse BWT by row %.3f (%lu runs); B %.3f, pairs %.3f%s\n",
+                        v, L2.pbwt.bytes() / 1e6, L2.dict.bytes() / 1e6, T.bytes_phrases() / 1e6, T.bytes_ranges() / 1e6, T.bytes_rows() / 1e6, T.hruns, L2.B.bytes() / 1e6,
+                        L2.has_blocks ? L2.bytes_blocks() / 1e6 : 0.0, tl_check ? "; checking every search against two-level search (KATKA_TEXTLESS_CHECK)" : "");
+            };
+            if (file_exists(prefix + ".tl2")) { static textless_index2 T2; T2.load(prefix + ".tl2"); K.TX2 = &T2; show("minimal widths (.tl2)", T2); }
+            else { static textless_index TXI; TXI.load(prefix + ".tlx"); K.TX = &TXI; show("whole phrases (.tlx)", TXI); }
+        }
         if (!L2.pbwt.ft.empty())
             fprintf(stderr, "first-run tables: parse %.3f MB, blocks %.3f MB (built at load)\n", L2.pbwt.ft.size() * 8 / 1e6, L2.bbwt.ft.size() * 8 / 1e6);
         if (!pscfile.empty()) {
@@ -1369,6 +1388,7 @@ static int cmd_find(int argc, char **argv) {
     if (stats && st.sc.parse_steps)
             fprintf(stderr, "parse steps: entry=%lu inside=%lu end=%lu; block attempts=%lu, symbol absent=%lu, failed block steps=%lu, back-ups=%lu, exact exits=%lu\n",
                     st.sc.pe_entry, st.sc.pe_inside, st.sc.pe_end, st.sc.b_attempts, st.sc.b_nosym, st.sc.b_fail, st.sc.b_backups, st.sc.b_exact);
+    if (stats && (K.TX || K.TX2)) g_tlx.print(stderr);
 #ifdef KATKA_NS
     if (stats) g_ns.print(stderr);
 #endif

@@ -478,6 +478,81 @@ inline lat_count g_lat;
 #define LATCOUNT(x)
 #endif
 
+#ifdef KATKA_DIACOUNT
+// Counting build (◇ and ▷ diagnostics; not for timing): for each two-level search that took a
+// successful block step, the block interval [o1, o2) after its last successful one, appended as two uint64 to
+// $KATKA_DIACOUNT_OUT (one thread only).
+struct dia_intervals {
+    FILE *f = nullptr;
+    dia_intervals() { const char *o = getenv("KATKA_DIACOUNT_OUT"); if (o) f = fopen(o, "wb"); }
+    ~dia_intervals() { if (f) fclose(f); }
+    void put(uint64_t a, uint64_t b) { if (f) { uint64_t v[2] = {a, b}; fwrite(v, 8, 2, f); } }
+};
+inline dia_intervals g_dia;
+// The right end: beta' = X[S[idx] .. end) is the partial phrase at the right
+// end, alpha = pid[idx - 1] the complete phrase to its left.  Each search falls in one case:
+//   0 no parse      the search never reaches the parse (no syncmer, or it is left of begin)
+//   1 no alpha      alpha is cut by begin or is not a phrase (no identifier)
+//   2 no successor  succ(alpha) = 0: alpha has several distinct successors (or none)
+//   3 s, beta'      succ(alpha) = s and s starts with beta'
+//   4 s, not beta'  succ(alpha) = s and s does not start with beta' (or the character steps fail first)
+// "s starts with beta'" is tested by rows: s's first row in the parse's F column, C[s], lies in the parse
+// range for beta' (phrase ids are in the phrases' lexicographic order and the phrases are prefix-free).  It needs
+// beta''s character steps, so when they fail the search counts as case 4.  For each case: the searches, the
+// right-end character steps, how many of them are past the first K (the characters after alpha's last syncmer),
+// how often the character steps fail, how often the parse step for alpha succeeds, and in case 2 the distribution
+// of alpha's number of distinct successors (outdeg, from the parse BWT at the first search).  Checks: in cases 3
+// and 4 the parse step for alpha succeeds exactly when C[s] is in the range (counted as "disagree").
+struct dia_right {
+    static constexpr int NC = 5, NH = 65;
+    const char *name[NC] = {"no parse", "no alpha", "no successor", "s, beta'", "s, not beta'"};
+    u64 searches[NC] = {}, chars[NC] = {}, chars_new[NC] = {}, char_fail[NC] = {}, alpha_ok[NC] = {}, disagree = 0;
+    u64 att_taken = 0, att_taken_exact = 0;              // pair attempts that took a step, and those left as exact
+    u64 deg[NH] = {}, deg_sum = 0;                       // case 2: outdeg(alpha), the last bucket 64 or more
+    std::vector<uint64_t> C;                              // C[y]: the first parse row starting with y; C[sigma + 1] = m + 1
+    std::vector<uint32_t> outdeg;
+    FILE *af = nullptr;                                   // $KATKA_DIACOUNT_ALPHA: (alpha, case) per search with an alpha
+    void init(const two_level &L) {
+        if (!C.empty()) return;
+        if (const char *o = getenv("KATKA_DIACOUNT_ALPHA")) af = fopen(o, "wb");
+        const EFRank &W = L.pbwt; const uint64_t N = L.m + 1;
+        if (W.n != N || !W.slot.empty()) die("unexpected parse BWT layout");
+        C.assign(L.sigma + 2, 0);
+        for (uint64_t j = 0; j < W.nruns; ++j) {
+            const uint64_t ks = W.KS.access(j), f = W.FP.access(j), fn = j + 1 < W.nruns ? W.FP.access(j + 1) : N;
+            C[ks / N + 1] += fn - f;
+        }
+        for (uint32_t y = 1; y <= L.sigma + 1; ++y) C[y] += C[y - 1];
+        outdeg.assign(L.sigma + 1, 0);
+        std::vector<uint32_t> last(L.sigma + 1, UINT32_MAX);
+        for (uint64_t j = 0; j < W.nruns; ++j) {          // runs by symbol x, then by position: the rows' first phrases y
+            const uint64_t ks = W.KS.access(j), x = ks / N, st = ks % N, f = W.FP.access(j), fn = j + 1 < W.nruns ? W.FP.access(j + 1) : N;
+            const uint32_t y1 = (uint32_t)(std::upper_bound(C.begin(), C.end(), st) - C.begin() - 1),
+                           y2 = (uint32_t)(std::upper_bound(C.begin(), C.end(), st + (fn - f) - 1) - C.begin() - 1);
+            for (uint32_t y = y1; y <= y2; ++y) if (last[x] != y && C[y] < C[y + 1]) { last[x] = y; ++outdeg[x]; }
+        }
+    }
+    void put_alpha(uint32_t a, uint32_t c) { if (af) { uint32_t v[2] = {a, c}; fwrite(v, 4, 2, af); } }
+    ~dia_right() {
+        if (af) fclose(af);
+        if (C.empty()) return;
+        u64 tot = 0; for (int c = 0; c < NC; ++c) tot += searches[c];
+        fprintf(stderr, "right end: %lu searches; disagree=%lu\n", tot, disagree);
+        fprintf(stderr, "pair attempts that took a step: attempts_taken=%lu exact=%lu\n", att_taken, att_taken_exact);
+        for (int c = 0; c < NC; ++c)
+            fprintf(stderr, "right end case %d (%s): searches=%lu chars=%lu chars_past_K=%lu char_fail=%lu alpha_step_ok=%lu\n",
+                    c, name[c], searches[c], chars[c], chars_new[c], char_fail[c], alpha_ok[c]);
+        fprintf(stderr, "right end case 2 outdeg: sum=%lu", deg_sum);
+        for (int k = 0; k < NH; ++k) if (deg[k]) fprintf(stderr, " %d:%lu", k, deg[k]);
+        fprintf(stderr, "\n");
+    }
+};
+inline dia_right g_right;
+#define DIACOUNT(...) __VA_ARGS__
+#else
+#define DIACOUNT(...)
+#endif
+
 // Lookahead distance d of the parse steps' prefetches (latency study): $KATKA_LA_D, 0 (none) by default.
 inline const int64_t g_la_d = getenv("KATKA_LA_D") ? atoll(getenv("KATKA_LA_D")) : 0;
 
@@ -531,7 +606,27 @@ inline u64 search2(const stepper &st, const two_level &L, const pattern_parse &p
     PROF(const int pd = g_prof.dir; ++g_prof.tl_searches[pd]; u64 prof_t = ps_prof::now(), prof_c = cnt.char_steps);
     if (g_la_d && idx > 0)                                // lookahead: the new window's first phrases, before its character steps
         for (int64_t q = idx - 1, lo = std::max<int64_t>(0, idx - 1 - 2 * g_la_d); q >= lo; --q) if (pi.pid[q]) L.pbwt.pf_first(pi.pid[q]);
+    DIACOUNT(g_right.init(L); const u64 dia_c0 = cnt.char_steps;
+             const bool dia_parse = idx >= 0 && S[idx] >= begin, dia_alpha = dia_parse && idx > 0 && S[idx - 1] >= begin && pi.pid[idx - 1];
+             const uint32_t dia_s = dia_alpha && L.has_blocks ? L.succ(pi.pid[idx - 1]) : 0;
+             int dia_case = !dia_parse ? 0 : !dia_alpha ? 1 : !dia_s ? 2 : 4; bool dia_done = false);
     if (idx >= 0 && S[idx] >= begin && char_steps_to(S[idx])) {
+        DIACOUNT({
+            uint64_t a, b, q0, q1; L.B.rank1_pair(I.sp, I.ep, q0, q1); ++q0;
+            if (dia_alpha) {
+                L.pbwt.lf2(pi.pid[idx - 1], q0, q1 + 1, a, b);
+                if (dia_s) {
+                    const bool in = g_right.C[dia_s] >= q0 && g_right.C[dia_s] <= q1;
+                    if (in) dia_case = 3;
+                    if (in != (a < b)) ++g_right.disagree;
+                }
+                if (a < b) ++g_right.alpha_ok[dia_case];
+                g_right.put_alpha(pi.pid[idx - 1], (uint32_t)dia_case | (a < b ? 8u : 0u));
+                if (!dia_s) { const uint32_t d = g_right.outdeg[pi.pid[idx - 1]]; ++g_right.deg[std::min<uint32_t>(d, 64)]; g_right.deg_sum += d; }
+            }
+            ++g_right.searches[dia_case]; g_right.chars[dia_case] += cnt.char_steps - dia_c0;
+            g_right.chars_new[dia_case] += std::max<int64_t>(0, end - S[idx] - K); dia_done = true;
+        });
         PROF(g_prof.cyc[16] += ps_prof::now() - prof_t; g_prof.tl_right[pd] += cnt.char_steps - prof_c; ++g_prof.tl_parse[pd]; prof_t = ps_prof::now();
              const u64 prof_p = cnt.parse_steps);
         // parse rows [plo, phi] (inclusive) for X[S[i] .. end)
@@ -556,6 +651,7 @@ inline u64 search2(const stepper &st, const two_level &L, const pattern_parse &p
 #ifdef KATKA_NS
         rl_counts &nsr = g_ns.rl[g_ns.dir]; ++nsr.searches; u64 ns_toe = plo; bool ns_in1 = false;
 #endif
+        DIACOUNT(uint64_t dia_a = 0, dia_b = 0);
         while (i > 0 && S[i - 1] >= begin && pi.pid[i - 1]) {
             if (g_la_d) lookahead();
             if (jumps && i <= noblock_above && !pi.cont[i]) {
@@ -583,10 +679,12 @@ inline u64 search2(const stepper &st, const two_level &L, const pattern_parse &p
                     LATCOUNT(g_lat.step(g_lat.b, y));
                     ++cnt.block_steps;
                     if (o1 >= o2) { ++cnt.b_fail; break; }
+                    DIACOUNT(dia_a = o1; dia_b = o2);
                     if (cur != i && pi.real[cur]) { sblo = blo; sbhi = bhi; scur = cur; sbt = bt; }
                     if (TLc) bt = twolevel_locate::rank_step(L.bbwt, TLc->brow, TLc->bsamp, y, blo, bt);
                     blo = o1; bhi = o2; cur = t0; ++taken;
                 }
+                DIACOUNT(if (taken >= 1) { ++g_right.att_taken; if (!L.can_continue(pi.pid[cur])) ++g_right.att_taken_exact; });
                 if (taken >= 1 && !L.can_continue(pi.pid[cur])) {     // exact (Lemma "backup", first case)
                     plo = L.BS.access(blo); phi = L.BS.access(bhi - 1);
                     if (TLc) u = TLc->bstarts.access(bt);
@@ -633,6 +731,7 @@ inline u64 search2(const stepper &st, const two_level &L, const pattern_parse &p
             plo = o1; phi = o2 - 1; --i;
         }
         (segkind ? cnt.pe_end : cnt.pe_entry) += seg;       // the steps of the last segment: the match ended there
+        DIACOUNT(if (dia_b) g_dia.put(dia_a, dia_b));
 #ifdef KATKA_NS
         g_ns.end_search();
 #endif
@@ -648,6 +747,8 @@ inline u64 search2(const stepper &st, const two_level &L, const pattern_parse &p
         PROF(g_prof.cyc[21] += ps_prof::now() - prof_t; g_prof.tl_charonly[pd] += cnt.char_steps - prof_c);
     }
     PROF(else { g_prof.cyc[16] += ps_prof::now() - prof_t; g_prof.tl_right[pd] += cnt.char_steps - prof_c; })
+    DIACOUNT(if (!dia_done) {                             // no parse, or the right end's character steps failed
+        ++g_right.searches[dia_case]; g_right.chars[dia_case] += cnt.char_steps - dia_c0; if (dia_parse) ++g_right.char_fail[dia_case]; });
     out = I;
     if (toehold) *toehold = t;
     return (u64)j;

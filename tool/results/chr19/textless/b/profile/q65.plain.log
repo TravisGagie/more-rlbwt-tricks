@@ -1,0 +1,9 @@
+textless (MB): parse BWT 64.488, dictionary 116.700, phrases 205.981, ranges 52.259, parse BWT by row 52.328 (12954298 runs); not used: B 15.377
+index loaded in 0.8 s
+reads=4 MEMs=18479 without MEMs=0 | threads=1 wall 6.89 s, 1723524.0 us/read
+timing: 4 reads, 1 threads; mean per-read time 1679546.80 us; total time / reads 1723524.00 us (total 6.894 s)
+searches=72494 char_steps=0 parse_steps=16366742 block_steps=0 kmer_tests=0 kmer_restarts=0 stpd_jumps=0 stpd_compares=0
+parse steps: entry=0 inside=0 end=0; block attempts=0, symbol absent=0, failed block steps=0, back-ups=0, exact exits=0
+textless: searches=72494 (window 35536, exact 36958), no boundary 0
+textless right end: K-mer range from alpha 72029, from alpha cut by the window's start 0, by search (alpha has no identifier) 465, by search (no alpha in the pattern) 0, alpha is the phrase before $ 0, K-mer absent 397; tail = the K-mer 10020; string comparisons 466576, range sizes 12398515; tail absent 3830 (in exact searches 0); alpha's step fails 260
+textless left end: 68664 (at the window's start 18484); distinct preceding phrases sum 106563, max 1563; runs 553113; characters compared 1296728; full agreements (bugs) 0; distinct: 0 0, 1 59285, 2 4602, 3-4 1573, 5-8 610, 9-64 464, 65-1024 69, more 6

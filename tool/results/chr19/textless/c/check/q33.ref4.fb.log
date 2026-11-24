@@ -1,0 +1,16 @@
+move structure: 68446512 runs (split at 65535), 676.697 MB (records 547.572, run starts 80.657, runs per symbol 46.370, 8-mer table 2.097)
+textless, minimal widths (.tl2) (MB): parse BWT 117.754, dictionary 105.221, phrases 93.891, ranges 26.071, parse BWT by row 40.952 (10332018 runs); B 13.394, pairs 52.929; checking every search against two-level search (KATKA_TEXTLESS_CHECK)
+first-run tables: parse 68.103 MB, blocks 9.806 MB (built at load)
+shortcuts over phrases (ref:4): 773337, 18.841 MB
+index loaded in 1.1 s
+reads=4 MEMs=22711 without MEMs=0 | threads=1 wall 9.49 s, 2372151.3 us/read
+timing: 4 reads, 1 threads; mean per-read time 2333452.16 us; total time / reads 2372151.29 us (total 9.489 s)
+searches=452536 char_steps=0 parse_steps=10868959 block_steps=0 kmer_tests=0 kmer_restarts=0 stpd_jumps=0 stpd_compares=0
+parse steps: entry=10868959 inside=0 end=0; block attempts=0, symbol absent=0, failed block steps=0, back-ups=0, exact exits=0
+textless: searches=452536 (window 446630, exact 5906), no boundary 0
+textless right end: K-mer range from alpha 244882, from alpha cut by the window's start 0, by search (alpha has no identifier) 207654, by search (no alpha in the pattern) 0, alpha is the phrase before $ 0, K-mer absent 0; tail = the K-mer 12992; string comparisons 1027966, range sizes 18700369; tail absent 165499 (in exact searches 0); alpha's step fails 2784
+textless left end: 79383 (at the window's start 2); distinct preceding phrases sum 365891, max 1932; runs 3355482; characters compared 3543559; full agreements (bugs) 0; distinct: 0 0, 1 64707, 2 5967, 3-4 3184, 5-8 1875, 9-64 2778, 65-1024 850, more 22
+textless: K-mer range needed in exact searches 0; alpha without identifier, its left boundary reported (window tests) 207654; unresolved (stopped) 0
+textless forward-backward: forward searches 223316 (bounds 180416), backward searches 223314 (bounds 192737), left-maximality checks 5906 (not left-maximal 0), stopped with less than L left 2, restarts by one 157140
+textless check: 452536 searches checked; j differs 0, occurrences differ 0; window searches with a shorter skip 370472 (characters 11882806), with the exact j but no count 2681
+shortcuts: entrances met=1719836, pattern not alpha=433126, taken=1277280 (phrases crossed 5109120), failed midway=9430

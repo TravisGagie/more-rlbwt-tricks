@@ -1,0 +1,42 @@
+sigma	9522052
+K	51
+ranges	8294327
+order_violations	0
+split_ranges	0
+phrases_shorter_than_K	0
+range_size_mean	1.15
+range_size_p50_by_range	1
+range_size_p90_by_range	1
+range_size_p99_by_range	3
+range_size_p50_by_phrase	1
+range_size_p90_by_phrase	2
+range_size_p99_by_phrase	59
+range_size_max	2800
+bases_total	673944330
+bases_past_K	188319678
+bytes_copy_past_K	47079920
+bytes_offsets	33327182
+bytes_pointer_per_phrase	27375900
+bytes_range_start_bits	1190257
+q65.bml.alpha	no_successor_searches	51638
+q65.bml.alpha	no_successor_range_p50	4
+q65.bml.alpha	no_successor_range_p90	1130
+q65.bml.alpha	no_successor_range_p99	2800
+q65.bml.alpha	no_successor_mean_comparisons	4.18
+q65.bml.alpha	s_starts_searches	16778
+q65.bml.alpha	s_starts_range_p50	1
+q65.bml.alpha	s_starts_range_p90	1
+q65.bml.alpha	s_starts_range_p99	21
+q65.bml.alpha	s_starts_mean_comparisons	0.16
+q65.bml.alpha	no_range	0
+q65.fb.alpha	no_successor_searches	53234
+q65.fb.alpha	no_successor_range_p50	14
+q65.fb.alpha	no_successor_range_p90	1317
+q65.fb.alpha	no_successor_range_p99	2800
+q65.fb.alpha	no_successor_mean_comparisons	5.19
+q65.fb.alpha	s_starts_searches	4862
+q65.fb.alpha	s_starts_range_p50	1
+q65.fb.alpha	s_starts_range_p90	3
+q65.fb.alpha	s_starts_range_p99	140
+q65.fb.alpha	s_starts_mean_comparisons	0.50
+q65.fb.alpha	no_range	0
