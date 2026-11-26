@@ -1,0 +1,7 @@
+first-run tables: parse 88.093 MB, blocks 20.641 MB (built at load)
+index loaded in 45.9 s
+reads=4 MEMs=16806 without MEMs=0 | threads=1 wall 4.56 s, 1140891.3 us/read
+timing: 4 reads, 1 threads; mean per-read time 1103467.60 us; total time / reads 1140891.27 us (total 4.564 s)
+searches=64289 char_steps=4752917 parse_steps=1107211 block_steps=2548855 kmer_tests=0 kmer_restarts=0 stpd_jumps=0 stpd_compares=0
+parse steps: entry=516634 inside=54512 end=536065; block attempts=114329, symbol absent=21005, failed block steps=65460, back-ups=23887, exact exits=33866
+hashes: dictionary lookups 6650901 (found 6636583), fingerprint comparisons 0 (equal 0, ids compared 0)

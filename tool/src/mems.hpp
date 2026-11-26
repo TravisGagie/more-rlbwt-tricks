@@ -53,12 +53,21 @@
 #include "pstpd.hpp"
 #include "twolevel.hpp"
 #include "textless.hpp"
+#include "parse_sample.hpp"
 #include <algorithm>
 
 namespace katka {
 
 struct mem { u64 a, e; interval I; u64 occ = 0, haps = 0; };   // haps: distinct sequences among the located occurrences
    // occ: occurrences located (STPD with locate), else 0    // R[a..e) and the interval of rc(R[a..e)) (or of R[a..e) with FB on chr19)
+
+// locating from the parse alone (find --parse-locate): MEMs located, positions, runs of the parse's BWT read, Psi steps,
+// positions checked, and the time collecting the rows and walking them
+struct ploc_counters {
+    u64 mems = 0, rows = 0, runs = 0, steps = 0, checked = 0; double t_rows = 0, t_walk = 0;
+    void add(const ploc_counters &o) { mems += o.mems; rows += o.rows; runs += o.runs; steps += o.steps; checked += o.checked; t_rows += o.t_rows; t_walk += o.t_walk; }
+};
+inline ploc_counters g_ploc;
 
 // longest-suffix searches over one segment of a pattern and over its reverse complement
 struct segment_search {
@@ -68,6 +77,10 @@ struct segment_search {
     const twolevel_locate *TLC = nullptr; // with TL and locate (no STPD): the toehold samples and phi^-1
     const textless_index *TX = nullptr;   // with TL: two-level search without the index of the text (textless.hpp); I = {0, occurrences}
     const textless_index2 *TX2 = nullptr; //   or its minimal-width version
+    const parse_regular_sample *PRS = nullptr;   // with TX or TX2: locate from the parse alone (find --parse-locate)
+    const parse_text *PCHK = nullptr;     //   and check each position against the parse ($KATKA_PLOC_CHECK)
+    tl_left_state fw_left;                //   the left end of the last forward search
+    ploc_counters pcnt;
     bool jumps = true;
     const unsigned char *comp = nullptr;  // complement of each symbol (digest symbols), if not DNA
     const stpd_index *SP = nullptr;       // if set, STPD search (stpd.hpp)
@@ -263,7 +276,94 @@ struct segment_search {
     }
     // the largest e <= n such that R[a..e) occurs, with the interval of rc(R[a..e))
     // (with STPD, J is computed only by rc_interval, for the MEMs reported)
-    u64 forward(u64 a, interval &J) { return n - back(1, 0, n - a, J); }
+    // locating from the parse alone, for the MEM R[a..e) just found by a forward search (fw_left): its rows, run by run
+    // (the runs of the parse's BWT by row over [plo, phi] whose phrase agrees best characters), then a Psi walk from each
+    // to a sampled row; the positions of rc(R[a..e)) in the text go to occbuf.  The two parts are timed apart.
+    // The rows are kept, and walked once per segment (ploc_flush, from find_mems): ploc_lanes walks at a time
+    // (parse_regular_sample::locate_staged_runs; $KATKA_PLOC_LANES, default 12; 0: one row at a time, as locate).  The positions of
+    // the i-th MEM located in this read are ppos[precs[i].start ..][..cnt].
+    struct ploc_rec { u64 a, e, start, cnt, best; };
+    std::vector<ploc_rec> precs;
+    std::vector<u64> prows, ppos;
+    u64 pflushed = 0;
+    unsigned ploc_lanes = 12;
+    bool ploc_runs = true;                 // walk a run of rows at a time (locate_staged_runs; $KATKA_PLOC_RUNS=0: a row at a time)
+    bool ploc_nowalk = false;              // ($KATKA_PLOC_NOWALK: collect the rows but don't walk them, for the split)
+    void ploc_reset() { precs.clear(); prows.clear(); ppos.clear(); pflushed = 0; }
+    template <class TI> void ploc_(const TI &T, u64 a, u64 e, u64 occ) {
+        const tl_left_state &F = fw_left;
+        if (!F.valid) die("--parse-locate: the forward search did not leave the parse (MEM " + std::to_string(a) + ".." + std::to_string(e) + ")");
+        const double t0 = now();
+        const u64 start = prows.size();
+        if (F.all) for (u64 r = F.plo; r <= F.phi; ++r) prows.push_back(r);
+        else for (u64 jr = T.hstart.pred_index(F.plo); jr < T.hruns; ++jr) {
+            u64 lo, hi;
+            if (jr + 1 < T.hruns) T.hstart.access2(jr, lo, hi); else { lo = T.hstart.access(jr); hi = T.N; }
+            if (lo > F.phi) break;
+            ++pcnt.runs;
+            const uint32_t y = (uint32_t)T.hsym.get(jr);
+            const auto it = std::lower_bound(F.ys.begin(), F.ys.end(), y);
+            if (it == F.ys.end() || *it != y || F.agree[it - F.ys.begin()] != F.best) continue;
+            const u64 a1 = std::max(lo, F.plo), b1 = std::min(hi - 1, F.phi);
+            for (u64 r = a1; r <= b1; ++r) prows.push_back(r);
+        }
+        const u64 cnt = prows.size() - start;
+        precs.push_back({a, e, start, cnt, F.best});
+        static FILE *dump = getenv("KATKA_PLOC_ROWS") ? fopen(getenv("KATKA_PLOC_ROWS"), "w") : nullptr;   // (one MEM's rows per line)
+        if (dump) { for (u64 q = start; q < prows.size(); ++q) fprintf(dump, q > start ? " %lu" : "%lu", prows[q]); fputc('\n', dump); fflush(dump); }
+        pcnt.t_rows += now() - t0; ++pcnt.mems; pcnt.rows += cnt;
+        last_occ = cnt;
+        if (cnt != occ) die("--parse-locate: " + std::to_string(cnt) + " positions for " + std::to_string(occ) + " occurrences (MEM " + std::to_string(a) + ".." + std::to_string(e) + ")");
+    }
+    // the walks of the rows kept since the last flush (this segment's MEMs), and the checks
+    void ploc_flush() {
+        if (!PRS) return;
+        const u64 r0 = pflushed ? precs[pflushed - 1].start + precs[pflushed - 1].cnt : 0, c = prows.size() - r0;
+        ppos.resize(prows.size());
+        if (c && !ploc_nowalk) {
+            const double t0 = now();
+            if (!TX2 || !ploc_lanes) for (u64 q = r0; q < prows.size(); ++q) ppos[q] = TX2 ? PRS->locate(TL->pbwt, *TX2, prows[q], (u64)TL->K, pcnt.steps) : PRS->locate(TL->pbwt, *TX, prows[q], (u64)TL->K, pcnt.steps);
+            else if (!ploc_runs) PRS->locate_staged(TL->pbwt, *TX2, prows.data() + r0, c, (u64)TL->K, ppos.data() + r0, pcnt.steps, ploc_lanes);
+            else {                                    // a run of rows at a time
+                static thread_local std::vector<std::pair<u64, u64>> gr;
+                gr.clear();
+                for (u64 i = pflushed; i < precs.size(); ++i) gr.push_back({precs[i].start - r0, precs[i].cnt});
+                PRS->locate_staged_runs(TL->pbwt, *TX2, prows.data() + r0, c, gr.data(), gr.size(), (u64)TL->K, ppos.data() + r0, pcnt.steps, ploc_lanes);
+            }
+            pcnt.t_walk += now() - t0;
+        }
+        for (u64 i = pflushed; i < precs.size(); ++i) {
+            const ploc_rec &P = precs[i];
+            for (u64 q = P.start; q < P.start + P.cnt; ++q) ppos[q] -= P.best;
+            if (PCHK && !ploc_nowalk) {                // every position holds rc(R[a..e)), and they are distinct
+                const u64 a = P.a, e = P.e;
+                const uint8_t *x = (const uint8_t *)rc.data() + (n - e);
+                for (u64 q = P.start; q < P.start + P.cnt; ++q) { const u64 p = ppos[q]; if (p + (e - a) > PCHK->n || PCHK->lce(p, x, e - a) != e - a) die("--parse-locate: a wrong position " + std::to_string(p) + " (MEM " + std::to_string(a) + ".." + std::to_string(e) + ")"); }
+                static thread_local std::vector<u64> srt; srt.assign(ppos.begin() + P.start, ppos.begin() + P.start + P.cnt); std::sort(srt.begin(), srt.end());
+                if (std::adjacent_find(srt.begin(), srt.end()) != srt.end()) die("--parse-locate: a position twice");
+                pcnt.checked += P.cnt;
+            }
+        }
+        pflushed = precs.size();
+    }
+    void ploc(u64 a, u64 e, u64 occ) { if (TX2) ploc_(*TX2, a, e, occ); else ploc_(*TX, a, e, occ); }
+    u64 forward(u64 a, interval &J) {
+        if (PRS) {                                   // keep where the forward search leaves the parse
+            g_tl_left.on = true;
+            const u64 e = n - back(1, 0, n - a, J);
+            g_tl_left.on = false; std::swap(fw_left, g_tl_left);
+            return e;
+        }
+#ifdef KATKA_SURV
+        if (g_surv_out && TL && TL->pbwt.n) {        // record where this search leaves the parse (rc_interval compares)
+            g_surv.reset(); g_surv.on = true;
+            const u64 e = n - back(1, 0, n - a, J);
+            g_surv.on = false; g_surv_fw = g_surv; g_surv_fw_valid = true; g_surv_fw_a = a;
+            return e;
+        }
+#endif
+        return n - back(1, 0, n - a, J);
+    }
     // ---- STPD over the parse (pstpd.hpp)
     // the longest suffix of X[lo..end): right end by backward steps to the last syncmer start, entry into
     // the parse, then ps_extend
@@ -420,6 +520,25 @@ struct segment_search {
     }
     // with STPD, the interval of rc(R[a..e)) for a MEM about to be reported, by plain backward search
     void rc_interval(u64 a, u64 e, interval &J) {
+#ifdef KATKA_SURV
+        if (g_surv_out && TL && TL->pbwt.n) {        // the MEM's own two-level search, as --locate runs it
+            interval I3; search_counters c3;
+            g_surv.reset(); g_surv.on = true;
+            const u64 j3 = search2(*S, *TL, qi, rc.data(), (int64_t)(n - e), (int64_t)(n - a), jumps, I3, c3);
+            g_surv.on = false;
+            if (j3 != n - e) die("internal error: survivors (the MEM does not occur)");
+            if (!g_surv_fw_valid || g_surv_fw_a != a) ++g_surv_fwc.other;
+            else {                                   // the forward search that found the MEM, against its own search
+                ++g_surv_fwc.mems;
+                const bool same = g_surv_fw.kind == g_surv.kind && (g_surv.kind == 0 || (g_surv_fw.plo == g_surv.plo && g_surv_fw.surv == g_surv.surv));
+                ++(same ? g_surv_fwc.same : g_surv_fwc.differ);
+                if (g_surv.kind == 0) ++g_surv_fwc.no_parse;
+                g_surv_fw_valid = false;
+            }
+            fprintf(g_surv_out, "%lu\t%lu\t%d\t%lu\t%lu\t%lu\t%lu\t%lu\t%d\t%lu\t%lu\n", a, e, g_surv.kind, I3.ep - I3.sp, g_surv.surv,
+                    g_surv.brows, g_surv.plen, g_surv.left, g_surv.why, g_surv.left_chars, c3.block_steps);
+        }
+#endif
         if (!SP && !(locate && TLC)) return;
         interval I2;
         if (locate) {                                   // the forward search left the first occurrence of rc(R[a..e)) in sst[1]
@@ -580,9 +699,13 @@ void bml_segment(segment_search &Q, u64 r0, const mem_options &opt, read_state &
         u64 j = Q.back(0, x, x + L, I, true);
         if (j > x) { x = j; continue; }                     // R[j-1..x+L) does not occur
         u64 a = Q.extend_left(0, 0, x, x + L, I);
+        // without the index of the text, both searches start from a window that occurs, so they are exact: checked
+        if ((Q.TX || Q.TX2) && !g_tl_exact) die("textless BML: the left extension returned a bound at " + std::to_string(r0 + x));
         interval J;
         u64 e = Q.forward(a, J);
+        if ((Q.TX || Q.TX2) && !g_tl_exact) die("textless BML: the forward search returned a bound at " + std::to_string(r0 + a));
         Q.rc_interval(a, e, J);
+        if (Q.PRS) Q.ploc(a, e, J.ep - J.sp);
         found(R, r0, a, e, J, opt, st, report, Q.locate ? Q.last_occ : 0, Q.last_haps);
         // the first window that ends after the MEM (L may have been raised; with top t, past e + 1)
         x = e + 1 >= st.L ? e + 1 - st.L : 0;
@@ -604,7 +727,9 @@ void fb_segment_textless(segment_search &Q, u64 r0, const mem_options &opt, read
         if (m - s0 < st.L) { ++tc.fb_stop_short; break; }        // no MEM of length >= L starts at s0 or later
         interval J, I;
         ++tc.fb_forward;
+        if (Q.PRS) g_tl_left.on = true;
         const u64 j = Q.back(1, 0, m - s0, J, true);
+        if (Q.PRS) { g_tl_left.on = false; std::swap(Q.fw_left, g_tl_left); }
         if (j >= UINT64_MAX - 1) die("textless forward-backward: a forward search with no answer at " + std::to_string(s0));
         if (g_tl_exact) {
             const u64 e = m - j;
@@ -617,7 +742,7 @@ void fb_segment_textless(segment_search &Q, u64 r0, const mem_options &opt, read
                     if (!g_tl_exact || j2 > s0) die("textless forward-backward: the left-maximality check is not exact at " + std::to_string(s0));
                     lm = j2 == s0; if (!lm) ++tc.fb_not_lm;
                 }
-                if (lm) found(Q.R, r0, s0, e, J, opt, st, report);
+                if (lm) { if (Q.PRS) Q.ploc(s0, e, J.ep - J.sp); found(Q.R, r0, s0, e, J, opt, st, report); }
             }
             if (e >= m) break;
             ++tc.fb_back;
@@ -776,6 +901,7 @@ void find_mems(segment_search &Q, const std::string &read, const mem_options &op
         Q.prepare(read.data() + r0, n);
         if (opt.fb) fb_segment(Q, r0, opt, st, report);
         else bml_segment(Q, r0, opt, st, report);
+        if (Q.PRS) Q.ploc_flush();
     };
     if (opt.longest && opt.pseudo) {
         const u64 t = opt.longest, ns = segs.size(), k = opt.filter->k;

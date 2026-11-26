@@ -1,0 +1,10 @@
+blocks 33 L=1000: MEMs equal, 22711 MEMs, occurrences 72876, occ differs 0, survivors < occ 0
+blocks 33 L=100: MEMs equal, 38984 MEMs, occurrences 384341, occ differs 0, survivors < occ 0
+blocks 65 L=1000: MEMs equal, 18479 MEMs, occurrences 64945, occ differs 0, survivors < occ 0
+blocks 65 L=100: MEMs equal, 30809 MEMs, occurrences 362636, occ differs 0, survivors < occ 0
+blocks 129 L=1000: MEMs equal, 16806 MEMs, occurrences 75563, occ differs 0, survivors < occ 0
+blocks 129 L=100: MEMs equal, 27137 MEMs, occurrences 393185, occ differs 0, survivors < occ 0
+unique 33 L=1000: MEMs equal, 22711 MEMs, occurrences 72876, occ differs 0, survivors < occ 0
+heavy08 33 L=1000: MEMs equal, 22711 MEMs, occurrences 72876, occ differs 0, survivors < occ 0
+unique 33 L=100: MEMs equal, 38984 MEMs, occurrences 384341, occ differs 0, survivors < occ 0
+heavy08 33 L=100: MEMs equal, 38984 MEMs, occurrences 384341, occ differs 0, survivors < occ 0

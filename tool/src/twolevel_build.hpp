@@ -18,6 +18,7 @@ struct twolevel_options {
                                     // predecessor, so a phrase continues at every occurrence or at none (unitigs)
     uint32_t max_block = 0;         // a block also ends after this many phrases (0: no cap)
     std::string tmp;                // where the parse is spilled (default: the text's name + .parse.tmp)
+    uint64_t hash_seed = PHRASE_HASH_SEED;   // the phrase dictionary's hash (index --hash-seed)
 };
 
 // Memory: the parse pz (4 bytes per phrase) is written to o.tmp while S is scanned, so it is held once
@@ -240,7 +241,7 @@ inline void build_twolevel(const std::string &Sfile, const rlbwt &bwt, const ste
     std::unordered_map<uint64_t, uint32_t> seen;
     bool zero_is_syncmer = false;
     const uint64_t n = syncmer_parse(Sfile, K, o.s, zero_is_syncmer, [&](const uint8_t *p, uint64_t len) {
-        uint64_t hv = phrase_hash(p, len);
+        uint64_t hv = phrase_hash(p, len, o.hash_seed);
         auto it = seen.find(hv);
         if (it == seen.end()) {
             uint32_t idx = (uint32_t)rhash.size();
@@ -302,12 +303,13 @@ inline void build_twolevel(const std::string &Sfile, const rlbwt &bwt, const ste
             if (!acgt) continue;
             tmp.resize(len);
             for (uint64_t i = 0; i < len; ++i) tmp[i] = complement(p[len - 1 - i]);
-            auto it = byhash.find(phrase_hash(tmp.data(), len));
+            auto it = byhash.find(phrase_hash(tmp.data(), len, o.hash_seed));
             uint32_t rid = 0;
             if (it != byhash.end() && dlen(order[it->second - 1]) == len && !memcmp(ptr(order[it->second - 1]), tmp.data(), len)) rid = it->second;
             else ++missing;
             v.push_back({rhash[a], {idof[a], rid}});
         }
+        L.dict.seed = o.hash_seed;
         L.dict.build(v);
         fprintf(stderr, "dictionary: %zu phrases over A/C/G/T, %lu without a reverse complement (the first phrase of S can be one)\n", v.size(), missing);
         if (missing > 2) die("two-level: phrases without reverse complements; is S closed under reverse complement (katka prep)?");

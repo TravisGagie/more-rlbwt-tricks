@@ -1,0 +1,10 @@
+c33s.lvl differs from c33.lvl, as it should (the dictionary)
+c33s.heavy08.psc differs from the default, as it should (the fingerprints)
+identical: ~/diamond/seed/c33s.tl2 = ~/diamond/c33v.tl2
+identical: ~/diamond/seed/c33su.tl2 = ~/diamond/c33uv.tl2
+q33 plain bml: MEMs equal, occurrences equal; 93232 searches checked; j differs 0, occurrences differ 0; window searches with a shorter skip 6201 (characters 244838), with the exact j but no count 55
+q33 plain fb: MEMs equal, occurrences equal; 452536 searches checked; j differs 0, occurrences differ 0; window searches with a shorter skip 370472 (characters 11882806), with the exact j but no count 2681
+q33 unique-right bml: MEMs equal, occurrences equal; 93232 searches checked; j differs 0, occurrences differ 0; window searches with a shorter skip 6201 (characters 244838), with the exact j but no count 55
+q33 unique-right fb: MEMs equal, occurrences equal; 452536 searches checked; j differs 0, occurrences differ 0; window searches with a shorter skip 370472 (characters 11882806), with the exact j but no count 2681
+q33 heavy08 bml: MEMs equal, occurrences equal; 93232 searches checked; j differs 0, occurrences differ 0; window searches with a shorter skip 6201 (characters 244838), with the exact j but no count 55
+q33 heavy08 fb: MEMs equal, occurrences equal; 452536 searches checked; j differs 0, occurrences differ 0; window searches with a shorter skip 370472 (characters 11882806), with the exact j but no count 2681

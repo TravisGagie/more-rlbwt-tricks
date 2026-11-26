@@ -1,0 +1,2 @@
+regular sample over the parse, s = 32: 6889584 sampled rows of 220466620; rows 7.428 MB + text positions 27.558 MB = 34.986 MB
+check from 2000000 random rows: 0 wrong; 15.49 Psi steps per row, 5219.5 ns per row

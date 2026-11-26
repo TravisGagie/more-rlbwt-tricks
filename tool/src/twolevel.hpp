@@ -8,7 +8,7 @@
 // rc(gamma).  The s-mers of rc(kappa) are the reverse complements of those of kappa, in reverse order, so
 // kappa is a closed syncmer if and only if rc(kappa) is.  Consequences:
 //   - whether a k-mer is a closed syncmer still does not depend on its context, so the parse is still
-//     prefix-free and the order lemma (Lemma 6) holds unchanged: its proof uses nothing about g;
+//     prefix-free and the order lemma (Lemma 7 of Three Examples) holds unchanged: its proof uses nothing about g;
 //   - the syncmer starts of rc(P) are m - k - q for the starts q of P, in reverse order, and the phrases
 //     of rc(P) are the reverse complements of P's, so one parse of the pattern serves the backward search
 //     on P and the forward search (backward on rc(P)), and one dictionary, storing for each phrase of S
@@ -31,6 +31,9 @@
 #include "pshortcut.hpp"
 #ifdef KATKA_NS
 #include "ns_count.hpp"
+#endif
+#ifdef KATKA_SURV
+#include "surv_count.hpp"
 #endif
 #include "prof.hpp"
 
@@ -93,9 +96,11 @@ template <class F> void for_each_syncmer(const uint8_t *x, uint64_t len, int K, 
     }
 }
 
-// hash of a byte string (never 0)
-inline uint64_t phrase_hash(const uint8_t *p, uint64_t len) {
-    uint64_t hv = mix64(len ^ 0x9e3779b97f4a7c15ull), i = 0;
+// hash of a byte string (never 0), with a seed (index --hash-seed; the default is the one every index was built with
+// before the seed was a parameter, so their dictionaries are unchanged)
+constexpr uint64_t PHRASE_HASH_SEED = 0x9e3779b97f4a7c15ull;
+inline uint64_t phrase_hash(const uint8_t *p, uint64_t len, uint64_t seed = PHRASE_HASH_SEED) {
+    uint64_t hv = mix64(len ^ seed), i = 0;
     for (; i + 8 <= len; i += 8) { uint64_t w; memcpy(&w, p + i, 8); hv = mix64(hv ^ w) + i; }
     uint64_t w = 0;
     memcpy(&w, p + i, len - i);
@@ -107,6 +112,7 @@ inline uint64_t phrase_hash(const uint8_t *p, uint64_t len) {
 // buckets by their top hb bits (about 8 per bucket); each slot stores the other 64 - hb bits (so the whole
 // hash is checked), the phrase's id and the id of its reverse complement.
 struct PhraseDict {
+    uint64_t seed = PHRASE_HASH_SEED;   // phrase_hash's seed; stored only if not the default (flag bit 31 of hb)
     uint32_t hb = 1;
     uint64_t size = 0;
     std::vector<uint32_t> bstart;
@@ -180,9 +186,13 @@ struct PhraseDict {
         if (low.n != size) { PhraseDict c = *this; c.unpack(); c.save(f); return; }
         wr_(f);
     }
-    void wr_(FILE *f) const { wr(f, hb); wr(f, size); wvec(f, bstart); low.save(f); idf.save(f); idr.save(f); }
+    void wr_(FILE *f) const {
+        if (seed == PHRASE_HASH_SEED) wr(f, hb); else { const uint32_t h = hb | 0x80000000u; wr(f, h); wr(f, seed); }
+        wr(f, size); wvec(f, bstart); low.save(f); idf.save(f); idr.save(f); }
     void load(FILE *f) {
-        rd(f, hb); rd(f, size); rvec(f, bstart); low.load(f); idf.load(f); idr.load(f);
+        rd(f, hb); seed = PHRASE_HASH_SEED;
+        if (hb & 0x80000000u) { hb &= 0x7fffffffu; rd(f, seed); }
+        rd(f, size); rvec(f, bstart); low.load(f); idf.load(f); idr.load(f);
         make_rec(); low = PackedInts(); idf = PackedInts(); idr = PackedInts();
     }
 };
@@ -279,6 +289,12 @@ struct two_level {
     }
 };
 
+// Where a hash stands in for a comparison (printed by find --stats; counted without atomics, so exact with -j 1): the
+// dictionary lookups of the pattern phrases, and the shortcuts' comparisons of k phrase ids by fingerprint.
+struct hash_counters { u64 lookups = 0, lookups_found = 0, fp_compares = 0, fp_ids = 0, fp_equal = 0; };
+inline hash_counters g_hash;
+inline bool fp_compare(uint64_t a, uint64_t b, int64_t k) { ++g_hash.fp_compares; g_hash.fp_ids += (u64)k; const bool e = a == b; g_hash.fp_equal += e; return e; }
+
 // The parse of a pattern against the dictionary.
 struct pattern_parse {
     std::vector<int64_t> S;         // syncmer starts
@@ -298,7 +314,7 @@ struct pattern_parse {
         if (L.SC) {
             ph.assign(z + 1, 0); zc.assign(z + 1, 0);
             for (size_t t = 0; t < z; ++t) {
-                ph[t + 1] = parse_shortcuts::addmod(parse_shortcuts::mulmod(ph[t], parse_shortcuts::BASE), pid[t]);
+                ph[t + 1] = parse_shortcuts::addmod(parse_shortcuts::mulmod(ph[t], L.SC->kr), pid[t]);
                 zc[t + 1] = zc[t] + (pid[t] == 0);
             }
         }
@@ -330,7 +346,7 @@ inline void parse_pattern(const two_level &L, const char *Pc, uint64_t len, patt
     for (size_t i = 0; i < z; ++i) qi.S[i] = m - K - pi.S[z - 1 - i];
     static thread_local std::vector<uint64_t> h;
     h.resize(np);
-    for (size_t i = 0; i < np; ++i) h[i] = phrase_hash(x + pi.S[i], pi.S[i + 1] + K - pi.S[i]);
+    for (size_t i = 0; i < np; ++i) h[i] = phrase_hash(x + pi.S[i], pi.S[i + 1] + K - pi.S[i], D.seed);
     PROF(g_prof.cyc[12] += ps_prof::now() - prof_t; prof_t = ps_prof::now());
     constexpr size_t AHEAD = 32;                         // bucket starts 2 AHEAD phrases ahead, records AHEAD ahead
     for (size_t i = 0; i < np && i < 2 * AHEAD; ++i) D.prefetch_bucket(h[i]);
@@ -340,8 +356,9 @@ inline void parse_pattern(const two_level &L, const char *Pc, uint64_t len, patt
         if (i + 2 * AHEAD < np) D.prefetch_bucket(h[i + 2 * AHEAD]);
         if (i + AHEAD < np) D.prefetch(h[i + AHEAD]);
         uint32_t f, r;
-        if (D.lookup(h[i], f, r)) { pi.pid[i] = f; qi.pid[np - 1 - i] = r; }
+        if (D.lookup(h[i], f, r)) { pi.pid[i] = f; qi.pid[np - 1 - i] = r; ++g_hash.lookups_found; }
     }
+    g_hash.lookups += np;
     PROF(g_prof.cyc[13] += ps_prof::now() - prof_t; prof_t = ps_prof::now());
     pi.finish(L); qi.finish(L);
     PROF(g_prof.cyc[15] += ps_prof::now() - prof_t);
@@ -708,7 +725,7 @@ inline u64 search2(const stepper &st, const two_level &L, const pattern_parse &p
                 if (q != ~0ull) {
                     ++cnt.sc_met;
                     const int64_t k = (int64_t)SC.K.get(q);
-                    if (i - k >= 0 && S[i - k] >= begin && pi.zc[i] == pi.zc[i - k] && pi.fp(SC, i - k, i) == SC.H[q]) {
+                    if (i - k >= 0 && S[i - k] >= begin && pi.zc[i] == pi.zc[i - k] && fp_compare(pi.fp(SC, i - k, i), SC.H[q], k)) {
                         const uint64_t a = SC.A.get(q), lo = a + SC.surv(q, plo), hi = a + SC.surv(q, phi + 1);
                         if (lo < hi) { ++cnt.sc_taken; cnt.sc_crossed += k; plo = lo; phi = hi - 1; i -= k; continue; }
                         ++cnt.sc_failed;                     // alpha Z does not occur: on with parse steps
@@ -731,6 +748,15 @@ inline u64 search2(const stepper &st, const two_level &L, const pattern_parse &p
             plo = o1; phi = o2 - 1; --i;
         }
         (segkind ? cnt.pe_end : cnt.pe_entry) += seg;       // the steps of the last segment: the match ended there
+#ifdef KATKA_SURV
+        if (g_surv.on) {
+            g_surv.kind = i < idx ? 2 : 1; g_surv.plen = (uint64_t)(idx - i);
+            g_surv.surv = phi - plo + 1; g_surv.plo = plo; g_surv.brows = L.has_blocks ? L.BS.count_less(phi + 1) - L.BS.count_less(plo) : 0;
+            g_surv.left = (uint64_t)(i - (int64_t)(std::lower_bound(S.begin(), S.end(), begin) - S.begin()));
+            g_surv.why = i > 0 && S[i - 1] >= begin && !pi.pid[i - 1] ? 1 : 0;
+            g_surv.left_chars = (uint64_t)(S[i] - begin);
+        }
+#endif
         DIACOUNT(if (dia_b) g_dia.put(dia_a, dia_b));
 #ifdef KATKA_NS
         g_ns.end_search();

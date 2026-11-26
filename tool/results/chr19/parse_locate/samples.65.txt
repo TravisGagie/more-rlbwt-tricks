@@ -1,0 +1,34 @@
+~/research/rlbwt-tricks/chr19/c65.tloc as built: characters: run samples 299.423 + phi^-1 392.372 MB; parse: run samples 60.424 + phrase -> text 404.828 MB; blocks: run samples 18.677 + block -> phrase 41.143 MB
+~/research/rlbwt-tricks/chr19/c65: n = 8004217317, phrases m = 434172121, distinct phrases sigma = 9522052, K = 51, mean distance between phrase starts n/m = 18.44
+parse BWT runs r_Z = 12954298 (n_Z = m + 1 = 434172122), blocks 52209743, block BWT runs r_B = 4548667
+overlap (phrase length minus the distance to the next start): min 51, max 51
+parse run samples: rows 13.465 MB + SA_Z 46.959 MB = 60.424 MB (phrase indices); with text positions 13.465 + 53.437 = 66.901 MB
+phi^-1 over the parse: 60.424 MB (keys 13.465 + values 46.959) in phrase indices; 73.733 MB (20.297 + 53.437) in text positions
+phrase -> text (Elias-Fano over the phrase starts): 404.828 MB
+block run samples: rows 3.894 + block indices 14.783 = 18.677 MB; with text positions 3.894 + 18.763 = 22.657 MB; block -> phrase 41.143 MB
+check of phi^-1 over all 434172121 rows but the last: 0 wrong in phrase indices, 0 wrong in text positions
+regular samples, s = 16: 27135759 samples, rows 25.864 + text positions 111.935 = 137.799 MB
+regular samples, s = 32: 13567880 samples, rows 14.628 + text positions 55.968 = 70.595 MB
+regular samples, s = 64: 6783941 samples, rows 8.162 + text positions 27.984 = 36.146 MB
+regular samples, s = 128: 3391971 samples, rows 4.505 + text positions 13.992 = 18.497 MB
+run heads of the parse BWT in row order: 38.863 MB (+ the rows, as the run samples' rows)
+Psi: first wrong row 288252907: phrase 434172120 of 434172121, Psi row's phrase 434172121, phrase length 55, next start 8004217317 - start 8004217262 = 55
+check of Psi and the phrase it passes, over all 434172121 rows but that of $: 1 wrong
+Psi timing, pass 1: 12800000 steps in 2.577 s, 201.3 ns per step (with the phrase length) [5]
+Psi timing, pass 2: 12800000 steps in 2.578 s, 201.4 ns per step (with the phrase length) [5]
+Psi timing, pass 3: 12800000 steps in 2.571 s, 200.9 ns per step (with the phrase length) [5]
+gaps (phrase indices), 12954298 samples, 12954297 gaps: 1: 8990473; 2: 435501; 3: 290080; 4: 210065; 5-8: 506811; 9-16: 492380; 17-32: 501844; 33-64: 460938; >64: 1066205
+subsampled (phrase indices), s = 2: 8808618 remain (0.680)
+subsampled (phrase indices), s = 4: 6480973 remain (0.500)
+subsampled (phrase indices), s = 8: 5007482 remain (0.387)
+subsampled (phrase indices), s = 16: 3939342 remain (0.304)
+subsampled (phrase indices), s = 32: 3083182 remain (0.238)
+subsampled (phrase indices), s = 64: 2346592 remain (0.181)
+in characters, the bounds and s are those in phrases times 18 (n/m rounded)
+gaps (text positions), 12954298 samples, 12954297 gaps: 1-18: 5202293; 19-36: 1866347; 37-54: 2536958; 55-72: 242647; 73-144: 537494; 145-288: 514295; 289-576: 499577; 577-1152: 464980; >1152: 1089706
+subsampled (text positions), s = 36: 9803799 remain (0.757)
+subsampled (text positions), s = 72: 6991785 remain (0.540)
+subsampled (text positions), s = 144: 5169112 remain (0.399)
+subsampled (text positions), s = 288: 4006300 remain (0.309)
+subsampled (text positions), s = 576: 3126911 remain (0.241)
+subsampled (text positions), s = 1152: 2381239 remain (0.184)

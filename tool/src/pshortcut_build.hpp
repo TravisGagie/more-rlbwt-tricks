@@ -131,7 +131,7 @@ inline void build_pshortcuts(const two_level &L, const std::string &spec, parse_
         if (hi - lo != ns) die("internal error: shortcut interval size");
         // fingerprint of alpha in text order: u_k .. u_1
         uint64_t h = 0;
-        for (uint64_t t = k; t-- > 0;) h = parse_shortcuts::addmod(parse_shortcuts::mulmod(h, parse_shortcuts::BASE), path[t]);
+        for (uint64_t t = k; t-- > 0;) h = parse_shortcuts::addmod(parse_shortcuts::mulmod(h, SC.kr), path[t]);
         const bool survivors_are_exc = ns <= o - ns;
         Bv.push_back(exc.size());
         if (survivors_are_exc) for (uint32_t r : alive) exc.push_back(r);

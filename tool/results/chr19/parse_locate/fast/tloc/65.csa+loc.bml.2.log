@@ -1,0 +1,8 @@
+first-run tables: parse 76.176 MB, blocks 14.243 MB (built at load)
+two-level locate (MB): characters 691.795 (run samples 299.423, phi^-1 392.372), parse 465.252 (run samples 60.424, phrase -> text 404.828), blocks 59.820 (run samples 18.677, block -> phrase 41.143)
+index loaded in 17.7 s
+reads=4 MEMs=18479 without MEMs=0 | threads=1 wall 4.95 s, 1237936.3 us/read
+timing: 4 reads, 1 threads; mean per-read time 1207323.77 us; total time / reads 1237936.30 us (total 4.952 s)
+searches=90850 char_steps=6695467 parse_steps=2066354 block_steps=3273993 kmer_tests=0 kmer_restarts=0 stpd_jumps=0 stpd_compares=0
+parse steps: entry=996357 inside=67406 end=1002591; block attempts=157245, symbol absent=34266, failed block steps=69744, back-ups=30019, exact exits=49621
+hashes: dictionary lookups 6650901 (found 6631447), fingerprint comparisons 0 (equal 0, ids compared 0)

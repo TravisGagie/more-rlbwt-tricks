@@ -1,0 +1,5 @@
+first-run tables: parse 76.176 MB, blocks 14.243 MB (built at load)
+index loaded in 1.8 s
+reads=4 MEMs=18479 without MEMs=0 | threads=1 wall 4.37 s, 1091676.7 us/read
+timing: 4 reads, 1 threads; mean per-read time 1054343.95 us; total time / reads 1091676.70 us (total 4.367 s)
+surv forward check: 18479 MEMs, the same parse interval 18479, different 0, (of them, with no parse level 0); MEMs not found by a forward search from their start 0

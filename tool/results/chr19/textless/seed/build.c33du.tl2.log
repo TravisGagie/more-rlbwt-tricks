@@ -1,0 +1,3 @@
+[2026-11-24 00:51:31] bin/textless-build ~/diamond/seed/c33du ~/research/rlbwt-tricks/chr19/c33.ptxt ~/diamond/seed/c33du.tl2
+~/diamond/seed/c33du.tl2: MB: phrases 93.891, ranges 26.071, by row 40.952
+~/diamond/seed/c33du.tlx: sigma 8512838, 7618341 ranges, 10332018 runs in the parse's BWT; MB: phrases 183.171 (bases 149.651, offsets 31.923), ranges 47.329, by row 40.952; 7.0 s

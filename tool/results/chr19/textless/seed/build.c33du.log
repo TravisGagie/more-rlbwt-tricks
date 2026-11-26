@@ -1,0 +1,3 @@
+[2026-11-24 00:50:20] bin/katka-seed index --twolevel --continuation unique --blocks-from ~/diamond/seed/c33d.lvl ~/diamond/seed/c33du
+blocks: 32833124 (6.71 phrases each), 1333210 symbols; block BWT 2987555 runs; rebuilt from the parse BWT in 59.0 s
+two-level: parse 236.369 MB, blocks 54.778 MB (peak memory of this step 2.31 GB)

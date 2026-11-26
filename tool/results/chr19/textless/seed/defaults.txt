@@ -1,0 +1,7 @@
+identical: ~/diamond/seed/c33d.lvl = ~/research/rlbwt-tricks/chr19/c33.lvl
+identical: ~/diamond/seed/c33d.rlbwt = ~/research/rlbwt-tricks/chr19/c33.rlbwt
+identical: ~/diamond/seed/c33du.lvl = ~/research/rlbwt-tricks/chr19/unique/c33u.lvl
+identical: ~/diamond/seed/c33d.tlx = ~/diamond/c33.tlx
+identical: ~/diamond/seed/c33d.tl2 = ~/diamond/c33v.tl2
+identical: ~/diamond/seed/c33du.tl2 = ~/diamond/c33uv.tl2
+identical: ~/diamond/seed/c33d.heavy08.psc = ~/research/rlbwt-tricks/chr19/psc/c33.heavy08.psc

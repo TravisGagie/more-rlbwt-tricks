@@ -6,6 +6,7 @@
 //   katka find  [options] PREFIX reads out           MEMs of each read, answered from the tags
 //   katka info  PREFIX                               sizes of the index files
 // Run a command with -h for its options; README.md lists them all, with the presets.
+#include <array>
 #include "mems.hpp"
 #include "prep.hpp"
 #include "tag_build.hpp"
@@ -227,6 +228,8 @@ static const char *INDEX_USAGE =
     "  --twolevel          two-level index with blocks (PREFIX.lvl; needs one terminator)\n"
     "    --syncmer k,s     closed syncmers (default 51,12)\n"
     "    --no-blocks       parse only\n"
+    "    --hash-seed X     the seed of the phrase dictionary's 64-bit hash (default 0x9e3779b97f4a7c15, the one every\n"
+    "                      earlier index used; stored in PREFIX.lvl only if different)\n"
     "    --continuation smallest|frequent|unique|unitig   successor that continues a block (default smallest;\n"
     "                      unique: only a phrase with exactly one distinct successor continues, unitig-like blocks;\n"
     "                      unitig: besides, only a phrase with exactly one distinct predecessor is continued)\n"
@@ -239,6 +242,8 @@ static const char *INDEX_USAGE =
     "  --pshortcuts SPEC   shortcuts over phrases, from PREFIX.lvl alone, to --pshortcuts-out FILE (default\n"
     "                      PREFIX.psc): ref:T (every T-th phrase of the first sequence, the T phrases before it) or\n"
     "                      heavy:theta[,kmax[,minocc]] (heavy paths of predecessors; default 64, 2)\n"
+    "    --kr-base X       the base of the Karp-Rabin fingerprints of the stretches, mod 2^61 - 1 (default\n"
+    "                      0x2545f4914f6cdd1d mod 2^61 - 1, the one every earlier file used; stored only if different)\n"
     "    --blocks-from FILE.lvl   only rebuild the blocks: PREFIX.lvl from FILE.lvl's parse (its parse BWT\n"
     "                      inverted), with the continuation and cap given; reads no text or BWT\n"
     "    --max-block B     a block also ends after B phrases (either rule; default no cap)\n"
@@ -309,11 +314,12 @@ static int cmd_index(int argc, char **argv) {
     u64 sample = 1; uint32_t kebab = 0; double eps = 0.1;
     twolevel_options to;
     string blocks_from, psc_spec, psc_out;
+    uint64_t kr_base = parse_shortcuts::BASE;
     static option longopts[] = {
         {"bwt", 1, 0, 'b'}, {"csa", 0, 0, 'c'}, {"efcsa", 0, 0, 'e'}, {"tags", 0, 0, 't'}, {"by-tag", 0, 0, 'S'},
         {"sample", 1, 0, 's'}, {"no-rmq", 0, 0, 'n'}, {"grammar", 0, 0, 'g'}, {"bigrepair", 1, 0, 'G'}, {"tag-out", 1, 0, 'o'},
         {"kebab", 1, 0, 'k'}, {"kebab-eps", 1, 0, 'E'}, {"twolevel", 0, 0, '2'}, {"syncmer", 1, 0, 'y'}, {"no-blocks", 0, 0, 'B'},
-        {"continuation", 1, 0, 'C'}, {"max-block", 1, 0, 1004}, {"blocks-from", 1, 0, 1005}, {"pshortcuts", 1, 0, 1006}, {"pshortcuts-out", 1, 0, 1007}, {"move", 0, 0, 1008}, {"text-shortcuts", 1, 0, 1009}, {"text-shortcuts-out", 1, 0, 1010}, {"tag-lcp", 1, 0, 'l'}, {"tmp", 1, 0, 1001}, {"blam-mem", 1, 0, 1002}, {"blam-external", 0, 0, 1003}, {"parse-oracle", 0, 0, 'O'}, {"stpd-parse", 0, 0, 'Y'}, {"rlzap", 2, 0, 'Z'}, {"twolevel-locate", 0, 0, 'W'}, {"stpd", 0, 0, 'P'}, {"stpd-all", 0, 0, 'Q'}, {"help", 0, 0, 'h'}, {0, 0, 0, 0}};
+        {"continuation", 1, 0, 'C'}, {"max-block", 1, 0, 1004}, {"blocks-from", 1, 0, 1005}, {"pshortcuts", 1, 0, 1006}, {"pshortcuts-out", 1, 0, 1007}, {"move", 0, 0, 1008}, {"text-shortcuts", 1, 0, 1009}, {"text-shortcuts-out", 1, 0, 1010}, {"tag-lcp", 1, 0, 'l'}, {"tmp", 1, 0, 1001}, {"blam-mem", 1, 0, 1002}, {"blam-external", 0, 0, 1003}, {"parse-oracle", 0, 0, 'O'}, {"stpd-parse", 0, 0, 'Y'}, {"rlzap", 2, 0, 'Z'}, {"twolevel-locate", 0, 0, 'W'}, {"stpd", 0, 0, 'P'}, {"stpd-all", 0, 0, 'Q'}, {"hash-seed", 1, 0, 1011}, {"kr-base", 1, 0, 1012}, {"help", 0, 0, 'h'}, {0, 0, 0, 0}};
     int c;
     int stpd = 0;
     bool poracle = false, pstpd = false, rlzap = false, tlocate = false, move_only = false;
@@ -360,6 +366,8 @@ static int cmd_index(int argc, char **argv) {
             case 1009: tsc_spec = optarg; break;
             case 1010: tsc_out = optarg; break;
             case 1007: psc_out = optarg; break;
+            case 1011: to.hash_seed = strtoull(optarg, nullptr, 0); break;
+            case 1012: kr_base = strtoull(optarg, nullptr, 0) % parse_shortcuts::MOD; if (kr_base < 2) die("--kr-base: X mod 2^61 - 1 must be at least 2"); break;
             case 1004: to.max_block = (uint32_t)std::stoul(optarg); break;
             default: fputs(INDEX_USAGE, stderr); return 1;
         }
@@ -373,7 +381,7 @@ static int cmd_index(int argc, char **argv) {
         if (read_info_digest(prefix)) die("the parse oracle is for undigested texts");
         reset_step_peak();
         parse_text PT;
-        PT.build(Sfile, to.k, to.s, prefix + ".ptxt.tmp");
+        PT.build(Sfile, to.k, to.s, prefix + ".ptxt.tmp", to.hash_seed);
         PT.save(prefix + ".ptxt");
         fprintf(stderr, "parse oracle: %.3f MB (peak memory of this step %.2f GB)\n", PT.bytes() / 1e6, step_peak_gb());
     };
@@ -388,7 +396,7 @@ static int cmd_index(int argc, char **argv) {
         if (parse_text::current_format(prefix + ".ptxt")) { PT.load(prefix + ".ptxt"); ok = (int32_t)PT.K == k && (int32_t)PT.SM == sm && PT.n == file_size(Sfile) + 1; }
         if (!ok) {
             PT = parse_text();
-            PT.build(Sfile, k, sm, prefix + ".ptxt.tmp");
+            PT.build(Sfile, k, sm, prefix + ".ptxt.tmp", to.hash_seed);
             PT.save(prefix + ".ptxt");
         }
         parse_stpd PS;
@@ -436,6 +444,7 @@ static int cmd_index(int argc, char **argv) {
         reset_step_peak();
         two_level L; L.load(prefix + ".lvl");
         parse_shortcuts SC;
+        SC.kr = kr_base;
         build_pshortcuts(L, psc_spec, SC);
         SC.save(psc_out.empty() ? prefix + ".psc" : psc_out);
         fprintf(stderr, "peak memory of this step %.2f GB\n", step_peak_gb());
@@ -538,7 +547,7 @@ static int cmd_index(int argc, char **argv) {
         if (parse_text::current_format(prefix + ".ptxt")) PT.load(prefix + ".ptxt");
         if (PT.rlz || (int32_t)PT.K != L.K || (int32_t)PT.SM != L.SM || PT.n != L.n) {
             PT = parse_text();
-            PT.build(Sfile, L.K, L.SM, prefix + ".ptxt.tmp");
+            PT.build(Sfile, L.K, L.SM, prefix + ".ptxt.tmp", L.dict.seed);
             PT.save(prefix + ".ptxt");
         }
         twolevel_locate T;
@@ -658,6 +667,8 @@ struct finder {
     const twolevel_locate *TLC = nullptr;
     const textless_index *TX = nullptr;
     const textless_index2 *TX2 = nullptr;
+    const parse_regular_sample *PRS = nullptr;   // --parse-locate: locating from the parse alone (src/parse_sample.hpp)
+    const parse_text *PCHK = nullptr;            //   with $KATKA_PLOC_CHECK = the parse (PREFIX.ptxt): every position checked
     const std::vector<u64> *gstarts = nullptr;
     bool intervals = true, locate = false;
 
@@ -692,6 +703,9 @@ struct finder {
         }
         u64 nm = 0;
         char b[160];
+        static thread_local std::vector<std::array<u64, 3>> pdefer;   // --parse-locate and --locate-out: start, end, length
+        pdefer.clear();
+        if (Q.PRS) Q.ploc_reset();
         if (!mems_format && !classify) line = ">" + name + "\n";
         static thread_local std::vector<std::pair<u64, double>> ll;   // (document, sum of log p) in first-seen order
         static thread_local std::vector<u64> hits, slot;
@@ -710,7 +724,10 @@ struct finder {
                 return;
             }
             u64 first = hpc ? pos[M.a] : M.a, last = hpc ? pos[M.e] - 1 : M.e - 1;
-            if (pl) {                               // --locate-out: name, start, end, the sorted positions (of rc(MEM) in S)
+            if (pl && Q.PRS) {                      // --parse-locate: the positions come when the segment is walked
+                if (opt.min3 || opt.longest || opt.top) die("--parse-locate with --locate-out: not with --min3, --longest or --top");
+                pdefer.push_back({first, last + 1, M.e - M.a});
+            } else if (pl) {                        // --locate-out: name, start, end, the sorted positions (of rc(MEM) in S)
                 static thread_local std::vector<u64> ps;
                 ps = Q.occbuf;
                 std::sort(ps.begin(), ps.end());
@@ -734,6 +751,21 @@ struct finder {
         };
         find_mems(Q, hpc ? h : read, opt, emit);
         if (mate2) find_mems(Q, *mate2, opt, emit);
+        if (pl && Q.PRS) {                          // --locate-out after --parse-locate: the i-th MEM reported is the i-th located
+            if (pdefer.size() != Q.precs.size()) die("--parse-locate: MEMs reported and located differ in number");
+            static thread_local std::vector<u64> ps;
+            char hb[64];
+            for (size_t i = 0; i < pdefer.size(); ++i) {
+                const auto &P = Q.precs[i];
+                if (pdefer[i][2] != P.e - P.a) die("--parse-locate: a MEM reported is not the one located");
+                ps.assign(Q.ppos.begin() + P.start, Q.ppos.begin() + P.start + P.cnt);
+                std::sort(ps.begin(), ps.end());
+                snprintf(hb, sizeof hb, "\t%lu\t%lu\t", pdefer[i][0], pdefer[i][1]);
+                *pl += name; *pl += hb;
+                for (size_t q = 0; q < ps.size(); ++q) { snprintf(hb, sizeof hb, q ? ",%lu" : "%lu", ps[q]); *pl += hb; }
+                *pl += "\n";
+            }
+        }
         if (classify && bem) {      // name, then each document's log-likelihood, for bem_store
             const u64 c = ll.size(), nl = name.size();
             line.assign(sizeof(u64) * 2, '\0');
@@ -1007,7 +1039,10 @@ static run_stats find_all(const finder &K, read_parser &P, FILE *out, int nthrea
         string name, seq, name2, seq2;
         segment_search Q;
         Q.S = &K.S; Q.T = K.table; Q.TL = K.TL; Q.jumps = K.jumps; Q.comp = K.comp; Q.SP = K.SP; Q.intervals = K.intervals; Q.locate = K.locate;
-        Q.PS = K.PS; Q.gstarts = K.gstarts; Q.TLC = K.TLC; Q.TX = K.TX; Q.TX2 = K.TX2;
+        Q.PS = K.PS; Q.gstarts = K.gstarts; Q.TLC = K.TLC; Q.TX = K.TX; Q.TX2 = K.TX2; Q.PRS = K.PRS; Q.PCHK = K.PCHK;
+        if (const char *v = getenv("KATKA_PLOC_LANES")) Q.ploc_lanes = (unsigned)atoi(v);
+        Q.ploc_nowalk = getenv("KATKA_PLOC_NOWALK") != nullptr;
+        if (const char *v = getenv("KATKA_PLOC_RUNS")) Q.ploc_runs = atoi(v) != 0;
         for (;;) {
             u64 my;
             {
@@ -1056,7 +1091,7 @@ static run_stats find_all(const finder &K, read_parser &P, FILE *out, int nthrea
             if (names.empty()) break;
         }
         std::lock_guard<std::mutex> g(st_m);
-        total.reads += st.reads; total.mems += st.mems; total.unclassified += st.unclassified; total.read_time += st.read_time; total.sc.add(Q.cnt);
+        total.reads += st.reads; total.mems += st.mems; total.unclassified += st.unclassified; total.read_time += st.read_time; total.sc.add(Q.cnt); g_ploc.add(Q.pcnt);
     };
     std::vector<std::thread> th;
     for (int t = 0; t < nthreads; ++t) th.emplace_back(work);
@@ -1071,6 +1106,7 @@ static int cmd_find(int argc, char **argv) {
     int nthreads = 1, ft = 0, hpc = -1, csa = 0;
     uint32_t kebab_k = 0;
     string pscfile;
+    std::string ploc_file;              // --parse-locate FILE.prs (with --textless)
     bool textless = false;              // two-level search without the index of the text (PREFIX.tlx; src/textless.hpp)
     bool twolevel = false, stats = false, use_stpd = false, poracle = false, kebab_rule_set = false, use_pstpd = false, rlzap_oracle = false;
     string readstats, locate_out;
@@ -1085,7 +1121,7 @@ static int cmd_find(int argc, char **argv) {
         {"read-stats", 1, 0, 21}, {"kebab-check", 1, 0, 23}, {"strict", 0, 0, 24}, {"check-seed", 0, 0, 26}, {"fixed-L", 0, 0, 25}, {"fb", 0, 0, 2}, {"no-hpc", 0, 0, 3}, {"inline-kebab", 1, 0, 4}, {"kbf", 1, 0, 5},
         {"csa", 0, 0, 6}, {"efcsa", 0, 0, 7}, {"twolevel", 0, 0, 8}, {"no-jumps", 0, 0, 9}, {"pshortcuts", 1, 0, 1201}, {"count", 0, 0, 'c'}, {"list", 0, 0, 'l'},
         {"range", 0, 0, 10}, {"format", 1, 0, 11}, {"stats", 0, 0, 12}, {"no-tags", 0, 0, 13}, {"stpd", 0, 0, 14},
-        {"no-intervals", 0, 0, 15}, {"locate", 0, 0, 16}, {"parse-oracle", 0, 0, 17}, {"stpd-parse", 0, 0, 22}, {"rlzap-oracle", 0, 0, 27}, {"locate-out", 1, 0, 28}, {"classify", 1, 0, 29}, {"nseq", 1, 0, 30}, {"epsilon", 1, 0, 31}, {"mate2", 1, 0, 32}, {"exclude-docs", 1, 0, 33}, {"narrow", 0, 0, 34}, {"absent", 0, 0, 35}, {"compact", 0, 0, 36}, {"em-iters", 1, 0, 37}, {"move", 0, 0, 38}, {"text-shortcuts", 1, 0, 39}, {"textless", 0, 0, 1210}, {"help", 0, 0, 'h'}, {0, 0, 0, 0}};
+        {"no-intervals", 0, 0, 15}, {"locate", 0, 0, 16}, {"parse-oracle", 0, 0, 17}, {"stpd-parse", 0, 0, 22}, {"rlzap-oracle", 0, 0, 27}, {"locate-out", 1, 0, 28}, {"classify", 1, 0, 29}, {"nseq", 1, 0, 30}, {"epsilon", 1, 0, 31}, {"mate2", 1, 0, 32}, {"exclude-docs", 1, 0, 33}, {"narrow", 0, 0, 34}, {"absent", 0, 0, 35}, {"compact", 0, 0, 36}, {"em-iters", 1, 0, 37}, {"move", 0, 0, 38}, {"text-shortcuts", 1, 0, 39}, {"textless", 0, 0, 1210}, {"parse-locate", 1, 0, 1211}, {"help", 0, 0, 'h'}, {0, 0, 0, 0}};
     int c;
     optind = 1;
     while ((c = getopt_long(A.argc(), A.argv(), "L:XD:UK:F:clT:j:h", longopts, nullptr)) != -1) {
@@ -1140,6 +1176,7 @@ static int cmd_find(int argc, char **argv) {
             case 37: K.bem_iters = std::stoi(optarg); break;
             case 38: use_move = true; break;
             case 1210: textless = true; break;
+            case 1211: ploc_file = optarg; break;
             case 39: tscfile = optarg; break;
             case 13: mode = NONE; break;
             case 14: use_stpd = true; break;
@@ -1192,6 +1229,7 @@ static int cmd_find(int argc, char **argv) {
     const bool tl_check = textless && getenv("KATKA_TEXTLESS_CHECK");
     if (textless && (!twolevel || csa || use_stpd || K.locate || (K.opt.fb && !getenv("KATKA_TL_FB")) || !K.mems_format || (use_move && !tl_check)))
         die("--textless: with --twolevel and --format mems, BML only, without --csa, --stpd, --locate (and --move only with KATKA_TEXTLESS_CHECK)");
+    if (!ploc_file.empty() && !textless) die("--parse-locate needs --textless");
     if (!textless || tl_check)
     if ((!csa && !use_move) || twolevel || use_stpd || K.locate) load_rlbwt(B, prefix + ".rlbwt");   // (--move alone: only PREFIX.mv)
     rlcsa X;
@@ -1288,6 +1326,16 @@ static int cmd_find(int argc, char **argv) {
             };
             if (file_exists(prefix + ".tl2")) { static textless_index2 T2; T2.load(prefix + ".tl2"); K.TX2 = &T2; show("minimal widths (.tl2)", T2); }
             else { static textless_index TXI; TXI.load(prefix + ".tlx"); K.TX = &TXI; show("whole phrases (.tlx)", TXI); }
+            if (!ploc_file.empty()) {
+                static parse_regular_sample PRS; PRS.load(ploc_file);
+                if (PRS.N != L2.pbwt.n || PRS.m != L2.m || PRS.n != L2.n) die(ploc_file + " does not match " + prefix + ".lvl");
+                K.PRS = &PRS;
+                const u64 hr = K.TX2 ? K.TX2->hruns : K.TX->hruns;
+                const double hb = (K.TX2 ? K.TX2->hsym.bytes() : K.TX->hsym.bytes()) / 1e6, hs = (K.TX2 ? K.TX2->hstart.bytes() : K.TX->hstart.bytes()) / 1e6;
+                fprintf(stderr, "parse locate (MB): regular sample s = %lu: rows %.3f + text positions %.3f = %.3f; already in the text-free index: run heads %.3f + their rows %.3f (%lu runs)\n",
+                        PRS.s, PRS.bytes_rows() / 1e6, PRS.bytes_pos() / 1e6, PRS.bytes() / 1e6, hb, hs, hr);
+                if (const char *pc = getenv("KATKA_PLOC_CHECK")) { static parse_text PT; PT.load(pc); if (PT.n != L2.n || PT.m != L2.m) die(std::string(pc) + " does not match"); K.PCHK = &PT; }
+            }
         }
         if (!L2.pbwt.ft.empty())
             fprintf(stderr, "first-run tables: parse %.3f MB, blocks %.3f MB (built at load)\n", L2.pbwt.ft.size() * 8 / 1e6, L2.bbwt.ft.size() * 8 / 1e6);
@@ -1357,7 +1405,7 @@ static int cmd_find(int argc, char **argv) {
     double t1 = now();
     FILE *sout = nullptr;
     if (!readstats.empty()) { sout = open_or_die(readstats, "w"); fputs("read\tpseudo_mems\tsearched\tbatches\tfallback\tbackward_steps\tmems\tfallback_reason\n", sout); }
-    if (!locate_out.empty() && !K.locate) die("--locate-out needs --locate");
+    if (!locate_out.empty() && !K.locate && !K.PRS) die("--locate-out needs --locate or --parse-locate");
     FILE *lout = locate_out.empty() ? nullptr : open_or_die(locate_out, "w");
     bem_store BS;
     run_stats st = find_all(K, P, out, nthreads, sout, lout, P2.get(), K.bem ? &BS : nullptr);
@@ -1389,6 +1437,16 @@ static int cmd_find(int argc, char **argv) {
             fprintf(stderr, "parse steps: entry=%lu inside=%lu end=%lu; block attempts=%lu, symbol absent=%lu, failed block steps=%lu, back-ups=%lu, exact exits=%lu\n",
                     st.sc.pe_entry, st.sc.pe_inside, st.sc.pe_end, st.sc.b_attempts, st.sc.b_nosym, st.sc.b_fail, st.sc.b_backups, st.sc.b_exact);
     if (stats && (K.TX || K.TX2)) g_tlx.print(stderr);
+    if (K.PRS) {
+        const char *lv = getenv("KATKA_PLOC_LANES"), *rv = getenv("KATKA_PLOC_RUNS");
+        const unsigned lanes = lv ? (unsigned)atoi(lv) : 12; const bool runs = !rv || atoi(rv);
+        fprintf(stderr, "parse locate: %lu MEMs, %lu positions, %lu runs read, %lu Psi steps (%.2f per position; %s), %lu positions checked; collecting the rows %.3f s, walking %.3f s\n",
+                g_ploc.mems, g_ploc.rows, g_ploc.runs, g_ploc.steps, (double)g_ploc.steps / std::max<u64>(1, g_ploc.rows),
+                !lanes ? "one row at a time" : runs ? (std::to_string(lanes) + " lanes, a run of rows at a time").c_str() : (std::to_string(lanes) + " lanes, a row at a time").c_str(),
+                g_ploc.checked, g_ploc.t_rows, g_ploc.t_walk);
+    }
+    if (stats && g_hash.lookups) fprintf(stderr, "hashes: dictionary lookups %lu (found %lu), fingerprint comparisons %lu (equal %lu, ids compared %lu)\n",
+                                         g_hash.lookups, g_hash.lookups_found, g_hash.fp_compares, g_hash.fp_equal, g_hash.fp_ids);
 #ifdef KATKA_NS
     if (stats) g_ns.print(stderr);
 #endif

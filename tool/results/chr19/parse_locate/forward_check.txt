@@ -1,0 +1,12 @@
+bml 33 L=1000: MEMs equal; surv forward check: 22711 MEMs, the same parse interval 22711, different 0, (of them, with no parse level 0); MEMs not found by a forward search from their start 0
+fb 33 L=1000: MEMs equal; surv forward check: 22711 MEMs, the same parse interval 22711, different 0, (of them, with no parse level 0); MEMs not found by a forward search from their start 0
+bml 33 L=100: MEMs equal; surv forward check: 38984 MEMs, the same parse interval 38984, different 0, (of them, with no parse level 0); MEMs not found by a forward search from their start 0
+fb 33 L=100: MEMs equal; surv forward check: 38984 MEMs, the same parse interval 38984, different 0, (of them, with no parse level 0); MEMs not found by a forward search from their start 0
+bml 65 L=1000: MEMs equal; surv forward check: 18479 MEMs, the same parse interval 18479, different 0, (of them, with no parse level 0); MEMs not found by a forward search from their start 0
+fb 65 L=1000: MEMs equal; surv forward check: 18479 MEMs, the same parse interval 18479, different 0, (of them, with no parse level 0); MEMs not found by a forward search from their start 0
+bml 65 L=100: MEMs equal; surv forward check: 30809 MEMs, the same parse interval 30809, different 0, (of them, with no parse level 0); MEMs not found by a forward search from their start 0
+fb 65 L=100: MEMs equal; surv forward check: 30809 MEMs, the same parse interval 30809, different 0, (of them, with no parse level 0); MEMs not found by a forward search from their start 0
+bml 129 L=1000: MEMs equal; surv forward check: 16806 MEMs, the same parse interval 16806, different 0, (of them, with no parse level 0); MEMs not found by a forward search from their start 0
+fb 129 L=1000: MEMs equal; surv forward check: 16806 MEMs, the same parse interval 16806, different 0, (of them, with no parse level 0); MEMs not found by a forward search from their start 0
+bml 129 L=100: MEMs equal; surv forward check: 27137 MEMs, the same parse interval 27137, different 0, (of them, with no parse level 0); MEMs not found by a forward search from their start 0
+fb 129 L=100: MEMs equal; surv forward check: 27137 MEMs, the same parse interval 27137, different 0, (of them, with no parse level 0); MEMs not found by a forward search from their start 0

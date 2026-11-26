@@ -1,0 +1,16 @@
+textless, minimal widths (.tl2) (MB): parse BWT 117.754, dictionary 105.221, phrases 93.891, ranges 26.071, parse BWT by row 40.952 (10332018 runs); B 0.000, pairs 55.638
+parse locate (MB): regular sample s = 64: rows 4.145 + text positions 13.779 = 17.924; already in the text-free index: run heads 30.996 + their rows 9.956 (10332018 runs)
+first-run tables: parse 68.103 MB, blocks 10.666 MB (built at load)
+index loaded in 0.4 s
+reads=4 MEMs=22711 without MEMs=0 | threads=1 wall 2.81 s, 702607.1 us/read
+timing: 4 reads, 1 threads; mean per-read time 680042.52 us; total time / reads 702607.09 us (total 2.810 s)
+searches=452536 char_steps=0 parse_steps=668458 block_steps=2521010 kmer_tests=0 kmer_restarts=0 stpd_jumps=0 stpd_compares=0
+parse steps: entry=7682 inside=52622 end=608154; block attempts=151168, symbol absent=30313, failed block steps=110813, back-ups=30481, exact exits=40804
+textless: searches=452536 (window 446630, exact 5906), no boundary 0
+textless right end: K-mer range from alpha 244882, from alpha cut by the window's start 0, by search (alpha has no identifier) 207654, by search (no alpha in the pattern) 0, alpha is the phrase before $ 0, K-mer absent 0; tail = the K-mer 12992; string comparisons 1036193, range sizes 18700369; tail absent 165499 (in exact searches 0); alpha's step fails 2784
+textless left end: 79383 (at the window's start 2); distinct preceding phrases sum 365891, max 1932; runs 3355482; characters compared 3543559; full agreements (bugs) 0; distinct: 0 0, 1 64707, 2 5967, 3-4 3184, 5-8 1875, 9-64 2778, 65-1024 850, more 22
+textless: K-mer range needed in exact searches 0; alpha without identifier, its left boundary reported (window tests) 207654; unresolved (stopped) 0
+textless right-end jump: alpha has no successor 67332, its successor starts with the tail 10132, does not 1109, d has no rows 810, alpha's pair cut by the window 0
+textless forward-backward: forward searches 223316 (bounds 180416), backward searches 223314 (bounds 192737), left-maximality checks 5906 (not left-maximal 0), stopped with less than L left 2, restarts by one 157140
+parse locate: 22711 MEMs, 72876 positions, 19495 runs read, 1028005 Psi steps (14.11 per position; 12 lanes, a run of rows at a time), 0 positions checked; collecting the rows 0.003 s, walking 0.127 s
+hashes: dictionary lookups 6650901 (found 6615267), fingerprint comparisons 0 (equal 0, ids compared 0)

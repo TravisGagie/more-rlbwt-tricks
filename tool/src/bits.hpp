@@ -175,6 +175,28 @@ struct EliasFano {
         uint64_t lo, hi; bucket(x >> l, lo, hi);
         return in_bucket(lo, hi, x & ((1ull << l) - 1));
     }
+    // whether x is an element, and its index k if it is (one select-zero)
+    inline bool find(uint64_t x, uint64_t &k) const {
+        if (x >= u) return false;
+        uint64_t lo, hi; bucket(x >> l, lo, hi);
+        const uint64_t xl = x & ((1ull << l) - 1);
+        k = in_bucket(lo, hi, xl);
+        return k < hi && get_low(k) == xl;
+    }
+    // the last element <= x (one must exist, x < u): its index k and value v, with one select-zero (no select-one)
+    inline void pred(uint64_t x, uint64_t &k, uint64_t &v) const {
+        const uint64_t h = x >> l, xl = x & ((1ull << l) - 1);
+        uint64_t lo, hi, p = 0;
+        if (h == 0) { lo = 0; hi = select_<false>(0); }
+        else { p = select_<false>(h - 1); lo = p - (h - 1); hi = next_zero(p + 1) - h; }
+        const uint64_t c = in_bucket(lo, hi, xl + 1);
+        if (c > lo) { k = c - 1; v = (h << l) | get_low(k); return; }
+        k = lo - 1;                                   // the last element of an earlier bucket: the one before p
+        uint64_t w = (p - 1) >> 6, word = high[w] & (~0ull >> (63 - ((p - 1) & 63)));
+        while (!word) word = high[--w];
+        const uint64_t q = (w << 6) + 63 - __builtin_clzll(word);
+        v = ((q - k) << l) | get_low(k);
+    }
     // count_less at x1 <= x2: one select-zero when their high parts are equal or adjacent
     inline void count_less2(uint64_t x1, uint64_t x2, uint64_t &r1, uint64_t &r2) const {
         const uint64_t h1 = x1 >> l, h2 = x2 >> l, m = (1ull << l) - 1;

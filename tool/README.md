@@ -61,7 +61,7 @@ Reads `PREFIX.S`, `PREFIX.tbl` and the BWT, and always writes the RLBWT `PREFIX.
 | `--grammar` | | grammar-compress the runs' tags with the built-in approximate RePair |
 | `--bigrepair P` | | grammar-compress them with `bigrepair -i` output `P.R`, `P.C` (as KATKA did) |
 | `--tag-out FILE` | | write the tag array somewhere other than `PREFIX.tag` |
-| `--tag-lcp l1,l2,…` | | also report B_λ for each λ: the tag boundaries whose two suffixes share more than λ characters. It prints the bound (r + σ + 2d)(λ + 1) + B_λ + 1 of Lemma 11 against the number of tag runs. A text within `--blam-mem` (default 6 GB) is mapped and compared at each boundary while φ streams the suffix array; a larger one goes through boundary records on disk and Karp–Rabin fingerprints, read in text order |
+| `--tag-lcp l1,l2,…` | | also report B_λ for each λ: the tag boundaries whose two suffixes share more than λ characters. It prints the bound (r + σ + 2d)(λ + 1) + B_λ + 1 of Lemma 2 (Three Examples) against the number of tag runs. A text within `--blam-mem` (default 6 GB) is mapped and compared at each boundary while φ streams the suffix array; a larger one goes through boundary records on disk and Karp–Rabin fingerprints, read in text order |
 | `--blam-mem G`, `--blam-external` | | B_λ's memory budget in GB; force the records and fingerprints |
 | `--tmp DIR` | | large temporary files (φ samples, tag runs, B_λ's records) in DIR |
 | `--kebab k` | `PREFIX.k<k>.kbf` | KeBaB: a blocked Bloom filter of the canonical k-mers of S |
@@ -207,7 +207,7 @@ Section numbers are those of the abandoned *Three Examples of MEM-Finding* draft
 | §4 "Counting" (listing without the previous-run array) | `src/rmq.hpp` | a range-minimum structure that does not store the array (balanced parentheses of a min-tree, about 6 bits per run) |
 | §4 "Construction" | `src/tag_build.hpp` | LF pass for the r-index samples; φ streaming of the suffix array into tag runs; sampling |
 | §4 "Grammar-compressing the runs" | `src/grammar.hpp` | approximate RePair, bigrepair input, the encoding of Gagie et al. |
-| §5 "Two-level indexing with a syncmer parse", "Blocks" (Lemmas 6–14) | `src/twolevel.hpp` | canonical closed syncmers, the phrase dictionary of both strands, the pattern parse, `search2` (block steps and the back-up rule) |
+| §5 "Two-level indexing with a syncmer parse", "Blocks" (Lemmas 6–15) | `src/twolevel.hpp` | canonical closed syncmers, the phrase dictionary of both strands, the pattern parse, `search2` (block steps and the back-up rule) |
 | §5 "Implementation and setup" | `src/twolevel_build.hpp` | streaming parse of S, B, the parse BWT (libsais), successors, blocks, symbols, block BWT |
 | *More RLBWT Tricks*: almost-funnels over phrases (heavy paths, placed from the reference's parse) | `src/pshortcut.hpp`, `src/pshortcut_build.hpp` | the shortcuts' structure and their jump in `search2`; their construction from `PREFIX.lvl` |
 | *More RLBWT Tricks*: the move structure | `src/move.hpp` | the records, the (run, offset) cursor of an interval's ends, the backward step, the 8-mer table |

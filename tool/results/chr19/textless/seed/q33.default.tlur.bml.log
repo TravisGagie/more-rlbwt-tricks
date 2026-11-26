@@ -1,0 +1,13 @@
+[2026-11-24 00:43:16] env KATKA_TL_FB=1 KATKA_NO_FIRST_RUN=1 KATKA_TL_RIGHT=1 bin/katka-seed find -L 1000 --format mems --stats -j 1 --twolevel --textless ~/diamond/c33utl ~/research/rlbwt-tricks/chr19/blocks/queries.fa ~/diamond/seed/out.tsv
+textless, minimal widths (.tl2) (MB): parse BWT 49.652, dictionary 105.221, phrases 93.891, ranges 26.071, parse BWT by row 40.952 (10332018 runs); B 0.000, pairs 44.972
+index loaded in 0.3 s
+reads=4 MEMs=22711 without MEMs=0 | threads=1 wall 3.23 s, 807623.6 us/read
+timing: 4 reads, 1 threads; mean per-read time 766361.82 us; total time / reads 807623.64 us (total 3.230 s)
+searches=93232 char_steps=0 parse_steps=916516 block_steps=2582869 kmer_tests=0 kmer_restarts=0 stpd_jumps=0 stpd_compares=0
+parse steps: entry=53393 inside=45141 end=817982; block attempts=164792, symbol absent=43404, failed block steps=85582, back-ups=25399, exact exits=58656
+textless: searches=93232 (window 47810, exact 45422), no boundary 0
+textless right end: K-mer range from alpha 92221, from alpha cut by the window's start 0, by search (alpha has no identifier) 1011, by search (no alpha in the pattern) 0, alpha is the phrase before $ 0, K-mer absent 0; tail = the K-mer 11546; string comparisons 527693, range sizes 10125730; tail absent 5245 (in exact searches 0); alpha's step fails 308
+textless left end: 86976 (at the window's start 22716); distinct preceding phrases sum 118097, max 1239; runs 369968; characters compared 1476359; full agreements (bugs) 0; distinct: 0 0, 1 76687, 2 4696, 3-4 1561, 5-8 527, 9-64 406, 65-1024 70, more 1
+textless: K-mer range needed in exact searches 0; alpha without identifier, its left boundary reported (window tests) 1011; unresolved (stopped) 0
+textless right-end jump: alpha has no successor 57383, its successor starts with the tail 27973, does not 117, d has no rows 1190, alpha's pair cut by the window 313
+hashes: dictionary lookups 6650901 (found 6615267), fingerprint comparisons 0 (equal 0, ids compared 0)

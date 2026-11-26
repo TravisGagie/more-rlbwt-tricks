@@ -1,0 +1,14 @@
+textless, minimal widths (.tl2) (MB): parse BWT 90.009, dictionary 133.642, phrases 143.628, ranges 35.100, parse BWT by row 71.974 (17449211 runs); B 0.000, pairs 0.000
+parse locate (MB): regular sample s = 64: rows 16.208 + text positions 57.253 = 73.460; already in the text-free index: run heads 52.348 + their rows 19.626 (17449211 runs)
+index loaded in 0.2 s
+reads=4 MEMs=16806 without MEMs=0 | threads=1 wall 6.93 s, 1733427.6 us/read
+timing: 4 reads, 1 threads; mean per-read time 1711494.14 us; total time / reads 1733427.63 us (total 6.934 s)
+searches=215127 char_steps=0 parse_steps=18202894 block_steps=0 kmer_tests=0 kmer_restarts=0 stpd_jumps=0 stpd_compares=0
+parse steps: entry=18202894 inside=0 end=0; block attempts=0, symbol absent=0, failed block steps=0, back-ups=0, exact exits=0
+textless: searches=215127 (window 212238, exact 2889), no boundary 0
+textless right end: K-mer range from alpha 127284, from alpha cut by the window's start 0, by search (alpha has no identifier) 87843, by search (no alpha in the pattern) 0, alpha is the phrase before $ 0, K-mer absent 0; tail = the K-mer 8672; string comparisons 759053, range sizes 27008539; tail absent 71626 (in exact searches 0); alpha's step fails 1823
+textless left end: 55658 (at the window's start 2); distinct preceding phrases sum 363133, max 3549; runs 5476368; characters compared 3423077; full agreements (bugs) 0; distinct: 0 0, 1 43635, 2 4457, 3-4 2635, 5-8 1547, 9-64 2534, 65-1024 805, more 45
+textless: K-mer range needed in exact searches 0; alpha without identifier, its left boundary reported (window tests) 87843; unresolved (stopped) 0
+textless forward-backward: forward searches 106120 (bounds 76935), backward searches 106118 (bounds 82534), left-maximality checks 2889 (not left-maximal 0), stopped with less than L left 2, restarts by one 68251
+parse locate: 16806 MEMs, 75563 positions, 15418 runs read, 2383435 Psi steps (31.54 per position), 0 positions checked; collecting the rows 0.002 s, walking 0.332 s
+hashes: dictionary lookups 6650901 (found 6636583), fingerprint comparisons 0 (equal 0, ids compared 0)

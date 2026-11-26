@@ -1,0 +1,6 @@
+[2026-11-24 01:05:41] bin/katka-seed index --pshortcuts heavy:0.8 --kr-base 0x1d2c3b4a5968778 --pshortcuts-out ~/diamond/seed/c33s.heavy08.psc ~/diamond/seed/c33s
+parse and its suffix array recovered (21.1 s)
+heaviest predecessors (24.4 s)
+shortcuts over phrases (heavy:0.8): 7206117 shortcuts (of 8512838 phrases), 28.48 phrases each; their entrances' occurrences 193207162, 0.9392 preceded by their stretch; 11751361 exception rows; 149.511 MB (103.5 s)
+shortcuts, MB: entrances 1.596, k 6.305, A 25.221, C_w 25.221, base 21.618, fingerprints 57.649, flags 0.901, exceptions 10.998
+peak memory of this step 2.66 GB

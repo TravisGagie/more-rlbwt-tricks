@@ -1,0 +1,33 @@
+~/research/rlbwt-tricks/chr19/c129: n = 15897786191, phrases m = 862158111, distinct phrases sigma = 11011641, K = 51, mean distance between phrase starts n/m = 18.44
+parse BWT runs r_Z = 17449211 (n_Z = m + 1 = 862158112), blocks 120622565, block BWT runs r_B = 8009328
+overlap (phrase length minus the distance to the next start): min 51, max 51
+parse run samples: rows 19.626 MB + SA_Z 65.435 MB = 85.061 MB (phrase indices); with text positions 19.626 + 74.159 = 93.785 MB
+phi^-1 over the parse: 85.061 MB (keys 19.626 + values 65.435) in phrase indices; 103.216 MB (29.057 + 74.159) in text positions
+phrase -> text (Elias-Fano over the phrase starts): 803.924 MB
+block run samples: rows 7.472 + block indices 27.032 = 34.504 MB; with text positions 7.472 + 34.040 = 41.512 MB; block -> phrase 95.472 MB
+check of phi^-1 over all 862158111 rows but the last: 0 wrong in phrase indices, 0 wrong in text positions
+regular samples, s = 16: 53884883 samples, rows 51.359 + text positions 229.011 = 280.370 MB
+regular samples, s = 32: 26942442 samples, rows 29.047 + text positions 114.505 = 143.553 MB
+regular samples, s = 64: 13471222 samples, rows 16.208 + text positions 57.253 = 73.460 MB
+regular samples, s = 128: 6735612 samples, rows 8.946 + text positions 28.626 = 37.572 MB
+run heads of the parse BWT in row order: 52.348 MB (+ the rows, as the run samples' rows)
+Psi: first wrong row 581599745: phrase 862158110 of 862158111, Psi row's phrase 862158111, phrase length 61, next start 15897786191 - start 15897786130 = 61
+check of Psi and the phrase it passes, over all 862158111 rows but that of $: 1 wrong
+Psi timing, pass 1: 12800000 steps in 2.937 s, 229.5 ns per step (with the phrase length) [3]
+Psi timing, pass 2: 12800000 steps in 2.939 s, 229.6 ns per step (with the phrase length) [3]
+Psi timing, pass 3: 12800000 steps in 2.940 s, 229.7 ns per step (with the phrase length) [3]
+gaps (phrase indices), 17449211 samples, 17449210 gaps: 1: 10391030; 2: 718977; 3: 479902; 4: 353521; 5-8: 858847; 9-16: 847417; 17-32: 881630; 33-64: 838060; >64: 2079826
+subsampled (phrase indices), s = 2: 12797664 remain (0.733)
+subsampled (phrase indices), s = 4: 10068004 remain (0.577)
+subsampled (phrase indices), s = 8: 8197448 remain (0.470)
+subsampled (phrase indices), s = 16: 6721559 remain (0.385)
+subsampled (phrase indices), s = 32: 5447354 remain (0.312)
+subsampled (phrase indices), s = 64: 4271711 remain (0.245)
+in characters, the bounds and s are those in phrases times 18 (n/m rounded)
+gaps (text positions), 17449211 samples, 17449210 gaps: 1-18: 6056429; 19-36: 2244144; 37-54: 3109552; 55-72: 408423; 73-144: 908619; 145-288: 884075; 289-576: 875610; 577-1152: 841061; >1152: 2121297
+subsampled (text positions), s = 36: 13865462 remain (0.795)
+subsampled (text positions), s = 72: 10621326 remain (0.609)
+subsampled (text positions), s = 144: 8395077 remain (0.481)
+subsampled (text positions), s = 288: 6812139 remain (0.390)
+subsampled (text positions), s = 576: 5512509 remain (0.316)
+subsampled (text positions), s = 1152: 4328342 remain (0.248)

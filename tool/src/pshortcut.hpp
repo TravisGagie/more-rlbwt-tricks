@@ -26,6 +26,7 @@ namespace katka {
 
 struct parse_shortcuts {
     static constexpr uint64_t MOD = (1ull << 61) - 1, BASE = 0x2545f4914f6cdd1dull % ((1ull << 61) - 1);
+    uint64_t kr = BASE;             // the fingerprints' base (index --kr-base); stored only if not BASE (file KTPSC002)
     static inline uint64_t mulmod(uint64_t a, uint64_t b) {
         unsigned __int128 z = (unsigned __int128)a * b;
         uint64_t lo = (uint64_t)(z & MOD), hi = (uint64_t)(z >> 61);
@@ -44,9 +45,9 @@ struct parse_shortcuts {
     std::vector<uint64_t> H;        // fingerprints of alpha
     std::vector<uint64_t> flag;     // bit q: shortcut q's exceptions are its survivors (else its non-survivors)
     EliasFano X;                    // exception rows
-    std::vector<uint64_t> pw;       // BASE^j, j = 0 .. kmax (not stored)
+    std::vector<uint64_t> pw;       // kr^j, j = 0 .. kmax (not stored)
 
-    void prepare() { pw.assign(kmax + 1, 1); for (uint32_t j = 1; j <= kmax; ++j) pw[j] = mulmod(pw[j - 1], BASE); }
+    void prepare() { pw.assign(kmax + 1, 1); for (uint32_t j = 1; j <= kmax; ++j) pw[j] = mulmod(pw[j - 1], kr); }
     inline bool flagged(uint64_t q) const { return (flag[q >> 6] >> (q & 63)) & 1; }
     // the shortcut of w, or ~0
     inline uint64_t find(uint32_t w) const { return w <= sigma && has.get(w) ? has.rank1(w) : ~0ull; }
@@ -60,17 +61,20 @@ struct parse_shortcuts {
     }
     void save(const std::string &path) const {
         FILE *f = open_or_die(path, "wb");
-        wmagic(f, "KTPSC001");
+        wmagic(f, kr == BASE ? "KTPSC001" : "KTPSC002");
         uint64_t sl = spec.size(); wr(f, sl); fwrite(spec.data(), 1, sl, f);
         wr(f, m); wr(f, sigma); wr(f, kmax); wr(f, nsc);
+        if (kr != BASE) wr(f, kr);
         has.save(f); K.save(f); A.save(f); Cw.save(f); base.save(f); wvec(f, H); wvec(f, flag); X.save(f);
         fclose(f);
     }
     void load(const std::string &path) {
         FILE *f = open_or_die(path, "rb");
-        rmagic(f, "KTPSC001", path);
+        char mg[8];
+        if (fread(mg, 1, 8, f) != 8 || (memcmp(mg, "KTPSC001", 8) && memcmp(mg, "KTPSC002", 8))) die(path + ": not a KTPSC001/2 file");
         uint64_t sl; rd(f, sl); spec.resize(sl); if (fread(&spec[0], 1, sl, f) != sl) die(path + ": truncated");
         rd(f, m); rd(f, sigma); rd(f, kmax); rd(f, nsc);
+        kr = BASE; if (!memcmp(mg, "KTPSC002", 8)) rd(f, kr);
         has.load(f); K.load(f); A.load(f); Cw.load(f); base.load(f); rvec(f, H); rvec(f, flag); X.load(f);
         fclose(f);
         prepare();

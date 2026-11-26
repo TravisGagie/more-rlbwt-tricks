@@ -227,6 +227,15 @@ struct textless_counters {
 inline textless_counters g_tlx;
 inline thread_local bool g_tl_exact = true;   // whether the last search_textless gave the exact j (not a bound)
 inline const bool g_tl_right = getenv("KATKA_TL_RIGHT") != nullptr;   // part C2b: the jump to the pairs at the right end
+// Locating from the parse alone (find --parse-locate, src/parse_sample.hpp): where the last search left the parse, kept
+// only when on.  The occurrences are the rows of [plo, phi] (all: every row) whose preceding phrase y has agreement
+// best (ys sorted, agree[q] for ys[q]); each occurs best characters before its row's phrase start.
+struct tl_left_state {
+    bool on = false, valid = false, all = false;
+    u64 plo = 0, phi = 0, best = 0;
+    std::vector<uint32_t> ys; std::vector<u64> agree;
+};
+inline thread_local tl_left_state g_tl_left;
 
 // C[y]: the first row of the parse's BWT whose suffix starts with phrase y (y = sigma + 1: the number of rows)
 inline u64 tl_first_row(const EFRank &W, u64 y) {
@@ -246,7 +255,7 @@ inline u64 search_textless(const two_level &L, const TI &T, const pattern_parse 
     const int64_t K = L.K;
     const auto &S = pi.S;
     ++tc.searches; ++cnt.searches; ++(window ? tc.window_searches : tc.exact_searches);
-    g_tl_exact = false;
+    g_tl_exact = false; g_tl_left.valid = false;
     const int64_t idx = (int64_t)(std::upper_bound(S.begin(), S.end(), end - K) - S.begin()) - 1;
     if (idx < 0 || S[idx] < begin) { ++tc.no_boundary; occ = 0; return UINT64_MAX; }
     const int64_t s = S[idx], tl = end - s;
@@ -400,7 +409,7 @@ inline u64 search_textless(const two_level &L, const TI &T, const pattern_parse 
             if (q != ~0ull) {
                 ++cnt.sc_met;
                 const int64_t k = (int64_t)SC.K.get(q);
-                if (i - k >= 0 && S[i - k] >= begin && pi.zc[i] == pi.zc[i - k] && pi.fp(SC, i - k, i) == SC.H[q]) {
+                if (i - k >= 0 && S[i - k] >= begin && pi.zc[i] == pi.zc[i - k] && fp_compare(pi.fp(SC, i - k, i), SC.H[q], k)) {
                     const uint64_t a = SC.A.get(q), lo = a + SC.surv(q, plo), hi = a + SC.surv(q, phi + 1);
                     if (lo < hi) { ++cnt.sc_taken; cnt.sc_crossed += k; plo = lo; phi = hi - 1; i -= k; continue; }
                     ++cnt.sc_failed;
@@ -419,6 +428,7 @@ inline u64 search_textless(const two_level &L, const TI &T, const pattern_parse 
     const u64 cap = (u64)(si - begin);
     ++tc.left;
     g_tl_exact = true;
+    if (g_tl_left.on) { g_tl_left.valid = true; g_tl_left.plo = plo; g_tl_left.phi = phi; g_tl_left.all = true; g_tl_left.best = 0; }
     if (cap == 0) { ++tc.left_at_cap; occ = phi - plo + 1; return (u64)si; }
     static thread_local std::vector<uint32_t> ys;
     ys.clear();
@@ -449,6 +459,7 @@ inline u64 search_textless(const two_level &L, const TI &T, const pattern_parse 
     if (best == 0) { occ = phi - plo + 1; return (u64)si; }
     occ = 0;
     for (size_t q = 0; q < ys.size(); ++q) if (agree[q] == best) { uint64_t o1, o2; L.pbwt.lf2(ys[q], plo, phi + 1, o1, o2); occ += o2 - o1; }
+    if (g_tl_left.on) { g_tl_left.all = false; g_tl_left.best = best; std::swap(g_tl_left.ys, ys); std::swap(g_tl_left.agree, agree); }
     return (u64)si - best;
 }
 

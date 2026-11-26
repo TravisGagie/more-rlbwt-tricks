@@ -260,7 +260,7 @@ struct parse_text {
 
     // The same parse and ids as build_twolevel (syncmer_parse with (k, s), lexicographic ids), from S only.
     // The parse is spilled to tmp as phrase indices while S is scanned.
-    void build(const std::string &Sfile, int k, int s, const std::string &tmp) {
+    void build(const std::string &Sfile, int k, int s, const std::string &tmp, uint64_t seed = PHRASE_HASH_SEED) {
         double t0 = now();
         if (s < 1 || s >= k || s > 32) die("parse oracle: need 1 <= s < k and s <= 32");
         K = k; SM = s;
@@ -273,7 +273,7 @@ struct parse_text {
         m = 0;
         bool zero;
         n = syncmer_parse(Sfile, k, s, zero, [&](const uint8_t *p, u64 len) {
-            u64 hv = phrase_hash(p, len);
+            u64 hv = phrase_hash(p, len, seed);
             auto it = seen.find(hv);
             uint32_t idx;
             if (it == seen.end()) {

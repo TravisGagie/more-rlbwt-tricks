@@ -1,0 +1,6 @@
+textless, minimal widths (.tl2) (MB): parse BWT 49.652, dictionary 105.221, phrases 93.891, ranges 26.071, parse BWT by row 40.952 (10332018 runs); B 0.000, pairs 0.000
+parse locate (MB): regular sample s = 64: rows 4.145 + text positions 13.779 = 17.924; already in the text-free index: run heads 30.996 + their rows 9.956 (10332018 runs)
+index loaded in 3.2 s
+katka: textless: alpha has no identifier in an exact search (dir 0, lo 1528, end 1628): no verified answer without the K-mer search
+Command exited with non-zero status 1
+wall 3.96 s, peak 1661184 KB
